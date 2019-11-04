@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyc.systemmgr.dao.ModelDao">
+    <select id="find" resultType="java.util.HashMap">
+        select id,text,url,iconCls,level,parent_id,seq,comments,created_time,created_time,update_time,update_user_id from t_sys_model
+        where 1=1
+
+        <if test="text != null and text !=''" > and text like "%"#{text}"%"</if>
+        <if test="url != null and url !=''"> and url like "%"#{url}"%"</if>
+
+        order by level,seq asc
+    </select>
+
+
+
+
+</mapper>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <link rel="stylesheet" type="text/css" href="../css/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icon.css" />
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src='../js/core.js'> </script>
+    <script type="text/javascript" src="js/userQuery.js"></script>
+</head>
+<body>
+
+    <div class="easyui-layout" fit="true">
+        <div data-options="region:'north',title:'用户信息查询',split:true" style="height:120px;">
+
+            <div class="panel-header">
+                <div id="toolbar" >
+                    <a id="btn_query" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+                    <a id="btn_reset" class="easyui-linkbutton" iconCls="icon-undo" plain="true">清空表单</a>
+                    <a id="btn_refresh" class="easyui-linkbutton" iconCls="icon-reload" plain="true">刷新</a>
+                </div>
+            </div>
+
+            <form id="user_form">
+                <table style="margin-top: 20px;margin-left: 20px;width: 60%" >
+                    <tr>
+                        <td>名字:</td>
+                        <td><input id="name" name="name"  class="easyui-textbox"/></td>
+
+                        <td>性别:</td>
+                        <td><input id="sex" name="sex" class="easyui-combobox"  style="width:80px;" data-options="editable:false,panelHeight:'auto',valueField:'value',textField:'text',data:[{'value':'1','text':'男'},{'value':'2','text':'女'}]"/>  </td>
+
+                        <td>电话:</td>
+                        <td><input id="phone" name="phone" class="easyui-numberbox" style="width:200px;"/></td>
+
+                        <td>邮箱:</td>
+                        <td><input id="email" name="email" class="easyui-textbox" style="width:200px;"/></td>
+
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+
+        <div data-options="region:'center',title:'用户信息列表',split:true" style="height:100px;">
+            <table id="user_grid" class="easyui-datagrid"   data-options="
+                fit:true,
+                singleSelect :true,
+                fitColumns : true,
+                striped : true,
+                method : 'post',
+                url : 'user/find',
+                pagination:true,
+                pageSize : 20,
+                queryParams : {},
+                rownumbers : true,
+                pageList:[20,50,100],
+                columns:[[
+                    {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
+                    {field:'name',title:'名称',width:100,align:'center'},
+                    {field:'sex_text',title:'性别',width:100,align:'center'},
+                    {field:'phone',title:'电话',width:80,align:'center'},
+                    {field:'email',title:'邮箱',width:80,align:'center'}
+                ]]
+            ">
+
+            </table>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

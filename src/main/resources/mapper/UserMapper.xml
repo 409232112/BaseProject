@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyc.systemmgr.dao.UserDao">
+    <insert id="insert"  parameterType="com.wyc.systemmgr.entity.User">
+        insert into demo_user(name,sex,phone,email) values(#{name},#{sex},#{phone},#{email})
+    </insert>
+
+    <update id="update" parameterType="com.wyc.systemmgr.entity.User">
+        update t_sys_user
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="sex != null">sex=#{sex},</if>
+            <if test="phone != null">phone=#{phone},</if>
+            <if test="email != null">email=#{email},</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from t_sys_user where id=#{userId}
+    </delete>
+
+    <select id="find" resultType="java.util.HashMap">
+        select id,name,sex,case sex when "1" then "男" when "2" then "女" end sex_text,phone,email from t_sys_user
+        where 1=1
+
+        <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
+        <if test="sex != null and sex !=''"> and sex=#{sex}</if>
+        <if test="phone != null and phone !=''"> and phone like "%"#{phone}"%"</if>
+        <if test="email != null and email !=''"> and email like "%"#{email}"%"</if>
+
+        order by id asc
+    </select>
+
+
+
+
+</mapper>
