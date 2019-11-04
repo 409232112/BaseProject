@@ -29,7 +29,7 @@ public class ModelServiceImpl implements IModelService {
             Model model = (Model) BeanUtil.convertToBean(param);
             mdeolDao.insert(model);
         }else if("update".equals(mode)){
-            param.put("id",Integer.valueOf(param.get("id").toString()));
+            param.put("id",param.get("id").toString());
             Model model = (Model) BeanUtil.convertToBean(param);
             mdeolDao.update(model);
         }

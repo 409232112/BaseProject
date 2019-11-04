@@ -73,7 +73,8 @@ function initLeftMenu() {
 
             $("#"+n.id+"_tree").tree({
                 data : n.children,
-                lines : true,
+                lines : false,
+                animate:true,
                 onClick : function (node) {
                     if (node.url) {
                         addTab(node.text,node.url,node.iconCls);

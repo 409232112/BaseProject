@@ -68,7 +68,7 @@ function update(){
         button.onUpdateClick();
         form.enabledForm("user_form");
     }else{
-        msgShow('系统提示', '请选择需要修改的数据！', 'warning');
+        message.warning('请选择需要修改的数据！')
     }
 }
 function save(){
@@ -80,13 +80,13 @@ function save(){
         success: function(result){
             result = eval('('+result+')');
             if(result.code=="0"){
-                msgShow('系统提示', result.message, 'info');
+                message.info(result.message)
                 grid.reloadGrid("user_grid")
                 form.resetForm("user_form")
                 form.disabledForm("user_form")
                 button.onSaveClick();
             }else{
-                msgShow('系统提示', result.message, 'error');
+                message.error(result.message)
             }
         }
     });
@@ -99,11 +99,12 @@ function del(){
                 $.get('user/delete/'+row.id,function(result){
                     var result = eval('('+result+')');
                     if(result.code=="0"){
-                        msgShow('系统提示', result.message, 'info');
+                        message.info(result.message)
                         grid.reloadGrid("user_grid")
                         form.resetForm("user_form")
                     }else{
                         msgShow('系统提示', result.message, 'error');
+                        message.error(result.message)
                     }
                 });
             }

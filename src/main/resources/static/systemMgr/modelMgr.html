@@ -66,16 +66,17 @@
                 idField:'id',
                 treeField:'text',
                 fit:true,
+                animate:true,
                 fitColumns : true,
                 columns:[[
                     {title:'ID',field:'id',width:80,align:'center',hidden:'true'},
-                    {title:'模块名称',field:'text',width:80,align:'center'},
-                    {title:'模块路径',field:'url',width:80,align:'center'},
+                    {title:'模块名称',field:'text'},
+                    {title:'模块路径',field:'url',width:100,align:'center'},
                     {title:'图标',field:'iconCls',width:80,align:'center'},
-                    {title:'级别',field:'level',width:80,align:'center'},
+                    {title:'级别',field:'level',width:80,align:'center',hidden:'true'},
                     {title:'父级ID',field:'parent_id',width:80,align:'center',hidden:'true'},
-                    {title:'序号',field:'seq',width:80,align:'center'},
-                    {title:'备注',field:'comments',width:80,align:'center'}
+                    {title:'序号',field:'seq',width:60,align:'center'},
+                    {title:'备注',field:'comments',width:100,align:'center'}
                 ]]
             ">
         </table>

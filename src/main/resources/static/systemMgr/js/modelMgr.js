@@ -56,8 +56,6 @@
 })
 
 
-
-
 function insert(){
     form.resetForm("model_form")
     form.enabledForm("model_form");
@@ -82,7 +80,7 @@ function update(){
         button.onUpdateClick();
         form.enabledForm("model_form");
     }else{
-        msgShow('系统提示', '请选择需要修改的数据！', 'warning');
+        message.warning('请选择需要修改的数据！')
     }
 }
 function save(){
@@ -94,13 +92,17 @@ function save(){
         success: function(result){
             result = eval('('+result+')');
             if(result.code=="0"){
-                msgShow('系统提示', result.message, 'info');
+                message.info(result.message)
+
                 grid.reloadGrid("model_gridtree")
+                grid.unselectAllRow("model_gridtree");
+
                 form.resetForm("model_form")
                 form.disabledForm("model_form")
+
                 button.onSaveClick();
             }else{
-                msgShow('系统提示', result.message, 'error');
+                message.error(result.message)
             }
         }
     });
@@ -113,11 +115,11 @@ function del(){
                 $.get('model/delete/'+row.id,function(result){
                     var result = eval('('+result+')');
                     if(result.code=="0"){
-                        msgShow('系统提示', result.message, 'info');
+                        message.info(result.message)
                         grid.reloadGrid("model_gridtree")
                         form.resetForm("model_form")
                     }else{
-                        msgShow('系统提示', result.message, 'error');
+                        message.error(result.message)
                     }
                 });
             }

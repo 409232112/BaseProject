@@ -2,6 +2,20 @@
 function msgShow(title, msgString, msgType) {
     $.messager.alert(title, msgString, msgType);
 }
+var Msessage = function(){
+    this.info = function(msg){
+        $.messager.alert("系统提示", msg, "info");
+    }
+    this.warning = function(msg){
+        $.messager.alert("系统提示", msg, "warning");
+    }
+    this.error = function(msg){
+        $.messager.alert("系统提示", msg, "error");
+    }
+    this.info = function(msg){
+        $.messager.alert("系统提示", msg, "info");
+    }
+}
 
 var Field = function(){
     this.getFieldValue = function (field_id) {
@@ -153,6 +167,10 @@ var Grid = function() {
     this.getCurrentSelectRowData = function (grid_id) {
         return $('#'+grid_id).datagrid('getSelected');
     }
+    this.unselectAllRow = function (grid_id){
+        $('#'+grid_id).datagrid('unselectAll');
+        $('#'+grid_id).treegrid('unselectAll');
+    }
 }
 
 var EditGrid =function() {
@@ -165,12 +183,13 @@ var Dialog = function () {
     }
 }
 
-var field = new Field()
-var form = new Form()
-var button = new Button()
-var grid = new Grid()
-var editGrid = new EditGrid()
-var dialog = new Dialog()
+var field = new Field();
+var form = new Form();
+var button = new Button();
+var grid = new Grid();
+var editGrid = new EditGrid();
+var dialog = new Dialog();
+var message = new Msessage();
 
 
 

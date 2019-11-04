@@ -13,14 +13,16 @@
 
     <update id="update" parameterType="com.wyc.systemmgr.entity.Model">
         update t_sys_model
-        set update_time = now(),
+
         <set>
             <if test="text != null">text=#{text},</if>
             <if test="url != null">url=#{url},</if>
             <if test="iconCls != null">iconCls=#{iconCls},</if>
             <if test="seq != null">seq=#{seq},</if>
-            <if test="comments != null">comments=#{comments}</if>
+            <if test="comments != null">comments=#{comments},</if>
+            update_time = now()
         </set>
+
         where id=#{id}
     </update>
 
