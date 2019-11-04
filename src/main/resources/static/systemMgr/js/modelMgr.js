@@ -1,9 +1,8 @@
 ﻿$(function(){
-
-
-    //field.invisible("id")
-    //field.invisible("mode")
-    //field.invisible("parent_id")
+    field.invisible("id")
+    field.invisible("mode")
+    field.invisible("parent_id")
+    field.invisible("level")
 
     form.disabledForm("model_form");
 

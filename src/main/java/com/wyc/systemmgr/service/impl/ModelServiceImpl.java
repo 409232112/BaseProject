@@ -19,6 +19,10 @@ public class ModelServiceImpl implements IModelService {
     @Override
     public void save(Map<String, Object> param) throws BaseException {
         String mode = String.valueOf(param.get("mode"));
+        String seq = String.valueOf(param.get("seq"));
+        if(seq.equals("")){
+            param.put("seq","1");
+        }
         param.put("beanName",Model.class.getCanonicalName());
         if ("insert".equals(mode)){
             param.put("id", StringUtil.getUUID());
