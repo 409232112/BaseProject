@@ -14,7 +14,31 @@
         refresh()
     });
 
-
+    //下拉框选择自动查询
+    $('#sex').combobox({
+        onChange: function(param){
+            query();
+        }
+    });
+    //回车查询
+    $('#name').textbox('textbox').keydown(function (e) {
+        if (e.keyCode == 13) {
+            query();
+        }
+    });
+    $('#email').textbox('textbox').keydown(function (e) {
+        if (e.keyCode == 13) {
+            query();
+        }
+    });
+    $('#phone').numberbox({inputEvents:$.extend({},$.fn.numberbox.defaults.inputEvents,{
+        keyup:function(e){
+                if (e.keyCode == 13) {
+                    query();
+                }
+            }
+        })
+    })
 })
 
 
@@ -28,6 +52,3 @@ function reset(){
 }
 
 
-function refresh(){
-    dialog.refresh()
-}
