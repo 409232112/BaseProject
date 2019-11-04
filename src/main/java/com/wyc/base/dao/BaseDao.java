@@ -8,7 +8,7 @@ public interface BaseDao {
 
     void update(Object o);
 
-    void delete(int id);
+    void delete(String id);
 
     List<Map> find(Map params);
 }
