@@ -1,11 +1,10 @@
 package com.wyc.systemmgr.service;
 
+import com.wyc.base.service.IBaseService;
+
 import java.util.List;
 import java.util.Map;
 
-public interface IModelService {
-    List<Map> find(Map param);
-
+public interface IModelService extends IBaseService {
     List<Map> findForMenu();
-
 }

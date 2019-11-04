@@ -35,13 +35,13 @@ public class UserController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") int id) throws BaseException{
+    public String delete(@PathVariable("id") String id) throws BaseException{
         userService.delete(id);
         return CommonUtility.constructResultJson("0","操作成功！");
     }
 
     @PostMapping("/find")
-    public Pagination find(@RequestParam Map<String, Object> param){
+    public Pagination find(@RequestParam Map<String, Object> param)throws BaseException{
         logger.info(param);
         int pageNum = Integer.valueOf(param.get("page").toString());
         int pageSize = Integer.valueOf(param.get("rows").toString());

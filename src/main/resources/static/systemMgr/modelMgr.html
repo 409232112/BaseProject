@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <link rel="stylesheet" type="text/css" href="../css/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icon.css" />
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src='../js/core.js'> </script>
+    <script type="text/javascript" src="js/modelMgr.js"></script>
+</head>
+<body>
+
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'north',title:'模块信息表单',split:true" style="height:220px;">
+
+        <div class="panel-header">
+            <div id="toolbar" >
+                <a id="btn_insert" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
+                <a id="btn_update" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
+                <a id="btn_save" class="easyui-linkbutton" iconCls="icon-save" plain="true">保存</a>
+                <a id="btn_del" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+                <a id="btn_reset" class="easyui-linkbutton" iconCls="icon-undo" plain="true">清空表单</a>
+                <a id="btn_cancel" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">取消</a>
+                <a id="btn_refresh" class="easyui-linkbutton" iconCls="icon-reload" plain="true">刷新</a>
+            </div>
+        </div>
+
+        <form id="model_form" method="post">
+            <table style="margin-top: 20px;margin-left: 20px;width: 90%" >
+                <tr>
+                    <td>模块名称:</td>
+                    <td><input id="text" name="text"  class="easyui-textbox"  required="true"/></td>
+
+                    <td>模块路径:</td>
+                    <td><input id="url" name="url" class="easyui-textbox" required="true" style="width:300px;"/>  </td>
+
+                    <td>图标:</td>
+                    <td><input id="iconCls" name="iconCls" class="easyui-textbox" /></td>
+
+                    <td>级别:</td>
+                    <td><input id="level" name="level" class="easyui-numberbox"  style="width:60px;"/></td>
+
+                    <td>序号:</td>
+                    <td><input id="seq" name="seq" class="easyui-numberbox" style="width:60px;"/></td>
+
+                </tr>
+                <tr>
+                    <td>备注:</td>
+                    <td><input id="comments" name="comments" class="easyui-textbox"  data-options="multiline:true" style="width:300px;height:100px;"/></td>
+
+                    <td><input id="id" name="id" class="easyui-textbox"></td>
+                    <td><input id="parent_id"  name="parent_id" class="easyui-textbox"></td>
+                    <td><input id="mode"  name="mode" class="easyui-textbox"></td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+
+    <div id="wycc" data-options="region:'center',title:'模块信息树',split:true" style="height:100px;">
+        <table id="model_gridtree" data-options="
+                url:'model/findForMenu/',
+                method: 'get',
+                idField:'id',
+                treeField:'text',
+                fit:true,
+                fitColumns : true,
+                columns:[[
+                    {title:'ID',field:'id',width:80,align:'center',hidden:'true'},
+                    {title:'模块名称',field:'text',width:80,align:'center'},
+                    {title:'模块路径',field:'url',width:80,align:'center'},
+                    {title:'图标',field:'iconCls',width:80,align:'center'},
+                    {title:'级别',field:'level',width:80,align:'center'},
+                    {title:'父级ID',field:'parent_id',width:80,align:'center',hidden:'true'},
+                    {title:'序号',field:'seq',width:80,align:'center'},
+                    {title:'备注',field:'comments',width:80,align:'center'}
+                ]]
+            ">
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

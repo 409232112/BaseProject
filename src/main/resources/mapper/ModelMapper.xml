@@ -4,8 +4,36 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.wyc.systemmgr.dao.ModelDao">
+    <insert id="insert"  parameterType="com.wyc.systemmgr.entity.Model">
+        insert into t_sys_model
+            (id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time)
+        values
+            (#{id},#{text},#{url},#{iconCls},#{level},#{parent_id},#{seq},#{comments},#{created_user_id},now())
+    </insert>
+
+    <update id="update" parameterType="com.wyc.systemmgr.entity.Model">
+        update t_sys_model
+        set update_time = now(),
+        <set>
+            <if test="text != null">text=#{text},</if>
+            <if test="url != null">url=#{url},</if>
+            <if test="iconCls != null">iconCls=#{iconCls},</if>
+            <if test="seq != null">seq=#{seq},</if>
+            <if test="comments != null">comments=#{comments}</if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from t_sys_model where id=#{id}
+    </delete>
+
+    <select id="hasChildren" resultType="java.lang.Integer">
+        select count(1) from t_sys_model where parent_id = #{id}
+    </select>
+
     <select id="find" resultType="java.util.HashMap">
-        select id,text,url,iconCls,level,parent_id,seq,comments,created_time,created_time,update_time,update_user_id from t_sys_model
+        select id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time,update_time,update_user_id from t_sys_model
         where 1=1
 
         <if test="text != null and text !=''" > and text like "%"#{text}"%"</if>

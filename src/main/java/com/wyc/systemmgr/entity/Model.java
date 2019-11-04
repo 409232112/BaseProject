@@ -10,11 +10,13 @@ public class Model {
     private String iconCls;
     private String level;
     private String parent_id;
+    private String seq;
     private String comments;
     private Timestamp created_time;
     private String created_user_id;
     private Timestamp update_time;
     private String update_user_id;
+
 
     public String getId() {
         return id;
@@ -62,6 +64,14 @@ public class Model {
 
     public void setParent_id(String parent_id) {
         this.parent_id = parent_id;
+    }
+
+    public String getSeq() {
+        return seq;
+    }
+
+    public void setSeq(String seq) {
+        this.seq = seq;
     }
 
     public String getComments() {

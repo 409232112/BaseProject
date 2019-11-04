@@ -1,9 +1,11 @@
 ﻿$(function(){
-    field.invisible("id")
-    field.invisible("mode")
 
 
-    form.disabledForm("user_form");
+    //field.invisible("id")
+    //field.invisible("mode")
+    //field.invisible("parent_id")
+
+    form.disabledForm("model_form");
 
     button.disabledButton("btn_save");
     button.disabledButton("btn_reset");
@@ -46,9 +48,9 @@
     });
 
     //表格行单击事件
-    $("#user_grid").datagrid({
-        onClickRow:function(index,data){
-            onRowClick(index,data);
+    $("#model_gridtree").treegrid({
+        onClickRow:function(data){
+            onRowClick(data);
         }
     })
 
@@ -56,24 +58,37 @@
 
 
 
+
 function insert(){
-    form.resetForm("user_form")
-    form.enabledForm("user_form");
+    form.resetForm("model_form")
+    form.enabledForm("model_form");
     button.onInsertClick();
+    var rowdata = grid.getCurrentSelectRowData("model_gridtree")
+    if(rowdata){
+        var parent_id =rowdata.id;
+        var level = rowdata.level+1;
+    }else{
+        var parent_id = 0;
+        var level = 1;
+    }
+
+    field.setFieldValue("parent_id",parent_id)
+    field.setFieldValue("level",level)
+
 
 }
 function update(){
-    var row = grid.getCurrentSelectRowData("user_grid")
+    var row = grid.getCurrentSelectRowData("model_gridtree")
     if (row){
         button.onUpdateClick();
-        form.enabledForm("user_form");
+        form.enabledForm("model_form");
     }else{
         msgShow('系统提示', '请选择需要修改的数据！', 'warning');
     }
 }
 function save(){
-    $('#user_form').form('submit',{
-        url: 'user/save',
+    $('#model_form').form('submit',{
+        url: 'model/save',
         onSubmit: function(){
             return $(this).form('validate');
         },
@@ -81,9 +96,9 @@ function save(){
             result = eval('('+result+')');
             if(result.code=="0"){
                 msgShow('系统提示', result.message, 'info');
-                grid.reloadGrid("user_grid")
-                form.resetForm("user_form")
-                form.disabledForm("user_form")
+                grid.reloadGrid("model_gridtree")
+                form.resetForm("model_form")
+                form.disabledForm("model_form")
                 button.onSaveClick();
             }else{
                 msgShow('系统提示', result.message, 'error');
@@ -92,16 +107,16 @@ function save(){
     });
 }
 function del(){
-    var row = grid.getCurrentSelectRowData("user_grid")
+    var row = grid.getCurrentSelectRowData("model_gridtree")
     if (row){
         $.messager.confirm('Confirm','确定删除？',function(r){
             if (r){
-                $.get('user/delete/'+row.id,function(result){
+                $.get('model/delete/'+row.id,function(result){
                     var result = eval('('+result+')');
                     if(result.code=="0"){
                         msgShow('系统提示', result.message, 'info');
-                        grid.reloadGrid("user_grid")
-                        form.resetForm("user_form")
+                        grid.reloadGrid("model_gridtree")
+                        form.resetForm("model_form")
                     }else{
                         msgShow('系统提示', result.message, 'error');
                     }
@@ -112,18 +127,21 @@ function del(){
 }
 
 function cancel(){
-    form.disabledForm("user_form");
+    form.disabledForm("model_form");
     button.onCancelClick();
-    data = grid.getCurrentSelectRowData("user_grid");
-    form.setFormValues("user_form",data);
+
+    data = grid.getCurrentSelectRowData("model_gridtree");
+    form.setFormValues("model_form",data);
 }
 
 function reset(){
-    form.resetForm("user_form")
+    form.resetForm("model_form")
 }
 
-function onRowClick(index,data){
-    form.setFormValues("user_form",data);
+function onRowClick(data){
+    form.disabledForm("model_form");
+    button.onCancelClick();
+    form.setFormValues("model_form",data);
 }
 
 function refresh(){

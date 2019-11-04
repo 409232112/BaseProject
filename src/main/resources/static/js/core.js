@@ -3,15 +3,43 @@ function msgShow(title, msgString, msgType) {
     $.messager.alert(title, msgString, msgType);
 }
 
+var Field = function(){
+    this.getFieldValue = function (field_id) {
+        return $("#"+field_id).val();
+    }
+    this.setFieldValue = function (field_id,value) {
+        $('#'+field_id).textbox('setValue',value);
+    }
+
+    //隐藏Field
+    this.invisible =function(field_id) {
+        $("#"+field_id).next().hide();
+    }
+    //显示Field
+    this.visible =function(field_id) {
+        $("#"+field_id).next().show();
+    }
+    //Field不可用
+    //Field启用
+
+}
 
 
 var Form =function() {
     //禁用表单
     this.disabledForm =function(form_id) {
         $("#"+form_id+" input").each(function(){
-            $(this).attr("disabled","disabled");
+
+            //textarea
+            if(typeof($(this).attr("data-options"))!="undefined" && $(this).attr("data-options").indexOf("multiline:true")!=-1){
+                $(this).next().children().attr("disabled","disabled");
+                //text input
+            }else{
+                $(this).attr("disabled","disabled");
+            }
 
         });
+        //combobox
         $("#"+form_id+" .easyui-combobox").each(function(){
             $(this).combobox({disabled: true});
         });
@@ -20,12 +48,18 @@ var Form =function() {
     //启用表单
     this.enabledForm =function(form_id) {
         $("#"+form_id+" input").each(function(){
-            $(this).removeAttr("disabled");
+            if(typeof($(this).attr("data-options"))!="undefined" && $(this).attr("data-options").indexOf("multiline:true")!=-1){
+                $(this).next().children().removeAttr("disabled");
+
+            }else{
+                $(this).removeAttr("disabled");
+            }
         });
         $("#"+form_id+" .easyui-combobox").each(function(){
-            var text = $(this).val()
+            var text = $(this).combobox('getText');
+            var value = $(this).combobox('getValue');
             $(this).combobox({disabled: false});
-            $(this).combobox('setValue',"1");
+            $(this).combobox('setValue',value);
             $(this).combobox('setText',text);
         });
     }
@@ -111,6 +145,7 @@ var Button = function(){
 var Grid = function() {
     this.reloadGrid = function (grid_id) {
         $('#'+grid_id).datagrid('reload');
+        $('#'+grid_id).treegrid('reload');
     }
     this.reloadWithData = function (grid_id,data) {
         $('#'+grid_id).datagrid('load',data);
@@ -130,7 +165,7 @@ var Dialog = function () {
     }
 }
 
-
+var field = new Field()
 var form = new Form()
 var button = new Button()
 var grid = new Grid()
