@@ -35,16 +35,14 @@
     </select>
 
     <select id="find" resultType="java.util.HashMap">
-        select id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time,update_time,update_user_id from sys_model
+        select
+            id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time,update_time,update_user_id
+        from
+            sys_model
         where 1=1
-
-        <if test="text != null and text !=''" > and text like "%"#{text}"%"</if>
-        <if test="url != null and url !=''"> and url like "%"#{url}"%"</if>
-
+            <if test="text != null and text !=''" > and text like "%"#{text}"%"</if>
+            <if test="url != null and url !=''"> and url like "%"#{url}"%"</if>
         order by level,seq asc
     </select>
-
-
-
 
 </mapper>

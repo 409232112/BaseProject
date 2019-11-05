@@ -25,15 +25,18 @@
     </delete>
 
     <select id="find" resultType="java.util.HashMap">
-        select id,name,sex,case sex when "1" then "男" when "2" then "女" end sex_text,phone,email from sys_user
+        select
+            id,name,sex,case sex when "1" then "男" when "2" then "女" end sex_text,phone,email,created_time,update_time
+        from
+            sys_user
         where 1=1
 
-        <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
-        <if test="sex != null and sex !=''"> and sex=#{sex}</if>
-        <if test="phone != null and phone !=''"> and phone like "%"#{phone}"%"</if>
-        <if test="email != null and email !=''"> and email like "%"#{email}"%"</if>
+            <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
+            <if test="sex != null and sex !=''"> and sex=#{sex}</if>
+            <if test="phone != null and phone !=''"> and phone like "%"#{phone}"%"</if>
+            <if test="email != null and email !=''"> and email like "%"#{email}"%"</if>
 
-        order by id asc
+        order by created_time
     </select>
 
 

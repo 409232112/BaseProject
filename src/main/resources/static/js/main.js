@@ -57,7 +57,7 @@ function initTopButton() {
 function initLeftMenu() {
     $("#nva").accordion({animate:false});
 
-    $.get('systemMgr/model/findForMenu/',function(result){
+    $.get('SystemMgr/model/findForMenu/',function(result){
         $.each(result, function(i, n) {
             var menulist ='';
             menulist +='<ul id='+n.id+'_tree>';
