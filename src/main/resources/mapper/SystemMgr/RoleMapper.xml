@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyc.systemmgr.dao.RoleDao">
+    <insert id="insert"  parameterType="com.wyc.systemmgr.entity.Role">
+        insert into sys_role
+            (id,name,seq,comments,created_time)
+        values
+            (#{id},#{name},#{seq},#{comments},now())
+    </insert>
+
+    <update id="update" parameterType="com.wyc.systemmgr.entity.Role">
+        update sys_role
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="seq != null">seq=#{seq},</if>
+            <if test="comments != null">comments=#{comments},</if>
+            update_time = now()
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <delete id="delete">
+        delete from sys_role where id=#{id}
+    </delete>
+
+    <select id="find" resultType="java.util.HashMap">
+        select
+            id,name,seq,comments,created_time,update_time
+        from
+            sys_role
+        where 1=1
+            <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
+        order by seq asc
+    </select>
+
+</mapper>
