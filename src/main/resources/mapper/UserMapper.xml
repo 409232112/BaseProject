@@ -5,11 +5,11 @@
 
 <mapper namespace="com.wyc.systemmgr.dao.UserDao">
     <insert id="insert"  parameterType="com.wyc.systemmgr.entity.User">
-        insert into t_sys_user(name,sex,phone,email) values(#{name},#{sex},#{phone},#{email})
+        insert into sys_user(name,sex,phone,email) values(#{name},#{sex},#{phone},#{email})
     </insert>
 
     <update id="update" parameterType="com.wyc.systemmgr.entity.User">
-        update t_sys_user
+        update sys_user
         <set>
             <if test="name != null">name=#{name},</if>
             <if test="sex != null">sex=#{sex},</if>
@@ -21,11 +21,11 @@
 
 
     <delete id="delete">
-        delete from t_sys_user where id=#{id}
+        delete from sys_user where id=#{id}
     </delete>
 
     <select id="find" resultType="java.util.HashMap">
-        select id,name,sex,case sex when "1" then "男" when "2" then "女" end sex_text,phone,email from t_sys_user
+        select id,name,sex,case sex when "1" then "男" when "2" then "女" end sex_text,phone,email from sys_user
         where 1=1
 
         <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>

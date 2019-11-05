@@ -5,14 +5,14 @@
 
 <mapper namespace="com.wyc.systemmgr.dao.ModelDao">
     <insert id="insert"  parameterType="com.wyc.systemmgr.entity.Model">
-        insert into t_sys_model
+        insert into sys_model
             (id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time)
         values
             (#{id},#{text},#{url},#{iconCls},#{level},#{parent_id},#{seq},#{comments},#{created_user_id},now())
     </insert>
 
     <update id="update" parameterType="com.wyc.systemmgr.entity.Model">
-        update t_sys_model
+        update sys_model
 
         <set>
             <if test="text != null">text=#{text},</if>
@@ -27,15 +27,15 @@
     </update>
 
     <delete id="delete">
-        delete from t_sys_model where id=#{id}
+        delete from sys_model where id=#{id}
     </delete>
 
     <select id="hasChildren" resultType="java.lang.Integer">
-        select count(1) from t_sys_model where parent_id = #{id}
+        select count(1) from sys_model where parent_id = #{id}
     </select>
 
     <select id="find" resultType="java.util.HashMap">
-        select id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time,update_time,update_user_id from t_sys_model
+        select id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time,update_time,update_user_id from sys_model
         where 1=1
 
         <if test="text != null and text !=''" > and text like "%"#{text}"%"</if>
