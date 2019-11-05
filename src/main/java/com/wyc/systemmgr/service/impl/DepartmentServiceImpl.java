@@ -54,4 +54,28 @@ public class DepartmentServiceImpl implements IDepartmentService {
         List<Map> datas = departmentDao.find(param);
         return DataConvertUtil.convertResultToTreeData(datas);
     }
+
+    @Override
+    public List<Map> findTree(Map param){
+        System.out.println(param);
+        List<Map> datas = departmentDao.find(param);
+
+        if(param.isEmpty()){
+            return DataConvertUtil.convertResultToTreeData(datas);
+        }else{
+            List<Map> retDatas = new ArrayList();
+            for(int i=0; i<datas.size();i++){
+                String children_id = String.valueOf(datas.get(i).get("id"));
+                List<Map> deptTree = departmentDao.getDeptParentList(children_id);
+                retDatas.addAll(deptTree);
+            }
+            retDatas = DataConvertUtil.removeRepeatMapByKey(retDatas,"id");
+            System.out.println(retDatas);
+            System.out.println(DataConvertUtil.convertResultToTreeData(retDatas));
+            return DataConvertUtil.convertResultToTreeData(retDatas);
+        }
+
+
+
+    }
 }

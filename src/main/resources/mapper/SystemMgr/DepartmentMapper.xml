@@ -35,7 +35,7 @@
 
     <select id="find" resultType="java.util.HashMap">
         select
-            id,name,code,level,parent_id,seq,link_user_name,link_phone,comments,created_user_id,created_time,update_time,update_user_id
+            id,name,code,level,parent_id,seq,link_user_name,link_phone,comments,created_user_id,created_time,update_time,update_user_id,'icon-standard-book' iconCls
         from
             sys_department
         where 1=1
@@ -45,4 +45,13 @@
         order by level,seq asc
     </select>
 
+    <select id="getDeptParentList" resultType="java.util.HashMap">
+        select
+          id,name,code,level,parent_id,seq,link_user_name,link_phone,comments,created_user_id,created_time,update_time,update_user_id,'icon-standard-book' iconCls
+        from
+          sys_department
+        where
+          FIND_IN_SET(id,getDeptParentList(#{id}))
+        order by level,seq
+    </select>
 </mapper>

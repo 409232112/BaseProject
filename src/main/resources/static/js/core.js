@@ -173,6 +173,9 @@ var Grid = function() {
 }
 
 var TreeGrid = function() {
+    this.reloadWithData = function (grid_id,data) {
+        $('#'+grid_id).treegrid('load',data);
+    }
     this.reloadGrid = function (grid_id) {
         $('#'+grid_id).treegrid('reload');
     }

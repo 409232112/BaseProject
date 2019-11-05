@@ -43,8 +43,14 @@ public class DepartmentController {
 
     @PostMapping("/find")
     public List<Map> find(@RequestParam Map<String, Object> param) throws BaseException{
-        List<Map> menuList = departmentlService.find(param);
-        return menuList;
+        List<Map> departList = departmentlService.find(param);
+        return departList;
+    }
+
+    @PostMapping("/findTree")
+    public List<Map> findTree(@RequestParam Map<String, Object> param) throws BaseException{
+        List<Map> departList = departmentlService.findTree(param);
+        return departList;
     }
 
 }
