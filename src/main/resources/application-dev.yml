@@ -12,7 +12,7 @@ spring:
     prefix: classpath:/templates/
 
 mybatis:
-  mapper-locations: classpath:mapper/*Mapper.xml
+  mapper-locations: classpath:mapper/*/*Mapper.xml
   type-aliases-package: com.wyc.entity
   configuration:
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

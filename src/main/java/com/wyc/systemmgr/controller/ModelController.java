@@ -20,7 +20,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping(value = "/systemMgr/model")
+@RequestMapping(value = "/SystemMgr/model")
 public class ModelController {
 
     private static final Logger logger = Logger.getLogger(ModelController.class);

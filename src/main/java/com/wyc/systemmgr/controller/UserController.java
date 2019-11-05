@@ -19,7 +19,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping(value = "/systemMgr/user")
+@RequestMapping(value = "/SystemMgr/user")
 public class UserController {
 
     private static final Logger logger = Logger.getLogger(UserController.class);
