@@ -1,17 +1,12 @@
 package com.wyc.systemmgr.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.wyc.base.entity.Pagination;
 import com.wyc.base.utils.CommonUtility;
-import com.wyc.base.utils.PaginationUtil;
 import com.wyc.exception.BaseException;
-import com.wyc.systemmgr.service.IModelService;
+import com.wyc.systemmgr.service.IDepartmentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,24 +15,24 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping(value = "/SystemMgr/model")
-public class ModelController {
+@RequestMapping(value = "/SystemMgr/department")
+public class DepartmentController {
 
-    private static final Logger logger = Logger.getLogger(ModelController.class);
+    private static final Logger logger = Logger.getLogger(DepartmentController.class);
 
     @Autowired
-    private IModelService modelService;
+    private IDepartmentService departmentlService;
 
     @PostMapping("/save")
     public String save(@RequestParam Map<String, Object> param) throws BaseException {
-        modelService.save(param);
+        departmentlService.save(param);
         return CommonUtility.constructResultJson("0","操作成功！");
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) throws BaseException{
         try{
-            modelService.delete(id);
+            departmentlService.delete(id);
             return CommonUtility.constructResultJson("0","操作成功！");
         }catch (BaseException e){
             e.printStackTrace();
@@ -46,9 +41,9 @@ public class ModelController {
     }
 
 
-    @GetMapping("/findForMenu")
-    public List<Map> findForMenu(){
-        List<Map> menuList = modelService.findForMenu();
+    @PostMapping("/find")
+    public List<Map> find(@RequestParam Map<String, Object> param) throws BaseException{
+        List<Map> menuList = departmentlService.find(param);
         return menuList;
     }
 

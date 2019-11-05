@@ -51,4 +51,8 @@ function reset(){
     form.resetForm("user_form")
 }
 
+function refresh(){
+    dialog.refresh()
+}
+
 

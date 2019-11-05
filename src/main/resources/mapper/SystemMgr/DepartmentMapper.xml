@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyc.systemmgr.dao.DepartmentDao">
+    <insert id="insert"  parameterType="com.wyc.systemmgr.entity.Department">
+        insert into sys_department
+            (id,name,code,level,parent_id,seq,link_user_name,link_phone,comments,created_user_id,created_time)
+        values
+            (#{id},#{name},#{code},#{level},#{parent_id},#{seq},#{link_user_name},#{link_phone},#{comments},#{created_user_id},now())
+    </insert>
+
+    <update id="update" parameterType="com.wyc.systemmgr.entity.Department">
+        update sys_department
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="code != null">code=#{code},</if>
+            <if test="seq != null">seq=#{seq},</if>
+            <if test="link_user_name != null">link_user_name=#{link_user_name},</if>
+            <if test="link_phone != null">link_phone=#{link_phone},</if>
+            <if test="comments != null">comments=#{comments},</if>
+            update_time = now()
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from sys_department where id=#{id}
+    </delete>
+
+    <select id="hasChildren" resultType="java.lang.Integer">
+        select count(1) from sys_department where parent_id = #{id}
+    </select>
+
+    <select id="find" resultType="java.util.HashMap">
+        select
+            id,name,code,level,parent_id,seq,link_user_name,link_phone,comments,created_user_id,created_time,update_time,update_user_id
+        from
+            sys_department
+        where 1=1
+            <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
+            <if test="code != null and code !=''"> and code like "%"#{code}"%"</if>
+            <if test="link_user_name != null and link_user_name !=''"> and link_user_name like "%"#{link_user_name}"%"</if>
+        order by level,seq asc
+    </select>
+
+</mapper>

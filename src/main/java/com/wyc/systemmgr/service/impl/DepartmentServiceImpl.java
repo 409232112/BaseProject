@@ -4,18 +4,20 @@ import com.wyc.base.utils.BeanUtil;
 import com.wyc.base.utils.DataConvertUtil;
 import com.wyc.base.utils.StringUtil;
 import com.wyc.exception.BaseException;
-import com.wyc.systemmgr.dao.ModelDao;
-import com.wyc.systemmgr.entity.Model;
-import com.wyc.systemmgr.service.IModelService;
+import com.wyc.systemmgr.dao.DepartmentDao;
+import com.wyc.systemmgr.entity.Department;
+import com.wyc.systemmgr.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
-public class ModelServiceImpl implements IModelService {
+public class DepartmentServiceImpl implements IDepartmentService {
     @Autowired
-    private ModelDao mdeolDao;
+    private DepartmentDao departmentDao;
 
     @Override
     public void save(Map<String, Object> param) throws BaseException {
@@ -24,36 +26,32 @@ public class ModelServiceImpl implements IModelService {
         if(seq.equals("")){
             param.put("seq","1");
         }
-        param.put("beanName",Model.class.getCanonicalName());
+        param.put("beanName",Department.class.getCanonicalName());
         if ("insert".equals(mode)){
             param.put("id", StringUtil.getUUID());
-            Model model = (Model) BeanUtil.convertToBean(param);
-            mdeolDao.insert(model);
+            Department department = (Department) BeanUtil.convertToBean(param);
+            departmentDao.insert(department);
         }else if("update".equals(mode)){
             param.put("id",param.get("id").toString());
-            Model model = (Model) BeanUtil.convertToBean(param);
-            mdeolDao.update(model);
+            Department department = (Department) BeanUtil.convertToBean(param);
+            departmentDao.update(department);
         }
     }
 
     @Override
     public void delete(String id) throws BaseException{
-        int count = mdeolDao.hasChildren(id);
+        int count = departmentDao.hasChildren(id);
         if(count==0){
-            mdeolDao.delete(id);
+            departmentDao.delete(id);
         }else{
-            throw new BaseException(-1, "当前模块有子模块，请先删除子模块！");
+            throw new BaseException(-1, "当前部门有子部门，请先删除子部门！");
         }
     }
 
-    @Override
-    public List<Map> find(Map params){
-        return mdeolDao.find(params);
-    }
 
     @Override
-    public List<Map> findForMenu(){
-        List<Map> datas = mdeolDao.find(null);
+    public List<Map> find(Map param){
+        List<Map> datas = departmentDao.find(param);
         return DataConvertUtil.convertResultToTreeData(datas);
     }
 }

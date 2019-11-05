@@ -8,12 +8,12 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src='../js/core.js'> </script>
-    <script type="text/javascript" src="js/UserMgr.js"></script>
+    <script type="text/javascript" src="js/RoleMgr.js"></script>
 </head>
 <body>
 
     <div class="easyui-layout" fit="true">
-        <div data-options="region:'north',title:'用户信息表单',split:true" style="height:120px;">
+        <div data-options="region:'north',title:'角色信息表单',split:true" style="height:160px;">
 
             <div class="panel-header">
                 <div id="toolbar" >
@@ -27,20 +27,17 @@
                 </div>
             </div>
 
-            <form id="user_form" method="post">
-                <table style="margin-top: 20px;margin-left: 20px;width: 60%" >
+            <form id="role_form" method="post">
+                <table style="margin-top: 20px;margin-left: 20px;width: 80%" >
                     <tr>
-                        <td>姓名:</td>
+                        <td>角色名称:</td>
                         <td><input id="name" name="name"  class="easyui-textbox"  required="true"/></td>
 
-                        <td>性别:</td>
-                        <td><input id="sex" name="sex" class="easyui-combobox" required="true" style="width:80px;" data-options="editable:false,panelHeight:'auto',valueField:'value',textField:'text',data:[{'value':'1','text':'男'},{'value':'2','text':'女'}]"/>  </td>
+                        <td>序号:</td>
+                        <td><input id="seq" name="seq" class="easyui-numberbox" style="width:60px;"/></td>
 
-                        <td>电话:</td>
-                        <td><input id="phone" name="phone" class="easyui-numberbox" style="width:200px;"/></td>
-
-                        <td>邮箱:</td>
-                        <td><input id="email" name="email" class="easyui-textbox" style="width:200px;"/></td>
+                        <td>备注:</td>
+                        <td><input id="comments" name="comments" class="easyui-textbox"  data-options="multiline:true" style="width:340px;height:80px;"/></td>
 
                         <td><input id="id" name="id" class="easyui-textbox"></td>
 
@@ -52,14 +49,14 @@
 
         </div>
 
-        <div data-options="region:'center',title:'用户信息列表',split:true" style="height:100px;">
-            <table id="user_grid"   data-options="
+        <div data-options="region:'center',title:'角色信息列表',split:true" style="height:100px;">
+            <table id="role_grid"   data-options="
                 fit:true,
                 singleSelect :true,
                 fitColumns : true,
                 striped : true,
                 method : 'post',
-                url : 'user/find',
+                url : 'role/find',
                 pagination:true,
                 pageSize : 20,
                 queryParams : {},
@@ -67,10 +64,9 @@
                 pageList:[20,50,100],
                 columns:[[
                     {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
-                    {field:'name',title:'姓名',width:100,align:'center'},
-                    {field:'sex_text',title:'性别',width:100,align:'center'},
-                    {field:'phone',title:'电话',width:80,align:'center'},
-                    {field:'email',title:'邮箱',width:80,align:'center'}
+                    {field:'name',title:'角色名称',width:100,align:'center'},
+                    {field:'seq',title:'序号',width:100,align:'center'},
+                    {field:'comments',title:'备注',width:80,align:'center'}
                 ]]
             ">
 
