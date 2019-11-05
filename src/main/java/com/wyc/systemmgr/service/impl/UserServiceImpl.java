@@ -1,5 +1,6 @@
 package com.wyc.systemmgr.service.impl;
 
+import com.wyc.base.utils.StringUtil;
 import com.wyc.systemmgr.dao.UserDao;
 import com.wyc.systemmgr.entity.User;
 import com.wyc.exception.BaseException;
@@ -26,11 +27,10 @@ public class UserServiceImpl implements IUserService{
         String mode = String.valueOf(param.get("mode"));
         param.put("beanName",User.class.getCanonicalName());
         if ("insert".equals(mode)){
-            param.remove("id");
+            param.put("id", StringUtil.getUUID());
             User user = (User) BeanUtil.convertToBean(param);
             userDao.insert(user);
         }else if("update".equals(mode)){
-            param.put("id",Integer.valueOf(param.get("id").toString()));
             User user = (User) BeanUtil.convertToBean(param);
             userDao.update(user);
         }
