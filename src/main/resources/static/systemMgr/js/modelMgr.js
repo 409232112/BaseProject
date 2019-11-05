@@ -94,8 +94,8 @@ function save(){
             if(result.code=="0"){
                 message.info(result.message)
 
-                grid.reloadGrid("model_gridtree")
-                grid.unselectAllRow("model_gridtree");
+                treeGrid.reloadGrid("model_gridtree")
+                treeGrid.unselectAllRow("model_gridtree");
 
                 form.resetForm("model_form")
                 form.disabledForm("model_form")
@@ -116,7 +116,7 @@ function del(){
                     var result = eval('('+result+')');
                     if(result.code=="0"){
                         message.info(result.message)
-                        grid.reloadGrid("model_gridtree")
+                        treeGrid.reloadGrid("model_gridtree")
                         form.resetForm("model_form")
                     }else{
                         message.error(result.message)

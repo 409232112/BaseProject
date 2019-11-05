@@ -158,8 +158,8 @@ var Button = function(){
 
 var Grid = function() {
     this.reloadGrid = function (grid_id) {
+        console.info($('#'+grid_id))
         $('#'+grid_id).datagrid('reload');
-        $('#'+grid_id).treegrid('reload');
     }
     this.reloadWithData = function (grid_id,data) {
         $('#'+grid_id).datagrid('load',data);
@@ -168,7 +168,15 @@ var Grid = function() {
         return $('#'+grid_id).datagrid('getSelected');
     }
     this.unselectAllRow = function (grid_id){
-        $('#'+grid_id).datagrid('unselectAll');
+        $('#'+grid_id).treegrid('unselectAll');
+    }
+}
+
+var TreeGrid = function() {
+    this.reloadGrid = function (grid_id) {
+        $('#'+grid_id).treegrid('reload');
+    }
+    this.unselectAllRow = function (grid_id){
         $('#'+grid_id).treegrid('unselectAll');
     }
 }
@@ -188,6 +196,7 @@ var form = new Form();
 var button = new Button();
 var grid = new Grid();
 var editGrid = new EditGrid();
+var treeGrid = new TreeGrid();
 var dialog = new Dialog();
 var message = new Msessage();
 
