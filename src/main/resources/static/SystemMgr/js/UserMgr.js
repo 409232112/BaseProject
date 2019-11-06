@@ -51,6 +51,14 @@
             onRowClick(index,data);
         }
     })
+    field.disabled("role_id")
+    field.disabled("department_id")
+    //选择角色
+    button.bindTextButtonClick("role_id",showRoleWindow)
+    //选择部门
+    button.bindTextButtonClick("department_id",refresh)
+
+
 
 })
 
@@ -129,4 +137,12 @@ function onRowClick(index,data){
 
 function refresh(){
     dialog.refresh()
+}
+
+function showRoleWindow(){
+    $('#window').window({
+        title:"选择角色",
+        iconCls:'icon-save'
+    });
+    $('#window').window('open');
 }

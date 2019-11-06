@@ -13,7 +13,7 @@
 <body>
 
     <div class="easyui-layout" fit="true">
-        <div data-options="region:'north',title:'用户信息表单',split:true" style="height:120px;">
+        <div data-options="region:'north',title:'用户信息表单',split:true" style="height:170px;">
 
             <div class="panel-header">
                 <div id="toolbar" >
@@ -28,7 +28,7 @@
             </div>
 
             <form id="user_form" method="post">
-                <table style="margin-top: 20px;margin-left: 20px;width: 60%" >
+                <table style="margin-top: 20px;margin-left: 20px;width: 90%;border-spacing:10px;" >
                     <tr>
                         <td>姓名:</td>
                         <td><input id="name" name="name"  class="easyui-textbox"  required="true"/></td>
@@ -39,8 +39,23 @@
                         <td>电话:</td>
                         <td><input id="phone" name="phone" class="easyui-numberbox" style="width:200px;"/></td>
 
+                        <td>住址:</td>
+                        <td><input id="address" name="address" class="easyui-textbox" style="width:400px;"/></td>
+
+
+                    </tr>
+                    <tr>
                         <td>邮箱:</td>
                         <td><input id="email" name="email" class="easyui-textbox" style="width:200px;"/></td>
+
+                        <td>QQ:</td>
+                        <td><input id="qq" name="qq" class="easyui-textbox" style="width:200px;"/></td>
+
+                        <td>角色:</td>
+                        <td><input class="easyui-textbox" id="role_id" name="role_id"  data-options="buttonIcon:'icon-search'" style="width:150px;"></td>
+
+                        <td>部门:</td>
+                        <td><input class="easyui-textbox" id="department_id" name="department_id" data-options="buttonIcon:'icon-search'" style="width:150px;"></td>
 
                         <td><input id="id" name="id" class="easyui-textbox"></td>
 
@@ -75,6 +90,43 @@
             ">
 
             </table>
+
+        </div>
+
+    </div>
+
+
+    <div id="window" class="easyui-window"  style="width:1200px;height:700px;"  data-options="
+        modal:true,
+        collapsible:false,
+        minimizable:false,
+        closed:true
+        ">
+        <div class="easyui-layout" fit="true">
+
+            <div data-options="region:'west',title:'角色信息列表',split:true,border:false" style="width:200px;">
+                <table id="role_grid" class="easyui-datagrid"   data-options="
+                    border:false,
+                    fit:true,
+                    singleSelect :true,
+                    fitColumns : true,
+                    striped : true,
+                    method : 'post',
+                    url : 'role/find',
+                    pagination:true,
+                    pageSize : 20,
+                    queryParams : {},
+                    rownumbers : true,
+                    pageList:[20,50,100],
+                    columns:[[
+                        {field:'name',title:'角色名称',width:100,align:'center'},
+                    ]]
+            ">
+
+                </table>
+            </div>
+
+
 
         </div>
 

@@ -24,7 +24,6 @@ var Field = function(){
     this.setFieldValue = function (field_id,value) {
         $('#'+field_id).textbox('setValue',value);
     }
-
     //隐藏Field
     this.invisible =function(field_id) {
         $("#"+field_id).next().hide();
@@ -34,7 +33,12 @@ var Field = function(){
         $("#"+field_id).next().show();
     }
     //Field不可用
-    //Field启用
+    this.disabled =function(field_id) {
+        $('#'+field_id).textbox('textbox').attr('readonly',true);
+    }
+    this.enabled =function(field_id) {
+        $('#'+field_id).textbox('textbox').attr('readonly',false);
+    }
 
 }
 
@@ -152,6 +156,10 @@ var Button = function(){
         button.disabledButton("btn_save");
         button.disabledButton("btn_reset");
         button.disabledButton("btn_cancel");
+    }
+
+    this.bindTextButtonClick = function (button_id,f) {
+        $("#"+button_id).next('span').children("a").children("span").children("span").bind("click",f)
     }
 }
 
