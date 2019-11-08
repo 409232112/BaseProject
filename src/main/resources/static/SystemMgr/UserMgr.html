@@ -52,10 +52,12 @@
                         <td><input id="qq" name="qq" class="easyui-textbox" style="width:200px;"/></td>
 
                         <td>角色:</td>
-                        <td><input class="easyui-textbox" id="role_id" name="role_id"  data-options="buttonIcon:'icon-search'" style="width:150px;"></td>
+                        <td><input class="easyui-textbox" id="role" name="role"  data-options="buttonIcon:'icon-search'"  required="true" style="width:150px;"></td>
+                        <input id="role_id" name="role_id" class="easyui-textbox"/>
 
                         <td>部门:</td>
-                        <td><input class="easyui-textbox" id="department_id" name="department_id" data-options="buttonIcon:'icon-search'" style="width:150px;"></td>
+                        <td><input class="easyui-textbox" id="department" name="department" data-options="buttonIcon:'icon-search'"  required="true" style="width:150px;"></td>
+                        <input id="department_id" name="department_id" class="easyui-textbox"/>
 
                         <td><input id="id" name="id" class="easyui-textbox"></td>
 
@@ -85,10 +87,15 @@
                     {field:'name',title:'姓名',width:100,align:'center'},
                     {field:'sex_text',title:'性别',width:100,align:'center'},
                     {field:'phone',title:'电话',width:80,align:'center'},
-                    {field:'email',title:'邮箱',width:80,align:'center'}
+                    {field:'email',title:'邮箱',width:80,align:'center'},
+                    {field:'qq',title:'QQ',width:80,align:'center'},
+                    {field:'address',title:'住址',width:120,align:'center'},
+                    {field:'role_id',title:'角色ID',width:80,align:'center',hidden:'true'},
+                    {field:'role',title:'角色',width:80,align:'center'},
+                    {field:'department_id',title:'部门ID',width:80,align:'center',hidden:'true'},
+                    {field:'department',title:'部门',width:80,align:'center'}
                 ]]
             ">
-
             </table>
 
         </div>
@@ -96,38 +103,56 @@
     </div>
 
 
-    <div id="window" class="easyui-window"  style="width:1200px;height:700px;"  data-options="
+    <div id="window" class="easyui-window"  style="width:300px;height:600px;"  data-options="
         modal:true,
         collapsible:false,
         minimizable:false,
         closed:true
         ">
-        <div class="easyui-layout" fit="true">
 
-            <div data-options="region:'west',title:'角色信息列表',split:true,border:false" style="width:200px;">
-                <table id="role_grid" class="easyui-datagrid"   data-options="
-                    border:false,
-                    fit:true,
-                    singleSelect :true,
-                    fitColumns : true,
-                    striped : true,
-                    method : 'post',
-                    url : 'role/find',
-                    pagination:true,
-                    pageSize : 20,
-                    queryParams : {},
-                    rownumbers : true,
-                    pageList:[20,50,100],
-                    columns:[[
-                        {field:'name',title:'角色名称',width:100,align:'center'},
-                    ]]
+
+        <div class="easyui-layout" fit="true" id="role_grid_div">
+            <table id="role_grid"    data-options="
+                fit:true,
+                border:false,
+                singleSelect :true,
+                fitColumns : true,
+                method : 'post',
+                url : 'role/find',
+                pagination:true,
+                pageSize : 20,
+                queryParams : {},
+                rownumbers : true,
+                pageList:[20,50,100],
+                columns:[[
+                    {field:'id',title:'ID',width:100,align:'center',hidden:'true'},
+                    {field:'name',title:'角色名称',width:100,align:'center'}
+                ]],
+                toolbar: [
+                    { text: '选择', iconCls: 'icon-standard-accept', handler: function () { chooseRole(); } }]
             ">
+            </table>
+        </div>
 
-                </table>
-            </div>
-
-
-
+        <div class="easyui-layout" fit="true" id="department_gridtree_div">
+            <table id="department_gridtree"  data-options="
+                url:'department/find/',
+                method: 'post',
+                border:false,
+                idField:'id',
+                treeField:'name',
+                fit:true,
+                animate:true,
+                fitColumns : true,
+                columns:[[
+                    {title:'ID',field:'id',width:80,align:'center',hidden:'true'},
+                    {title:'部门名称',field:'name'},
+                    {title:'部门编码',field:'code',width:100,align:'center'},
+                ]],
+                toolbar: [
+                    { text: '选择', iconCls: 'icon-standard-accept', handler: function () { chooseDept(); } }]
+            ">
+            </table>
         </div>
 
     </div>

@@ -24,7 +24,7 @@
             </div>
 
             <form id="user_form">
-                <table style="margin-top: 20px;margin-left: 20px;width: 60%" >
+                <table style="margin-top: 20px;margin-left: 20px;width: 90%" >
                     <tr>
                         <td>姓名:</td>
                         <td><input id="name" name="name"  class="easyui-textbox"/></td>
@@ -37,6 +37,12 @@
 
                         <td>邮箱:</td>
                         <td><input id="email" name="email" class="easyui-textbox" style="width:200px;"/></td>
+
+                        <td>角色:</td>
+                        <td><input id="role" name="role" class="easyui-textbox" style="width:150px;"/></td>
+
+                        <td>部门:</td>
+                        <td><input id="department" name="department" class="easyui-textbox" style="width:150px;"/></td>
 
                     </tr>
                 </table>
@@ -62,7 +68,13 @@
                     {field:'name',title:'姓名',width:100,align:'center'},
                     {field:'sex_text',title:'性别',width:100,align:'center'},
                     {field:'phone',title:'电话',width:80,align:'center'},
-                    {field:'email',title:'邮箱',width:80,align:'center'}
+                    {field:'email',title:'邮箱',width:80,align:'center'},
+                    {field:'qq',title:'QQ',width:80,align:'center'},
+                    {field:'address',title:'住址',width:120,align:'center'},
+                    {field:'role_id',title:'角色ID',width:80,align:'center',hidden:'true'},
+                    {field:'role',title:'角色',width:80,align:'center'},
+                    {field:'department_id',title:'部门ID',width:80,align:'center',hidden:'true'},
+                    {field:'department',title:'部门',width:80,align:'center'}
                 ]]
             ">
 

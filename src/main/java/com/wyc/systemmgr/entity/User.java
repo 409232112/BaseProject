@@ -10,7 +10,10 @@ public class User {
     private String name;
     private String phone;
     private String email;
-
+    private String qq;
+    private String address;
+    private String role_id;
+    private String department_id;
 
     public String getId() {
         return id;
@@ -52,14 +55,37 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", sex='" + sex + '\'' +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public String getQq() {
+        return qq;
     }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(String role_id) {
+        this.role_id = role_id;
+    }
+
+    public String getDepartment_id() {
+        return department_id;
+    }
+
+    public void setDepartment_id(String department_id) {
+        this.department_id = department_id;
+    }
+
+
 }

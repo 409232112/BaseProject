@@ -31,6 +31,16 @@
             query();
         }
     });
+    $('#role').textbox('textbox').keydown(function (e) {
+        if (e.keyCode == 13) {
+            query();
+        }
+    });
+    $('#department').textbox('textbox').keydown(function (e) {
+        if (e.keyCode == 13) {
+            query();
+        }
+    });
     $('#phone').numberbox({inputEvents:$.extend({},$.fn.numberbox.defaults.inputEvents,{
         keyup:function(e){
                 if (e.keyCode == 13) {

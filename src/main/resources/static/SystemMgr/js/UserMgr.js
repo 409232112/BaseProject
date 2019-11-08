@@ -1,6 +1,9 @@
 ﻿$(function(){
+
     field.invisible("id")
     field.invisible("mode")
+    field.invisible("role_id")
+    field.invisible("department_id")
 
 
     form.disabledForm("user_form");
@@ -51,14 +54,12 @@
             onRowClick(index,data);
         }
     })
-    field.disabled("role_id")
-    field.disabled("department_id")
+    field.disabled("role")
+    field.disabled("department")
     //选择角色
-    button.bindTextButtonClick("role_id",showRoleWindow)
+    button.bindTextButtonClick("role",showRoleWindow)
     //选择部门
-    button.bindTextButtonClick("department_id",refresh)
-
-
+    button.bindTextButtonClick("department",showDeptWindow)
 
 })
 
@@ -140,9 +141,56 @@ function refresh(){
 }
 
 function showRoleWindow(){
-    $('#window').window({
-        title:"选择角色",
-        iconCls:'icon-save'
-    });
-    $('#window').window('open');
+    if ($("#role").attr("disabled")!="disabled") {
+        $('#window').window({
+            title: "选择角色",
+            iconCls: 'icon-standard-application'
+        });
+        $("#department_gridtree_div").hide();
+        $("#role_grid_div").show();
+        $('#window').window('open');
+
+        $("#role_grid").datagrid({
+            onBeforeLoad: function () {
+                $($("#role_grid").datagrid("getPager")).pagination({
+                    layout: ['prev', 'manual', 'next']
+                })
+            },
+            onDblClickRow: function (rowIndex, rowData) {
+                chooseRole();
+            }
+        });
+    }
+}
+function chooseRole(){
+    var data = grid.getCurrentSelectRowData("role_grid");
+    field.setFieldValue("role_id",data.id)
+    field.setFieldValue("role",data.name)
+    $('#window').window('close');
+}
+
+function showDeptWindow(){
+    if ($("#department").attr("disabled")!="disabled"){
+        $('#window').window({
+            title:"选择部门",
+            iconCls:'icon-standard-application'
+        });
+        $("#role_grid_div").hide();
+        $("#department_gridtree_div").show();
+
+        $('#window').window('open');
+
+        $("#department_gridtree").treegrid({
+            onDblClickRow: function (rowIndex, rowData) {
+                chooseDept();
+            },
+        });
+    }
+}
+
+function chooseDept(){
+    var data = grid.getCurrentSelectRowData("department_gridtree");
+    field.setFieldValue("department_id",data.id)
+    field.setFieldValue("department",data.name)
+    $('#window').window('close');
 }

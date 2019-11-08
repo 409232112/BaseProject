@@ -16,73 +16,66 @@
 <body class="easyui-layout" style="overflow-y: hidden"  scroll="no">
 
 <!--头部-->
-<div region="north" split="true" border="false" style="overflow: hidden; height: 30px;background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
-    <span style="float:right; padding-right:20px;" class="head">欢迎 admin <a href="#" id="editpass">修改密码</a> <a href="#" id="loginOut">安全退出</a></span>
-    <span style="padding-left:10px; font-size: 16px; ">
-        <img src="images/logo.gif" width="20" height="20" align="absmiddle" /> 后台管理平台
-    </span>
-</div>
-
-
-<!--底部-->
-<div region="south" split="true" style="height: 30px; background: #D2E0F2; ">
-    <div class="footer">Copyright@ xxxx all rights reserved 2002-2019 </div>
-</div>
-<div region="west" hide="true" split="true"  style="width:250px;" id="west">
-
-
-    <!--<ul id="tree" class="easyui-accordion" fit="true" border="false"></ul>-->
-    <!--导航内容-->
-    <div id="nav" class="easyui-accordion" fit="true" border="false">
-
-
+    <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
+        <span style="float:right; padding-right:20px;" class="head">欢迎 admin <a href="#" id="editpass">修改密码</a> <a href="#" id="loginOut">安全退出</a></span>
+        <span style="padding-left:10px; font-size: 16px; ">
+            <img src="images/logo.gif" width="20" height="20" align="absmiddle" /> 后台管理平台
+        </span>
     </div>
 
-</div>
-<div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
-    <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
 
+    <!--底部-->
+    <div region="south" split="true" style="height: 30px; background: #D2E0F2; ">
+        <div class="footer">Copyright@ xxxx all rights reserved 2002-2019 </div>
     </div>
-</div>
 
+    <div region="west" hide="true" split="true"   style="width:250px;" id="west">
+        <!--导航内容-->
+        <div id="nav" class="easyui-accordion" fit="true" border="false" >
 
-<!--修改密码窗口-->
-<div id="pwdWindow" class="easyui-window" title="修改密码" collapsible="false" minimizable="false" maximizable="false" icon="icon-save"  style="width: 290px; height: 180px; padding: 5px; background: #fafafa;">
-    <div class="easyui-layout" fit="true">
-        <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
-            <table cellpadding=3>
-                <tr>
-                    <td>新密码：</td>
-                    <td><input id="txtNewPass" type="Password" class="txt01" /></td>
-                </tr>
-                <tr>
-                    <td>确认密码：</td>
-                    <td><input id="txtRePass" type="Password" class="txt01" /></td>
-                </tr>
-            </table>
         </div>
-        <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
-            <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >
-                确定</a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+
+    </div>
+    <div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
+        <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
+
         </div>
     </div>
-</div>
-
-<div id="tabsMenu" class="easyui-menu" style="width:200px;">
-    <div id="tabsMenu-tabupdate">刷新</div>
-    <div class="menu-sep"></div>
-    <div id="tabsMenu-tabclose">关闭</div>
-    <div id="tabsMenu-tabcloseall">全部关闭</div>
-    <div id="tabsMenu-tabcloseother">除此之外全部关闭</div>
-    <div class="menu-sep"></div>
-    <div id="tabsMenu-tabcloseright">当前页右侧全部关闭</div>
-    <div id="tabsMenu-tabcloseleft">当前页左侧全部关闭</div>
-    <div class="menu-sep"></div>
-    <div id="tabsMenu-exit">退出</div>
-</div>
 
 
+    <!--修改密码窗口-->
+    <div id="pwdWindow" class="easyui-window" title="修改密码" collapsible="false" minimizable="false" maximizable="false" icon="icon-save"  style="width: 290px; height: 180px; padding: 5px; background: #fafafa;">
+        <div class="easyui-layout" fit="true">
+            <div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
+                <table cellpadding=3>
+                    <tr>
+                        <td>新密码：</td>
+                        <td><input id="txtNewPass" type="Password" class="txt01" /></td>
+                    </tr>
+                    <tr>
+                        <td>确认密码：</td>
+                        <td><input id="txtRePass" type="Password" class="txt01" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
+                <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >
+                    确定</a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
+            </div>
+        </div>
+    </div>
 
-
+    <div id="tabsMenu" class="easyui-menu" style="width:200px;">
+        <div id="tabsMenu-tabupdate">刷新</div>
+        <div class="menu-sep"></div>
+        <div id="tabsMenu-tabclose">关闭</div>
+        <div id="tabsMenu-tabcloseall">全部关闭</div>
+        <div id="tabsMenu-tabcloseother">除此之外全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="tabsMenu-tabcloseright">当前页右侧全部关闭</div>
+        <div id="tabsMenu-tabcloseleft">当前页左侧全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="tabsMenu-exit">退出</div>
+    </div>
 </body>
 </html>

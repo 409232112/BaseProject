@@ -5,7 +5,10 @@
 
 <mapper namespace="com.wyc.systemmgr.dao.UserDao">
     <insert id="insert"  parameterType="com.wyc.systemmgr.entity.User">
-        insert into sys_user(id,name,sex,phone,email) values(#{id},#{name},#{sex},#{phone},#{email})
+        insert into sys_user
+            (id,name,sex,phone,email,qq,address,role_id,department_id,created_time)
+        values
+            (#{id},#{name},#{sex},#{phone},#{email},#{qq},#{address},#{role_id},#{department_id},now())
     </insert>
 
     <update id="update" parameterType="com.wyc.systemmgr.entity.User">
@@ -14,7 +17,12 @@
             <if test="name != null">name=#{name},</if>
             <if test="sex != null">sex=#{sex},</if>
             <if test="phone != null">phone=#{phone},</if>
-            <if test="email != null">email=#{email}</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="qq != null">qq=#{qq},</if>
+            <if test="address != null">address=#{address},</if>
+            <if test="role_id != null">role_id=#{role_id},</if>
+            <if test="department_id != null">department_id=#{department_id},</if>
+            update_time = now()
         </set>
         where id=#{id}
     </update>
@@ -25,17 +33,27 @@
     </delete>
 
     <select id="find" resultType="java.util.HashMap">
-        select
-            id,name,sex,case sex when "1" then "男" when "2" then "女" end sex_text,phone,email,created_time,update_time
-        from
-            sys_user
+        select * from  (
+            select
+                a.id,a.name,a.sex,case a.sex when "1" then "男" when "2" then "女" end sex_text,a.phone,a.email,a.qq,a.address,
+                a.role_id,
+                b.name role,
+                a.department_id,
+                c.`name` department,
+                a.created_time,a.update_time
+            from
+                sys_user a
+            left join sys_role b
+                on a.role_id = b.id
+            left join sys_department c
+                on a.department_id = c.id
+        ) a
         where 1=1
-
             <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
             <if test="sex != null and sex !=''"> and sex=#{sex}</if>
             <if test="phone != null and phone !=''"> and phone like "%"#{phone}"%"</if>
             <if test="email != null and email !=''"> and email like "%"#{email}"%"</if>
-
+            <if test="department != null and department !=''"> and department like "%"#{department}"%"</if>
         order by created_time
     </select>
 
