@@ -4,10 +4,12 @@ import com.github.pagehelper.PageHelper;
 
 import com.wyc.base.entity.Pagination;
 import com.wyc.exception.BaseException;
+import com.wyc.systemmgr.entity.User;
 import com.wyc.systemmgr.service.IUserService;
 import com.wyc.base.utils.CommonUtility;
 import com.wyc.base.utils.PaginationUtil;
 import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +31,11 @@ public class UserController {
 
     @PostMapping("/save")
     public String save(@RequestParam Map<String, Object> param) throws BaseException{
-        userService.save(param);
-
+        try{
+            userService.save(param);
+        }catch (BaseException e){
+            return CommonUtility.constructResultJson("-1",e.getMessage());
+        }
         return CommonUtility.constructResultJson("0","操作成功！");
     }
 
@@ -42,13 +47,11 @@ public class UserController {
 
     @PostMapping("/find")
     public Pagination find(@RequestParam Map<String, Object> param)throws BaseException{
-        logger.info(param);
         int pageNum = Integer.valueOf(param.get("page").toString());
         int pageSize = Integer.valueOf(param.get("rows").toString());
         PageHelper.startPage(pageNum, pageSize);
         List<Map> userList = userService.find(param);
         Pagination result = PaginationUtil.getPageList(userList);
-
         return result;
     }
 }

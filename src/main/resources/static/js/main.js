@@ -44,9 +44,23 @@ function initTopButton() {
 
     $('#loginOut').click(function() {
         $.messager.confirm('系统提示', '您确定要退出本次登录吗?', function(r) {
-
             if (r) {
-                location.href = '/ajax/loginout.ashx';
+                $.ajax({
+                    type: "GET",
+                    url: "logout",
+                    success: function (result) {
+                        result = eval("("+result+")")
+                        console.info(result)
+                        alert(result.message);
+                        if(result.code == "0"){
+                            window.location.href="login";
+                        }
+                    },
+                    error:function (result) {
+                        result = eval("("+result+")")
+                        alert(result.message);
+                    }
+                });
             }
         });
     })

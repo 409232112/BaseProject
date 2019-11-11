@@ -7,8 +7,8 @@ import com.wyc.exception.BaseException;
 import com.wyc.systemmgr.service.IUserService;
 import com.wyc.base.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements IUserService{
     private UserDao userDao;
 
     @Override
-    public void save(Map<String, Object> param) throws BaseException {
+    public void save(Map<String, Object> param) throws BaseException{
         String mode = String.valueOf(param.get("mode"));
         param.put("beanName",User.class.getCanonicalName());
         if ("insert".equals(mode)){
@@ -32,7 +32,12 @@ public class UserServiceImpl implements IUserService{
             userDao.insert(user);
         }else if("update".equals(mode)){
             User user = (User) BeanUtil.convertToBean(param);
-            userDao.update(user);
+            try{
+                userDao.update(user);
+            }catch (DuplicateKeyException e){
+                throw new BaseException(-1, "该登陆名已经被占用！", e);
+            }
+
         }
     }
 
@@ -45,6 +50,12 @@ public class UserServiceImpl implements IUserService{
     public List<Map> find(Map params){
 
         return userDao.find(params);
+    }
+
+    @Override
+    public Map findUserByUsername(String username){
+        Map user = userDao.findUserByUsername(username);
+        return user;
     }
 
 }

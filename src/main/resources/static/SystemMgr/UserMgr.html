@@ -28,37 +28,36 @@
             </div>
 
             <form id="user_form" method="post">
-                <table style="margin-top: 20px;margin-left: 20px;width: 90%;border-spacing:10px;" >
+                <table style="margin-top: 20px;margin-left: 20px;width: 95%;border-spacing:10px;" >
                     <tr>
                         <td>姓名:</td>
                         <td><input id="name" name="name"  class="easyui-textbox"  required="true"/></td>
 
+                        <td>登陆名:</td>
+                        <td><input id="username" name="username"  class="easyui-textbox"  required="true"/></td>
+
                         <td>性别:</td>
                         <td><input id="sex" name="sex" class="easyui-combobox" required="true" style="width:80px;" data-options="editable:false,panelHeight:'auto',valueField:'value',textField:'text',data:[{'value':'1','text':'男'},{'value':'2','text':'女'}]"/>  </td>
 
-                        <td>电话:</td>
-                        <td><input id="phone" name="phone" class="easyui-numberbox" style="width:200px;"/></td>
-
-                        <td>住址:</td>
-                        <td><input id="address" name="address" class="easyui-textbox" style="width:400px;"/></td>
-
-
-                    </tr>
-                    <tr>
-                        <td>邮箱:</td>
-                        <td><input id="email" name="email" class="easyui-textbox" style="width:200px;"/></td>
-
-                        <td>QQ:</td>
-                        <td><input id="qq" name="qq" class="easyui-textbox" style="width:200px;"/></td>
 
                         <td>角色:</td>
                         <td><input class="easyui-textbox" id="role" name="role"  data-options="buttonIcon:'icon-search'"  required="true" style="width:150px;"></td>
                         <input id="role_id" name="role_id" class="easyui-textbox"/>
 
+                    </tr>
+                    <tr>
                         <td>部门:</td>
                         <td><input class="easyui-textbox" id="department" name="department" data-options="buttonIcon:'icon-search'"  required="true" style="width:150px;"></td>
                         <input id="department_id" name="department_id" class="easyui-textbox"/>
 
+                        <td>电话:</td>
+                        <td><input id="phone" name="phone" class="easyui-numberbox"/></td>
+
+                        <td>邮箱:</td>
+                        <td><input id="email" name="email" class="easyui-textbox" style="width:200px;"/></td>
+
+                        <td style="margin-left: 100px">住址:</td>
+                        <td><input id="address" name="address" class="easyui-textbox" style="width:400px;"/></td>
                         <td><input id="id" name="id" class="easyui-textbox"></td>
 
                         <td><input id="mode"  name="mode" class="easyui-textbox"></td>
@@ -85,10 +84,10 @@
                 columns:[[
                     {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
                     {field:'name',title:'姓名',width:100,align:'center'},
+                    {field:'username',title:'登陆名',width:100,align:'center'},
                     {field:'sex_text',title:'性别',width:100,align:'center'},
                     {field:'phone',title:'电话',width:80,align:'center'},
                     {field:'email',title:'邮箱',width:80,align:'center'},
-                    {field:'qq',title:'QQ',width:80,align:'center'},
                     {field:'address',title:'住址',width:120,align:'center'},
                     {field:'role_id',title:'角色ID',width:80,align:'center',hidden:'true'},
                     {field:'role',title:'角色',width:80,align:'center'},

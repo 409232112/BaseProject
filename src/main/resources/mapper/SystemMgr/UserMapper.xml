@@ -6,15 +6,16 @@
 <mapper namespace="com.wyc.systemmgr.dao.UserDao">
     <insert id="insert"  parameterType="com.wyc.systemmgr.entity.User">
         insert into sys_user
-            (id,name,sex,phone,email,qq,address,role_id,department_id,created_time)
+            (id,name,username,sex,phone,email,qq,address,role_id,department_id,created_time)
         values
-            (#{id},#{name},#{sex},#{phone},#{email},#{qq},#{address},#{role_id},#{department_id},now())
+            (#{id},#{name},#{username},#{sex},#{phone},#{email},#{qq},#{address},#{role_id},#{department_id},now())
     </insert>
 
     <update id="update" parameterType="com.wyc.systemmgr.entity.User">
         update sys_user
         <set>
             <if test="name != null">name=#{name},</if>
+            <if test="username != null">username=#{username},</if>
             <if test="sex != null">sex=#{sex},</if>
             <if test="phone != null">phone=#{phone},</if>
             <if test="email != null">email=#{email},</if>
@@ -35,7 +36,7 @@
     <select id="find" resultType="java.util.HashMap">
         select * from  (
             select
-                a.id,a.name,a.sex,case a.sex when "1" then "男" when "2" then "女" end sex_text,a.phone,a.email,a.qq,a.address,
+                a.id,a.name,a.username,a.sex,case a.sex when "1" then "男" when "2" then "女" end sex_text,a.phone,a.email,a.qq,a.address,
                 a.role_id,
                 b.name role,
                 a.department_id,
@@ -58,6 +59,25 @@
     </select>
 
 
-
+    <select id="findUserByUsername" resultType="java.util.HashMap">
+        select * from  (
+            select
+                a.id,
+                a.name,
+                a.username,
+                a.password,
+                a.role_id,
+                b.name role,
+                a.department_id,
+                c.name department
+            from
+                sys_user a
+            left join sys_role b
+                on a.role_id = b.id
+            left join sys_department c
+                on a.department_id = c.id
+            ) a
+        where username = #{username}
+    </select>
 
 </mapper>
