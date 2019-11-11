@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <head id="Head1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>后台管理系统</title>
@@ -16,8 +16,15 @@
 <body class="easyui-layout" style="overflow-y: hidden"  scroll="no">
 
 <!--头部-->
+
     <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
-        <span style="float:right; padding-right:20px;" class="head">欢迎 admin <a href="#" id="editpass">修改密码</a> <a  id="loginOut">安全退出</a></span>
+        <span style="float:right; padding-right:50px;" class="head">
+              用户：【<span th:text="${session.user.name}"/>】
+              部门：【<span th:text="${session.user.department}"/>】
+              角色：【<span th:text="${session.user.role}"/>】
+            <a id="changePwd">修改密码</a>
+            <a id="logout">安全退出</a>
+        </span>
         <span style="padding-left:10px; font-size: 16px; ">
             <img src="images/logo.gif" width="20" height="20" align="absmiddle" /> 后台管理平台
         </span>
