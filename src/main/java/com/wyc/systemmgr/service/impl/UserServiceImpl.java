@@ -9,6 +9,7 @@ import com.wyc.base.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements IUserService{
         param.put("beanName",User.class.getCanonicalName());
         if ("insert".equals(mode)){
             param.put("id", StringUtil.getUUID());
+            //默认密码88888888
+            String password = DigestUtils.md5DigestAsHex("88888888".getBytes());
+            param.put("password",password);
             User user = (User) BeanUtil.convertToBean(param);
             userDao.insert(user);
         }else if("update".equals(mode)){

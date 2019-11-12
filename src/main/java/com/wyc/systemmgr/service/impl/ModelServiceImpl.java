@@ -9,6 +9,7 @@ import com.wyc.systemmgr.entity.Model;
 import com.wyc.systemmgr.service.IModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -55,5 +56,17 @@ public class ModelServiceImpl implements IModelService {
     public List<Map> findForMenu(){
         List<Map> datas = mdeolDao.find(null);
         return DataConvertUtil.convertResultToTreeData(datas);
+    }
+    @Override
+    public List<Map> findByUserId(String userId){
+        List<Map> datas = mdeolDao.findByUserId(userId);
+        return DataConvertUtil.convertResultToTreeData(datas);
+    }
+
+    @Transactional
+    @Override
+    public void saveUserModel(List<Map> datas){
+        mdeolDao.delUserModel(String.valueOf(datas.get(0).get("userId")));
+        mdeolDao.insertUserModel(datas);
     }
 }

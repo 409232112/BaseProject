@@ -15,6 +15,9 @@ public class DataConvertUtil {
     public static List<Map> convertResultToTreeData(List<Map> datas){
         List<Map> rootNodes = new ArrayList<>();
         for(int i=0;i<datas.size();i++){
+            if(datas.get(i).containsKey("checked")){
+                datas.get(i).put("checked",Boolean.valueOf(datas.get(i).get("checked").toString()));
+            }
             String parent_id = datas.get(i).get("parent_id").toString();
             if(parent_id.equals("0")){
                 rootNodes.add(datas.get(i));
@@ -23,7 +26,6 @@ public class DataConvertUtil {
         for(int i=0;i<rootNodes.size();i++){
             getChildrenList(datas,rootNodes.get(i));
         }
-
         return rootNodes;
     }
 

@@ -6,9 +6,9 @@
 <mapper namespace="com.wyc.systemmgr.dao.UserDao">
     <insert id="insert"  parameterType="com.wyc.systemmgr.entity.User">
         insert into sys_user
-            (id,name,username,sex,phone,email,qq,address,role_id,department_id,created_time)
+            (id,name,username,password,sex,phone,email,qq,address,role_id,department_id,created_time)
         values
-            (#{id},#{name},#{username},#{sex},#{phone},#{email},#{qq},#{address},#{role_id},#{department_id},now())
+            (#{id},#{name},#{username},#{password},#{sex},#{phone},#{email},#{qq},#{address},#{role_id},#{department_id},now())
     </insert>
 
     <update id="update" parameterType="com.wyc.systemmgr.entity.User">

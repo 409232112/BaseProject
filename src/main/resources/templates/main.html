@@ -17,17 +17,19 @@
 
 <!--头部-->
 
-    <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
-        <span style="float:right; padding-right:50px;" class="head">
-              用户：【<span th:text="${session.user.name}"/>】
-              部门：【<span th:text="${session.user.department}"/>】
-              角色：【<span th:text="${session.user.role}"/>】
-            <a id="changePwd">修改密码</a>
-            <a id="logout">安全退出</a>
+    <div region="north" split="true" border="false" style="overflow: hidden; height: 50px;background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;line-height: 20px;color: #fff;font-weight:bold">
+
+         <span style="float:left;padding-left:10px;margin-top: 10px; font-size: 18px; ">
+            <img src="images/logo.png" width="25" height="25" align="absmiddle" /> &nbsp;&nbsp;后台基础管理平台V1.0
         </span>
-        <span style="padding-left:10px; font-size: 16px; ">
-            <img src="images/logo.gif" width="20" height="20" align="absmiddle" /> 后台管理平台
+        <span style="float:right; padding-right:20px;padding-top: 15px" class="head">
+              用户：<span style="color:#dc6b00" th:text="${session.user.name}"/>&nbsp;&nbsp;
+              部门：<span style="color:#dc6b00" th:text="${session.user.department}"/>&nbsp;&nbsp;
+              角色：<span style="color:#dc6b00" th:text="${session.user.role}"/>&nbsp;&nbsp;
+            <a href="#" id="changePwd">修改密码</a>
+            <a href="#" id="logout">安全退出</a>
         </span>
+
     </div>
 
 

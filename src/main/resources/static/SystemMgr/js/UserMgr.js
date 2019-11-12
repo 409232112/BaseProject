@@ -112,7 +112,6 @@ function del(){
                         grid.reloadGrid("user_grid")
                         form.resetForm("user_form")
                     }else{
-                        msgShow('系统提示', result.message, 'error');
                         message.error(result.message)
                     }
                 });
@@ -150,7 +149,7 @@ function showRoleWindow(){
         $("#role_grid_div").show();
         $('#window').window('open');
 
-        $("#role_grid").datagrid({
+        $("#user_grid").datagrid({
             onBeforeLoad: function () {
                 $($("#role_grid").datagrid("getPager")).pagination({
                     layout: ['prev', 'manual', 'next']

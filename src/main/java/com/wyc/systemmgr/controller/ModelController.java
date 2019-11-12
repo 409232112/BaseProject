@@ -52,4 +52,18 @@ public class ModelController {
         return menuList;
     }
 
+    @GetMapping("/findByUserId/{userId}")
+    public List<Map> findByUserId(@PathVariable("userId") String userId){
+        List<Map> menuList = modelService.findByUserId(userId);
+        return menuList;
+    }
+
+    @PostMapping("/saveUserModel")
+    public String saveUserModel(@RequestBody List<Map> datas) throws BaseException {
+        if(datas.size()>0){
+            modelService.saveUserModel(datas);
+        }
+        return CommonUtility.constructResultJson("0","操作成功！");
+    }
+
 }

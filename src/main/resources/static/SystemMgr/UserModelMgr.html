@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <link rel="stylesheet" type="text/css" href="../css/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icon.css" />
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src='../js/core.js'> </script>
+    <script type="text/javascript" src="js/UserModelMgr.js"></script>
+</head>
+<body>
+
+    <div class="easyui-layout" fit="true">
+
+        <div data-options="region:'west',border:false,split:true"  style="width: 800px" >
+            <div class="easyui-layout" fit="true" >
+                <div data-options="region:'north',title:'用户信息查询',split:true" style="height:100px">
+
+                    <div class="panel-header">
+                        <div id="toolbar" >
+                            <a id="btn_query" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+                            <a id="btn_reset" class="easyui-linkbutton" iconCls="icon-undo" plain="true">清空表单</a>
+                            <a id="btn_refresh" class="easyui-linkbutton" iconCls="icon-reload" plain="true">刷新</a>
+                        </div>
+                    </div>
+
+                    <form id="user_form">
+                        <table style="margin-left: 20px;width: 90%; border-spacing:0px 10px;" >
+                            <tr>
+                                <td>姓名:</td>
+                                <td><input id="name" name="name"  class="easyui-textbox"/></td>
+
+                                <td>角色:</td>
+                                <td><input id="role" name="role" class="easyui-textbox"/></td>
+
+                                <td>部门:</td>
+                                <td><input id="department" name="department" class="easyui-textbox"/></td>
+
+                            </tr>
+                        </table>
+                    </form>
+
+                </div>
+
+                <div data-options="region:'center',title:'用户信息列表',split:true,border:false">
+                    <table id="user_grid"   data-options="
+                        fit:true,
+                        singleSelect :true,
+                        fitColumns : true,
+                        striped : true,
+                        border : false,
+                        method : 'post',
+                        url : 'user/find',
+                        pagination:true,
+                        pageSize : 20,
+                        queryParams : {},
+                        rownumbers : true,
+                        pageList:[20,50,100],
+                        columns:[[
+                            {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
+                            {field:'name',title:'姓名',width:100,align:'center'},
+                            {field:'role_id',title:'角色ID',width:80,align:'center',hidden:'true'},
+                            {field:'role',title:'角色',width:80,align:'center'},
+                            {field:'department_id',title:'部门ID',width:80,align:'center',hidden:'true'},
+                            {field:'department',title:'部门',width:80,align:'center'}
+                        ]]
+                    ">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div data-options="region:'center',split:true" >
+            <div class="panel-header">
+                <div>
+                    <a id="btn_save" class="easyui-linkbutton" iconCls="icon-save" plain="true">保存</a>
+                </div>
+            </div>
+            <div class="easyui-layout" fit="true">
+                <div data-options="region:'center',title:'模块信息树',split:true,border:false" >
+                    <table id="model_tree" class="easyui-tree" data-options="
+                        method: 'get',
+                        idField:'id',
+                        checkbox: true,
+                        treeField:'text',
+                        fit:true,
+                        border : false,
+                        animate:true,
+                        fitColumns : true,
+                        columns:[[
+                            {title:'ID',field:'id',width:80,align:'center',hidden:'true'},
+                            {title:'模块名称',field:'text'},
+                            {title:'模块路径',field:'url',width:100,align:'center'},
+                            {title:'图标',field:'iconCls',width:80,align:'center'},
+                            {title:'级别',field:'level',width:80,align:'center',hidden:'true'},
+                            {title:'父级ID',field:'parent_id',width:80,align:'center',hidden:'true'},
+                            {title:'序号',field:'seq',width:60,align:'center'},
+                            {title:'备注',field:'comments',width:100,align:'center'}
+                        ]]
+                    ">
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

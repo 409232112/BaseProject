@@ -7,4 +7,8 @@ import java.util.Map;
 
 public interface IModelService extends IBaseService {
     List<Map> findForMenu();
+
+    List<Map> findByUserId(String userId);
+
+    void saveUserModel(List<Map> datas);
 }
