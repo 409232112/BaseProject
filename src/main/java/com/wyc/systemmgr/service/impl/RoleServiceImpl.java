@@ -4,6 +4,7 @@ import com.wyc.base.utils.BeanUtil;
 import com.wyc.base.utils.StringUtil;
 import com.wyc.exception.BaseException;
 
+import com.wyc.shiro.CurrentUserHelper;
 import com.wyc.systemmgr.dao.ModelDao;
 import com.wyc.systemmgr.dao.RoleDao;
 import com.wyc.systemmgr.entity.Role;
@@ -31,12 +32,13 @@ public class RoleServiceImpl implements IRoleService{
     public void save(Map<String, Object> param) throws BaseException {
         String mode = String.valueOf(param.get("mode"));
         param.put("beanName",Role.class.getCanonicalName());
+        Role role = (Role) BeanUtil.convertToBean(param);
         if ("insert".equals(mode)){
-            param.put("id", StringUtil.getUUID());
-            Role role = (Role) BeanUtil.convertToBean(param);
+            role.setId(StringUtil.getUUID());
+            role.setCreated_user_id(CurrentUserHelper.getId());
             roleDao.insert(role);
         }else if("update".equals(mode)){
-            Role role = (Role) BeanUtil.convertToBean(param);
+            role.setUpdate_user_id(CurrentUserHelper.getId());
             roleDao.update(role);
         }
     }

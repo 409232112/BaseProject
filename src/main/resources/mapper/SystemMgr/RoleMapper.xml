@@ -6,9 +6,9 @@
 <mapper namespace="com.wyc.systemmgr.dao.RoleDao">
     <insert id="insert"  parameterType="com.wyc.systemmgr.entity.Role">
         insert into sys_role
-            (id,name,seq,comments,created_time)
+            (id,name,seq,comments,created_time,created_user_id)
         values
-            (#{id},#{name},#{seq},#{comments},now())
+            (#{id},#{name},#{seq},#{comments},now(),#{created_user_id})
     </insert>
 
     <update id="update" parameterType="com.wyc.systemmgr.entity.Role">
@@ -17,7 +17,8 @@
             <if test="name != null">name=#{name},</if>
             <if test="seq != null">seq=#{seq},</if>
             <if test="comments != null">comments=#{comments},</if>
-            update_time = now()
+            update_time = now(),
+            update_user_id = #{update_user_id}
         </set>
         where id=#{id}
     </update>
@@ -29,9 +30,11 @@
 
     <select id="find" resultType="java.util.HashMap">
         select
-            id,name,seq,comments,created_time,update_time
+            id,name,seq,comments,created_time,created_user_id,update_time,update_user_id,
+            (select name from sys_user where id = a.created_user_id) created_user_name,
+            (select name from sys_user where id = a.update_user_id) update_user_name
         from
-            sys_role
+            sys_role a
         where 1=1
             <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
         order by seq asc

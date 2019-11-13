@@ -1,6 +1,7 @@
 package com.wyc.systemmgr.service.impl;
 
 import com.wyc.base.utils.StringUtil;
+import com.wyc.shiro.CurrentUserHelper;
 import com.wyc.systemmgr.dao.ModelDao;
 import com.wyc.systemmgr.dao.UserDao;
 import com.wyc.systemmgr.entity.User;
@@ -32,15 +33,16 @@ public class UserServiceImpl implements IUserService{
     public void save(Map<String, Object> param) throws BaseException{
         String mode = String.valueOf(param.get("mode"));
         param.put("beanName",User.class.getCanonicalName());
+        User user = (User) BeanUtil.convertToBean(param);
         if ("insert".equals(mode)){
-            param.put("id", StringUtil.getUUID());
+            user.setId(StringUtil.getUUID());
             //默认密码88888888
             String password = DigestUtils.md5DigestAsHex("88888888".getBytes());
-            param.put("password",password);
-            User user = (User) BeanUtil.convertToBean(param);
+            user.setPassword(password);
+            user.setCreated_user_id(CurrentUserHelper.getId());
             userDao.insert(user);
         }else if("update".equals(mode)){
-            User user = (User) BeanUtil.convertToBean(param);
+            user.setUpdate_user_id(CurrentUserHelper.getId());
             try{
                 userDao.update(user);
             }catch (DuplicateKeyException e){

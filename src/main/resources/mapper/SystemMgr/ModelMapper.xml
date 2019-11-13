@@ -20,7 +20,8 @@
             <if test="iconCls != null">iconCls=#{iconCls},</if>
             <if test="seq != null">seq=#{seq},</if>
             <if test="comments != null">comments=#{comments},</if>
-            update_time = now()
+            update_time = now(),
+            update_user_id = #{update_user_id}
         </set>
 
         where id=#{id}
@@ -36,13 +37,15 @@
 
     <select id="find" resultType="java.util.HashMap">
         select
-            id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time,update_time,update_user_id
+            id,text,url,iconCls,level,parent_id,seq,comments,created_user_id,created_time,update_time,update_user_id,
+            (select name from sys_user where id = a.created_user_id) created_user_name,
+            (select name from sys_user where id = a.update_user_id) update_user_name
         from
-            sys_model
+            sys_model a
         where 1=1
             <if test="text != null and text !=''" > and text like "%"#{text}"%"</if>
             <if test="url != null and url !=''"> and url like "%"#{url}"%"</if>
-        order by level,seq asc
+        order by level,seq
     </select>
 
     <select id="findByUserId" resultType="java.util.HashMap">

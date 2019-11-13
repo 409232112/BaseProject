@@ -4,6 +4,7 @@ import com.wyc.base.utils.BeanUtil;
 import com.wyc.base.utils.DataConvertUtil;
 import com.wyc.base.utils.StringUtil;
 import com.wyc.exception.BaseException;
+import com.wyc.shiro.CurrentUserHelper;
 import com.wyc.systemmgr.dao.DepartmentDao;
 import com.wyc.systemmgr.dao.ModelDao;
 import com.wyc.systemmgr.entity.Department;
@@ -32,13 +33,13 @@ public class DepartmentServiceImpl implements IDepartmentService {
             param.put("seq","1");
         }
         param.put("beanName",Department.class.getCanonicalName());
+        Department department = (Department) BeanUtil.convertToBean(param);
         if ("insert".equals(mode)){
-            param.put("id", StringUtil.getUUID());
-            Department department = (Department) BeanUtil.convertToBean(param);
+            department.setId(StringUtil.getUUID());
+            department.setCreated_user_id(CurrentUserHelper.getId());
             departmentDao.insert(department);
         }else if("update".equals(mode)){
-            param.put("id",param.get("id").toString());
-            Department department = (Department) BeanUtil.convertToBean(param);
+            department.setUpdate_user_id(CurrentUserHelper.getId());
             departmentDao.update(department);
         }
     }

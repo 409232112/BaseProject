@@ -27,13 +27,13 @@ public class ModelServiceImpl implements IModelService {
             param.put("seq","1");
         }
         param.put("beanName",Model.class.getCanonicalName());
+        Model model = (Model) BeanUtil.convertToBean(param);
         if ("insert".equals(mode)){
-            param.put("id", StringUtil.getUUID());
-            Model model = (Model) BeanUtil.convertToBean(param);
+
+            model.setCreated_user_id(CurrentUserHelper.getId());
             mdeolDao.insert(model);
         }else if("update".equals(mode)){
-            param.put("id",param.get("id").toString());
-            Model model = (Model) BeanUtil.convertToBean(param);
+            model.setUpdate_user_id(CurrentUserHelper.getId());
             mdeolDao.update(model);
         }
     }

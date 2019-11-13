@@ -65,16 +65,20 @@
                 pageList:[20,50,100],
                 columns:[[
                     {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
-                    {field:'name',title:'姓名',width:100,align:'center'},
-                    {field:'username',title:'登录名',width:100,align:'center'},
-                    {field:'sex_text',title:'性别',width:100,align:'center'},
+                    {field:'name',title:'姓名',width:90,align:'center'},
+                    {field:'username',title:'登录名',width:60,align:'center'},
+                    {field:'sex_text',title:'性别',width:40,align:'center'},
                     {field:'phone',title:'电话',width:80,align:'center'},
                     {field:'email',title:'邮箱',width:80,align:'center'},
-                    {field:'address',title:'住址',width:120,align:'center'},
+                    {field:'address',title:'住址',width:150,align:'center'},
                     {field:'role_id',title:'角色ID',width:80,align:'center',hidden:'true'},
                     {field:'role',title:'角色',width:80,align:'center'},
                     {field:'department_id',title:'部门ID',width:80,align:'center',hidden:'true'},
-                    {field:'department',title:'部门',width:80,align:'center'}
+                    {field:'department',title:'部门',width:80,align:'center'},
+                    {field:'created_user_name',title:'创建人',width:60,align:'center'},
+                    {field:'created_time',title:'创建时间',width:100,align:'center',formatter:dateFormatter.formatDatetime},
+                    {field:'update_user_name',title:'更新人',width:60,align:'center'},
+                    {field:'update_time',title:'更新时间',width:100,align:'center',formatter:dateFormatter.formatDatetime}
                 ]]
             ">
 

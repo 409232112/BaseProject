@@ -16,6 +16,8 @@ public class User {
     private String address;
     private String role_id;
     private String department_id;
+    private String created_user_id;
+    private String update_user_id;
 
     public String getId() {
         return id;
@@ -103,6 +105,22 @@ public class User {
 
     public void setDepartment_id(String department_id) {
         this.department_id = department_id;
+    }
+
+    public String getCreated_user_id() {
+        return created_user_id;
+    }
+
+    public void setCreated_user_id(String created_user_id) {
+        this.created_user_id = created_user_id;
+    }
+
+    public String getUpdate_user_id() {
+        return update_user_id;
+    }
+
+    public void setUpdate_user_id(String update_user_id) {
+        this.update_user_id = update_user_id;
     }
 
     @Override
