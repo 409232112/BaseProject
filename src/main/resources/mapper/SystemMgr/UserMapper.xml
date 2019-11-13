@@ -56,6 +56,10 @@
             <if test="email != null and email !=''"> and email like "%"#{email}"%"</if>
             <if test="department != null and department !=''"> and department like "%"#{department}"%"</if>
             <if test="role != null and role !=''"> and role like "%"#{department}"%"</if>
+            <if test="roleId != null and roleId !=''"> and role_id = #{roleId}</if>
+            <if test="departmentId != null and departmentId !=''">
+                and department_id in (select id from sys_department where FIND_IN_SET(id,getDeptChildList(#{departmentId})) order by level,seq)
+            </if>
         order by created_time
     </select>
 
