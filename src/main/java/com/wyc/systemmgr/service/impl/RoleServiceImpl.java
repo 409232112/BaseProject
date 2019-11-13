@@ -4,11 +4,13 @@ import com.wyc.base.utils.BeanUtil;
 import com.wyc.base.utils.StringUtil;
 import com.wyc.exception.BaseException;
 
+import com.wyc.systemmgr.dao.ModelDao;
 import com.wyc.systemmgr.dao.RoleDao;
 import com.wyc.systemmgr.entity.Role;
 import com.wyc.systemmgr.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +23,9 @@ public class RoleServiceImpl implements IRoleService{
 
     @Autowired
     private RoleDao roleDao;
+
+    @Autowired
+    private ModelDao modelDao;
 
     @Override
     public void save(Map<String, Object> param) throws BaseException {
@@ -37,7 +42,9 @@ public class RoleServiceImpl implements IRoleService{
     }
 
     @Override
+    @Transactional
     public void delete(String id){
+        modelDao.delRoleModel(id);
         roleDao.delete(id);
     }
 

@@ -1,6 +1,7 @@
 package com.wyc.systemmgr.service.impl;
 
 import com.wyc.base.utils.StringUtil;
+import com.wyc.systemmgr.dao.ModelDao;
 import com.wyc.systemmgr.dao.UserDao;
 import com.wyc.systemmgr.entity.User;
 import com.wyc.exception.BaseException;
@@ -9,6 +10,7 @@ import com.wyc.base.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.List;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements IUserService{
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ModelDao modelDao;
 
     @Override
     public void save(Map<String, Object> param) throws BaseException{
@@ -46,7 +51,9 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
+    @Transactional
     public void delete(String id){
+        modelDao.delUserModel(id);
         userDao.delete(id);
     }
 
@@ -62,4 +69,8 @@ public class UserServiceImpl implements IUserService{
         return user;
     }
 
+    @Override
+    public void changePassword(Map data){
+        userDao.changePassword(data);
+    }
 }

@@ -54,4 +54,10 @@ public class UserController {
         Pagination result = PaginationUtil.getPageList(userList);
         return result;
     }
+
+    @PostMapping("/changePassword")
+    public String changePassword(@RequestBody Map data) throws BaseException {
+        userService.changePassword(data);
+        return CommonUtility.constructResultJson("0","操作成功！");
+    }
 }

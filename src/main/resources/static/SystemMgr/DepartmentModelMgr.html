@@ -8,7 +8,7 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src='../js/core.js'> </script>
-    <script type="text/javascript" src="js/UserModelMgr.js"></script>
+    <script type="text/javascript" src="js/DepartmentModelMgr.js"></script>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
 
         <div data-options="region:'west',border:false,split:true"  style="width: 800px" >
             <div class="easyui-layout" fit="true" >
-                <div data-options="region:'north',title:'用户信息查询',split:true" style="height:100px">
+                <div data-options="region:'north',title:'部门信息查询',split:true" style="height:100px">
 
                     <div class="panel-header">
                         <div id="toolbar" >
@@ -26,47 +26,36 @@
                         </div>
                     </div>
 
-                    <form id="user_form">
+                    <form id="department_form">
                         <table style="margin-left: 20px;width: 90%; border-spacing:0px 10px;" >
                             <tr>
-                                <td>姓名:</td>
+                                <td>部门名称:</td>
                                 <td><input id="name" name="name"  class="easyui-textbox"/></td>
 
-                                <td>角色:</td>
-                                <td><input id="role" name="role" class="easyui-textbox"/></td>
-
-                                <td>部门:</td>
-                                <td><input id="department" name="department" class="easyui-textbox"/></td>
-
+                                <td>部门编码:</td>
+                                <td><input id="code" name="code" class="easyui-textbox" />  </td>
                             </tr>
                         </table>
                     </form>
 
                 </div>
 
-                <div data-options="region:'center',title:'用户信息列表',split:true,border:false">
-                    <table id="user_grid"   data-options="
+                <div data-options="region:'center',title:'部门信息树',split:true,border:false">
+                    <table id="department_gridtree"  class="easyui-treegrid"  data-options="
+                        boder : false,
+                        url:'department/findTree',
+                        method: 'post',
+                        idField:'id',
+                        treeField:'name',
                         fit:true,
-                        singleSelect :true,
+                        animate:true,
                         fitColumns : true,
-                        striped : true,
-                        border : false,
-                        method : 'post',
-                        url : 'user/find',
-                        pagination:true,
-                        pageSize : 20,
-                        queryParams : {},
-                        rownumbers : true,
-                        pageList:[20,50,100],
                         columns:[[
-                            {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
-                            {field:'name',title:'姓名',width:100,align:'center'},
-                            {field:'role_id',title:'角色ID',width:80,align:'center',hidden:'true'},
-                            {field:'role',title:'角色',width:80,align:'center'},
-                            {field:'department_id',title:'部门ID',width:80,align:'center',hidden:'true'},
-                            {field:'department',title:'部门',width:80,align:'center'}
+                            {title:'ID',field:'id',width:80,align:'center',hidden:'true'},
+                            {title:'部门名称',field:'name'},
+                            {title:'部门编码',field:'code',width:100,align:'center'},
                         ]]
-                    ">
+                        ">
 
                     </table>
                 </div>
@@ -86,7 +75,6 @@
                         idField:'id',
                         checkbox: true,
                         treeField:'text',
-                        cascadeCheck : false,
                         fit:true,
                         border : false,
                         animate:true,

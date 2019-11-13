@@ -57,8 +57,10 @@
             if(b.user_id is null,'false','true') checked
         FROM
             sys_model a
-        left join sys_user_model b
-            on b.model_id = a.id
+        left join
+            sys_user_model b
+        on
+            b.model_id = a.id
             and b.user_id =#{userId}
         order by level,seq
     </select>
@@ -75,4 +77,111 @@
     <delete id="delUserModel">
         delete from sys_user_model where user_id=#{userId}
     </delete>
+
+
+    <select id="findByRoleId" resultType="java.util.HashMap">
+        SELECT
+            a.id,
+            a.text,
+            a.url,
+            a.iconCls,
+            a. LEVEL,
+            a.parent_id,
+            a.seq,
+            if(b.role_id is null,'false','true') checked
+        FROM
+            sys_model a
+        left join
+            sys_role_model b
+        on
+            b.model_id = a.id
+            and b.role_id =#{roleId}
+        order by level,seq
+    </select>
+
+    <insert id="insertRoleModel" parameterType="java.util.List">
+        insert into sys_role_model
+        (role_id,model_id)
+        values
+        <foreach collection="datas" item="data" separator=",">
+            (#{data.roleId},#{data.modelId})
+        </foreach>
+    </insert>
+
+    <delete id="delRoleModel">
+        delete from sys_role_model where role_id=#{roleId}
+    </delete>
+
+
+    <select id="findByDepartmentId" resultType="java.util.HashMap">
+        SELECT
+            a.id,
+            a.text,
+            a.url,
+            a.iconCls,
+            a. LEVEL,
+            a.parent_id,
+            a.seq,
+            if(b.department_id is null,'false','true') checked
+        FROM
+            sys_model a
+        left join
+            sys_department_model b
+        on
+            b.model_id = a.id
+            and b.department_id =#{departmentId}
+        order by level,seq
+    </select>
+
+    <insert id="insertDepartmentModel" parameterType="java.util.List">
+        insert into sys_department_model
+        (department_id,model_id)
+        values
+        <foreach collection="datas" item="data" separator=",">
+            (#{data.departmentId},#{data.modelId})
+        </foreach>
+    </insert>
+
+    <delete id="delDepartmentModel">
+        delete from sys_department_model where department_id=#{departmentId}
+    </delete>
+
+    <select id="findForMenu" resultType="java.util.HashMap">
+        SELECT DISTINCT
+        id,text,url,iconCls,LEVEL,parent_id,seq
+        FROM
+        (
+            SELECT
+                a.*
+            FROM
+                sys_model a,
+                sys_user_model b
+            WHERE
+                b.model_id = a.id
+                AND b.user_id = #{userId}
+        UNION ALL
+            SELECT
+                a.*
+            FROM
+                sys_model a,
+                sys_role_model b,
+                sys_user c
+            WHERE
+                b.model_id = a.id
+                AND c.role_id = b.role_id
+                AND c.id = #{userId}
+        UNION ALL
+            SELECT
+                a.*
+            FROM
+                sys_model a,
+                sys_department_model b,
+                sys_user c
+            WHERE
+                b.model_id = a.id
+                AND c.department_id = b.department_id
+                AND c.id = #{userId}
+        ) a
+        ORDER BY LEVEL,seq
+    </select>
 </mapper>

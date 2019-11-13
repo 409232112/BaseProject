@@ -180,6 +180,10 @@ var Grid = function() {
     }
 }
 
+var Tree = function(){
+
+}
+
 var TreeGrid = function() {
     this.reloadWithData = function (grid_id,data) {
         $('#'+grid_id).treegrid('load',data);
@@ -202,14 +206,41 @@ var Dialog = function () {
     }
 }
 
+var Win = function () {
+    this.open =function (winId) {
+        $('#'+winId).window('open');
+    }
+    this.close =function (winId) {
+        $('#'+winId).window('close');
+    }
+}
+
+var User = function (){
+    this.getId = function(){
+        return localStorage.id;
+    }
+    this.getName = function(){
+        return localStorage.name;
+    }
+    this.getRole = function(){
+        return localStorage.role;
+    }
+    this.getDept = function(){
+        return localStorage.dept;
+    }
+}
+
+var message = new Msessage();
 var field = new Field();
 var form = new Form();
 var button = new Button();
 var grid = new Grid();
 var editGrid = new EditGrid();
+var tree = new Tree();
 var treeGrid = new TreeGrid();
 var dialog = new Dialog();
-var message = new Msessage();
+var win = new Win()
+var currentUser = new User();
 
 
 

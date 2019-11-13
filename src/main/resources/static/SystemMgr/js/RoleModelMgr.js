@@ -21,23 +21,11 @@
         }
     });
 
-    $('#role').textbox('textbox').keydown(function (e) {
-        if (e.keyCode == 13) {
-            query();
-        }
-    });
-    $('#department').textbox('textbox').keydown(function (e) {
-        if (e.keyCode == 13) {
-            query();
-        }
-    });
-
-
     $("#btn_save").click(function(){
-        save()
+        save();
     });
 
-    $("#user_grid").datagrid({
+    $("#role_grid").datagrid({
         onBeforeLoad: function () {
             $($(this).datagrid("getPager")).pagination({
                 layout: ['prev', 'manual', 'next']
@@ -52,56 +40,51 @@
             $("#model_tree").tree("options").cascadeCheck=false;
         },
         onLoadSuccess:function(node,data){
-             $("#model_tree").tree("options").cascadeCheck=true;
+            $("#model_tree").tree("options").cascadeCheck=true;
         }
     })
-
 })
 
 
 function query(){
-    var data =  form.getFormValues("user_form");
-    grid.reloadWithData("user_grid",data)
+    var data =  form.getFormValues("role_form");
+    grid.reloadWithData("role_grid",data)
 }
 
 function reset(){
-    form.resetForm("user_form")
+    form.resetForm("role_form")
 }
+
 
 function refresh(){
     dialog.refresh()
 }
 
 function onClickRow(row){
-
-    $("#model_tree").tree("options").url="model/findByUserId/"+row.id;
+    $("#model_tree").tree("options").url="model/findByRoleId/"+row.id;
     $('#model_tree').tree('reload');
-
-
-;
 }
 
 function save(){
     var nodes = $('#model_tree').tree('getChecked', ['checked','indeterminate']);
     var datas=[]
-    var userId = grid.getCurrentSelectRowData("user_grid").id;
+    var roleId = grid.getCurrentSelectRowData("role_grid").id;
     for(var i = 0;i<nodes.length;i++){
         var data ={};
         data['modelId'] =nodes[i].id;
-        data['userId'] = userId;
+        data['roleId'] = roleId;
         datas.push(data);
     }
     if(datas.length == 0){
         var data ={};
         data['modelId'] =""
-        data['userId'] = userId;
+        data['roleId'] = roleId;
         datas.push(data);
     }
-
     $.ajax({
         type: "POST",
         contentType: "application/json;charset=UTF-8",
-        url: "model/saveUserModel",
+        url: "model/saveRoleModel",
         data: JSON.stringify(datas),
         success: function (result) {
             var result = eval('('+result+')');
@@ -118,4 +101,3 @@ function save(){
         }
     });
 }
-

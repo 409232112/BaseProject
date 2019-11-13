@@ -13,4 +13,5 @@ import java.util.Map;
 public interface UserDao extends BaseDao {
     Map findUserByUsername(String username);
 
+    void changePassword(Map data);
 }

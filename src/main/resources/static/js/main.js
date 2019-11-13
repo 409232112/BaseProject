@@ -3,8 +3,7 @@
     tabClose();
     tabCloseEven();
     initTopButton();
-    addIndexPage()
-
+    addIndexPage();
 })
 
 
@@ -30,12 +29,13 @@ function addIndexPage(){
 //初始化头部按钮
 function initTopButton() {
 
-    $('#pwdWindow').window('close');
-    $('#editpass').click(function() {
-        $('#pwdWindow').window('open');
+    win.close('pwdWindow')
+    $('#changePwd').click(function() {
+        win.open('pwdWindow')
+
     });
     $('#btnCancel').click(function(){
-        $('#pwdWindow').window('close');
+        win.close('pwdWindow')
     });
 
     $('#btnEp').click(function() {
@@ -234,28 +234,48 @@ function tabCloseEven()
 
 //修改密码
 function changePwd() {
-    var $newpass = $('#txtNewPass');
-    var $rePass = $('#txtRePass');
+    var newpass = $('#txtNewPass');
+    var rePass = $('#txtRePass');
 
-    if ($newpass.val() == '') {
-        msgShow('系统提示', '请输入密码！', 'warning');
+    if (newpass.val() == '') {
+        message.warning('请输入密码！');
         return false;
     }
-    if ($rePass.val() == '') {
-        msgShow('系统提示', '请在一次输入密码！', 'warning');
-        return false;
-    }
-
-    if ($newpass.val() != $rePass.val()) {
-        msgShow('系统提示', '两次密码不一至！请重新输入', 'warning');
+    if (rePass.val() == '') {
+        message.warning( '请在一次输入密码！');
         return false;
     }
 
-    $.post('/ajax/editpassword.ashx?newpass=' + $newpass.val(), function(msg) {
-        msgShow('系统提示', '恭喜，密码修改成功！您的新密码为：' + msg, 'info');
-        $newpass.val('');
-        $rePass.val('');
-        close();
-    })
+    if (newpass.val() != rePass.val()) {
+        message.warning( '两次密码不一至！请重新输入');
+        return false;
+    }
+    var data={}
+    data['password'] = $.md5(newpass.val());
+    data['userId'] = currentUser.getId();
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        url: "SystemMgr/user/changePassword",
+        data: JSON.stringify(data),
+        success: function (result) {
+            result = eval("("+result+")")
+            if(result.code == "0"){
+                message.info(result.message);
+            }else{
+                message.error(result.message);
+            }
+            $("#txtNewPass").val("");
+            $("#txtRePass").val("");
+            win.close("pwdWindow")
+
+
+        },
+
+        error:function (result) {
+            result = eval("("+result+")")
+            message.error(result.message);
+        }
+    });
 }
-

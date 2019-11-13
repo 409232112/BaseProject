@@ -14,58 +14,53 @@
         refresh()
     });
 
+
     //回车查询
     $('#name').textbox('textbox').keydown(function (e) {
         if (e.keyCode == 13) {
             query();
         }
     });
-
-    $('#role').textbox('textbox').keydown(function (e) {
+    $('#code').textbox('textbox').keydown(function (e) {
         if (e.keyCode == 13) {
             query();
         }
     });
-    $('#department').textbox('textbox').keydown(function (e) {
-        if (e.keyCode == 13) {
-            query();
-        }
-    });
-
 
     $("#btn_save").click(function(){
-        save()
+        save();
     });
 
-    $("#user_grid").datagrid({
-        onBeforeLoad: function () {
-            $($(this).datagrid("getPager")).pagination({
-                layout: ['prev', 'manual', 'next']
-            })
-        },
-        onClickRow:function(index,data){
-            onClickRow(data);
+    $("#department_gridtree").treegrid({
+        onClickRow:function(data){
+            if(data.hasOwnProperty("children")){
+                $("#model_tree").tree("loadData",{});
+                $("#btn_save").css('visibility','hidden');
+            }else{
+                $("#btn_save").css('visibility','visible');
+                onClickRow(data);
+            }
         }
     });
+
     $("#model_tree").tree({
         onBeforeLoad:function(node,param){
             $("#model_tree").tree("options").cascadeCheck=false;
         },
         onLoadSuccess:function(node,data){
-             $("#model_tree").tree("options").cascadeCheck=true;
+            $("#model_tree").tree("options").cascadeCheck=true;
         }
     })
-
 })
 
 
 function query(){
-    var data =  form.getFormValues("user_form");
-    grid.reloadWithData("user_grid",data)
+    var data =  form.getFormValues("department_form");
+    treeGrid.reloadWithData("department_gridtree",data)
 }
 
 function reset(){
-    form.resetForm("user_form")
+    form.resetForm("department_form")
 }
 
 function refresh(){
@@ -73,35 +68,30 @@ function refresh(){
 }
 
 function onClickRow(row){
-
-    $("#model_tree").tree("options").url="model/findByUserId/"+row.id;
+    $("#model_tree").tree("options").url="model/findByDepartmentId/"+row.id;
     $('#model_tree').tree('reload');
-
-
-;
 }
 
 function save(){
     var nodes = $('#model_tree').tree('getChecked', ['checked','indeterminate']);
     var datas=[]
-    var userId = grid.getCurrentSelectRowData("user_grid").id;
+    var departmentId = grid.getCurrentSelectRowData("department_gridtree").id;
     for(var i = 0;i<nodes.length;i++){
         var data ={};
         data['modelId'] =nodes[i].id;
-        data['userId'] = userId;
+        data['departmentId'] = departmentId;
         datas.push(data);
     }
     if(datas.length == 0){
         var data ={};
         data['modelId'] =""
-        data['userId'] = userId;
+        data['departmentId'] = departmentId;
         datas.push(data);
     }
-
     $.ajax({
         type: "POST",
         contentType: "application/json;charset=UTF-8",
-        url: "model/saveUserModel",
+        url: "model/saveDepartmentModel",
         data: JSON.stringify(datas),
         success: function (result) {
             var result = eval('('+result+')');
@@ -118,4 +108,5 @@ function save(){
         }
     });
 }
+
 

@@ -44,7 +44,11 @@ public class ModelController {
             return CommonUtility.constructResultJson("-1",e.getMessage());
         }
     }
-
+    @GetMapping("/find")
+    public List<Map> find() throws BaseException{
+        List<Map> menuList = modelService.find(null);
+        return menuList;
+    }
 
     @GetMapping("/findForMenu")
     public List<Map> findForMenu(){
@@ -52,10 +56,11 @@ public class ModelController {
         return menuList;
     }
 
+
     @GetMapping("/findByUserId/{userId}")
     public List<Map> findByUserId(@PathVariable("userId") String userId){
-        List<Map> menuList = modelService.findByUserId(userId);
-        return menuList;
+        List<Map> modelList = modelService.findByUserId(userId);
+        return modelList;
     }
 
     @PostMapping("/saveUserModel")
@@ -65,5 +70,34 @@ public class ModelController {
         }
         return CommonUtility.constructResultJson("0","操作成功！");
     }
+
+    @GetMapping("/findByRoleId/{roleId}")
+    public List<Map> findByRoleId(@PathVariable("roleId") String roleId){
+        List<Map> modelList = modelService.findByRoleId(roleId);
+        return modelList;
+    }
+
+    @PostMapping("/saveRoleModel")
+    public String saveRoleModel(@RequestBody List<Map> datas) throws BaseException {
+        if(datas.size()>0){
+            modelService.saveRoleModel(datas);
+        }
+        return CommonUtility.constructResultJson("0","操作成功！");
+    }
+
+    @GetMapping("/findByDepartmentId/{deptId}")
+    public List<Map> findByDepartmentId(@PathVariable("deptId") String deptId){
+        List<Map> modelList = modelService.findByDepartmentId(deptId);
+        return modelList;
+    }
+
+    @PostMapping("/saveDepartmentModel")
+    public String saveDepartmentModel(@RequestBody List<Map> datas) throws BaseException {
+        if(datas.size()>0){
+            modelService.saveDepartmentModel(datas);
+        }
+        return CommonUtility.constructResultJson("0","操作成功！");
+    }
+
 
 }

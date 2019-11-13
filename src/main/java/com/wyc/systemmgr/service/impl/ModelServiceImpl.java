@@ -4,6 +4,7 @@ import com.wyc.base.utils.BeanUtil;
 import com.wyc.base.utils.DataConvertUtil;
 import com.wyc.base.utils.StringUtil;
 import com.wyc.exception.BaseException;
+import com.wyc.shiro.CurrentUserHelper;
 import com.wyc.systemmgr.dao.ModelDao;
 import com.wyc.systemmgr.entity.Model;
 import com.wyc.systemmgr.service.IModelService;
@@ -49,12 +50,16 @@ public class ModelServiceImpl implements IModelService {
 
     @Override
     public List<Map> find(Map params){
-        return mdeolDao.find(params);
+        List<Map> datas  = mdeolDao.find(params);
+        return DataConvertUtil.convertResultToTreeData(datas);
+
     }
 
     @Override
     public List<Map> findForMenu(){
-        List<Map> datas = mdeolDao.find(null);
+        List<Map> datas = mdeolDao.findForMenu(CurrentUserHelper.getId());
+        System.out.println(datas);
+        System.out.println(DataConvertUtil.convertResultToTreeData(datas));
         return DataConvertUtil.convertResultToTreeData(datas);
     }
     @Override
@@ -69,4 +74,31 @@ public class ModelServiceImpl implements IModelService {
         mdeolDao.delUserModel(String.valueOf(datas.get(0).get("userId")));
         mdeolDao.insertUserModel(datas);
     }
+
+    @Override
+    public List<Map> findByRoleId(String roleId){
+        List<Map> datas = mdeolDao.findByRoleId(roleId);
+        return DataConvertUtil.convertResultToTreeData(datas);
+    }
+
+    @Transactional
+    @Override
+    public void saveRoleModel(List<Map> datas){
+        mdeolDao.delRoleModel(String.valueOf(datas.get(0).get("roleId")));
+        mdeolDao.insertRoleModel(datas);
+    }
+
+    @Override
+    public List<Map> findByDepartmentId(String departmentId){
+        List<Map> datas = mdeolDao.findByDepartmentId(departmentId);
+        return DataConvertUtil.convertResultToTreeData(datas);
+    }
+
+    @Transactional
+    @Override
+    public void saveDepartmentModel(List<Map> datas){
+        mdeolDao.delDepartmentModel(String.valueOf(datas.get(0).get("departmentId")));
+        mdeolDao.insertDepartmentModel(datas);
+    }
+
 }

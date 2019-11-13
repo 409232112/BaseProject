@@ -10,4 +10,5 @@ import java.util.Map;
  */
 public interface IUserService extends IBaseService {
     Map findUserByUsername(String username);
+    void changePassword(Map data);
 }

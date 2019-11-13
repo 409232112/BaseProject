@@ -20,4 +20,18 @@ public interface ModelDao extends BaseDao {
     void delUserModel(String userId);
 
     void insertUserModel(@Param("datas") List<Map> datas);
+
+    List<Map> findByRoleId(String roleId);
+
+    void delRoleModel(String roleId);
+
+    void insertRoleModel(@Param("datas") List<Map> datas);
+
+    List<Map> findByDepartmentId(String departmentId);
+
+    void delDepartmentModel(String departmentId);
+
+    void insertDepartmentModel(@Param("datas") List<Map> datas);
+
+    List<Map> findForMenu(String userId);
 }

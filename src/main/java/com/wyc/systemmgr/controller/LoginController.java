@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -61,6 +62,12 @@ public class LoginController {
                 retCode = "0";
                 session = SecurityUtils.getSubject().getSession();
                 session.setAttribute("user", SecurityUtils.getSubject().getPrincipal());
+                Map retData= new HashMap();
+                retData.put("id",CurrentUserHelper.getId());
+                retData.put("name",CurrentUserHelper.getName());
+                retData.put("role",CurrentUserHelper.getRole());
+                retData.put("dept",CurrentUserHelper.getDept());
+                return CommonUtility.constructResultJson(retCode,retMsg,retData);
             } else {
                 token.clear();
                 retMsg = "登录失败";

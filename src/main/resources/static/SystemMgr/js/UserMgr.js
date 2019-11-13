@@ -149,7 +149,7 @@ function showRoleWindow(){
         $("#role_grid_div").show();
         $('#window').window('open');
 
-        $("#user_grid").datagrid({
+        $("#role_grid").datagrid({
             onBeforeLoad: function () {
                 $($("#role_grid").datagrid("getPager")).pagination({
                     layout: ['prev', 'manual', 'next']
@@ -189,6 +189,11 @@ function showDeptWindow(){
 
 function chooseDept(){
     var data = grid.getCurrentSelectRowData("department_gridtree");
+    if(data.hasOwnProperty("children")){
+        message.warning("请选择底级部门！");
+        return
+    }
+
     field.setFieldValue("department_id",data.id)
     field.setFieldValue("department",data.name)
     $('#window').window('close');

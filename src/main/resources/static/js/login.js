@@ -1,5 +1,6 @@
 $(function(){
 
+    clearLocalStorage()
     $("#username").focus(function(){
         $("#username").attr("placeholder","");
     });
@@ -55,6 +56,10 @@ function login() {
                 result = eval("("+result+")")
                 alert(result.message);
                 if(result.code == "0"){
+                    localStorage.setItem("id", result.data.id);
+                    localStorage.setItem("name", result.data.name);
+                    localStorage.setItem("role", result.data.role);
+                    localStorage.setItem("dept", result.data.dept);
                     window.location.href="main";
                 }else{
                     $("#identifyCode").click();
@@ -86,5 +91,10 @@ function formValidate(){
         return false;
     }
     return true;
-
+}
+function clearLocalStorage(){
+    localStorage.removeItem("id");
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+    localStorage.removeItem("dept");
 }

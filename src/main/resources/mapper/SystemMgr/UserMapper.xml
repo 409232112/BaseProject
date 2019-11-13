@@ -55,6 +55,7 @@
             <if test="phone != null and phone !=''"> and phone like "%"#{phone}"%"</if>
             <if test="email != null and email !=''"> and email like "%"#{email}"%"</if>
             <if test="department != null and department !=''"> and department like "%"#{department}"%"</if>
+            <if test="role != null and role !=''"> and role like "%"#{department}"%"</if>
         order by created_time
     </select>
 
@@ -79,5 +80,9 @@
             ) a
         where username = #{username}
     </select>
+
+    <update id="changePassword" parameterType="java.util.HashMap">
+        update sys_user set password = #{password} where id = #{userId}
+    </update>
 
 </mapper>
