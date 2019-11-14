@@ -2,6 +2,8 @@ package com.wyc.systemmgr.controller;
 
 import com.wyc.base.utils.CommonUtility;
 import com.wyc.exception.BaseException;
+import com.wyc.logmgr.IpUtil;
+import com.wyc.logmgr.service.ILoginLogService;
 import com.wyc.shiro.CurrentUserHelper;
 import com.wyc.systemmgr.util.VerificationCodeImgUtil;
 import org.apache.log4j.Logger;
@@ -11,6 +13,7 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,8 +33,11 @@ public class LoginController {
 
     private static final Logger logger = Logger.getLogger(LoginController.class);
 
+    @Autowired
+    private ILoginLogService iLoginLogService;
+
     @PostMapping("/login")
-    public String login(@RequestBody Map<String, Object> param) throws BaseException{
+    public String login(@RequestBody Map<String, Object> param,HttpServletRequest request) throws BaseException{
 
         if(!param.containsKey("username")){
             return CommonUtility.constructResultJson("-1","param username is required！");
@@ -62,11 +68,33 @@ public class LoginController {
                 retCode = "0";
                 session = SecurityUtils.getSubject().getSession();
                 session.setAttribute("user", SecurityUtils.getSubject().getPrincipal());
+
+                String id = CurrentUserHelper.getId();
+                String name = CurrentUserHelper.getName();
+                String role = CurrentUserHelper.getRole();
+                String dept = CurrentUserHelper.getDept();
+
+                Map loginInfo = new HashMap();
+                loginInfo.put("userId",id);
+                loginInfo.put("name",name);
+                loginInfo.put("username",username);
+                loginInfo.put("role",role);
+                loginInfo.put("department",dept);
+                loginInfo.put("loginIp", IpUtil.getIpAddr(request));
+                loginInfo.put("userAgent",request.getHeader("User-Agent"));
+                System.out.println(loginInfo);
+
+                iLoginLogService.insert(loginInfo);
+
+
                 Map retData= new HashMap();
-                retData.put("id",CurrentUserHelper.getId());
-                retData.put("name",CurrentUserHelper.getName());
-                retData.put("role",CurrentUserHelper.getRole());
-                retData.put("dept",CurrentUserHelper.getDept());
+                retData.put("id",id);
+                retData.put("name",name);
+                retData.put("role",role);
+                retData.put("dept",dept);
+
+
+
                 return CommonUtility.constructResultJson(retCode,retMsg,retData);
             } else {
                 token.clear();

@@ -231,28 +231,30 @@ var User = function (){
 }
 
 var DateFormatter =  function (){
-    this.formatDatetime = function(value){
-        if(value){
-            var date=new Date(value);
-            var year=date.getFullYear();
-            var month=date.getMonth()+1;
-            month=month>9?month:('0'+month);
-            var day=date.getDate();
-            day=day>9?day:('0'+day);
-            var hh=date.getHours();
-            hh=hh>9?hh:('0'+hh);
-            var mm=date.getMinutes();
-            mm=mm>9?mm:('0'+mm);
-            var ss=date.getSeconds();
-            ss=ss>9?ss:('0'+ss);
-            var time=year+'-'+month+'-'+day+' '+hh+':'+mm+':'+ss;
-            return time;
-        }else{
+    this.formatDatetime = function(value) {
+
+        if (value) {
+            var date = new Date(value);
+            console.info(date)
+            var day = date.getDate() > 9 ? date.getDate() : "0" + date.getDate();
+            var month = (date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : "0" + (date.getMonth() + 1);
+            var hor = date.getHours();
+            var min = date.getMinutes();
+            var sec = date.getSeconds();
+            return date.getFullYear() + '-' + month + '-' + day+" "+hor+":"+min+":"+sec;
+        } else {
             return "";
         }
-
-
     }
+    this.formatCotent = function(value, row, index){
+        if(value){
+            return "<div title='"+value+"' class='textEllipsis'>"+value+"</div>";
+        }else{
+            return '';
+        }
+    }
+
+
 }
 
 var message = new Msessage();

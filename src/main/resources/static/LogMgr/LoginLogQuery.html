@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <link rel="stylesheet" type="text/css" href="../css/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icon.css" />
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src='../js/core.js'> </script>
+    <script type="text/javascript" src="js/LoginLogQuery.js"></script>
+    <style type="text/css">
+        .easyui-datagrid .datagrid-thead{
+            padding:6px 4px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="easyui-layout" fit="true">
+        <div data-options="region:'north',title:'登陆日志查询',split:true" style="height:120px;">
+
+            <div class="panel-header">
+                <div id="toolbar" >
+                    <a id="btn_query" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+                    <a id="btn_reset" class="easyui-linkbutton" iconCls="icon-undo" plain="true">清空表单</a>
+                    <a id="btn_refresh" class="easyui-linkbutton" iconCls="icon-reload" plain="true">刷新</a>
+                </div>
+            </div>
+
+            <form id="loginlog_form">
+                <table style="margin-top: 20px;margin-left: 20px;width: 90%" >
+                    <tr>
+                        <td>姓名:</td>
+                        <td><input id="name" name="name"  class="easyui-textbox"/></td>
+
+                        <td>角色:</td>
+                        <td><input id="role" name="role" class="easyui-textbox" style="width:150px;"/></td>
+
+                        <td>部门:</td>
+                        <td><input id="department" name="department" class="easyui-textbox" style="width:150px;"/></td>
+
+                        <td>登陆时间:</td>
+                        <td><input id="login_time_start" name="login_time_start" class="easyui-datetimebox" data-options="formatter:dateFormatter.formatDatetime"  style="width:170px;"/></td>
+                        <td>至</td>
+                        <td><input id="login_time_end" name="login_time_end" class="easyui-datetimebox" data-options="formatter:dateFormatter.formatDatetime"  style="width:170px;"/></td>
+
+
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+
+        <div data-options="region:'center',title:'登陆日志列表',split:true" style="height:100px;">
+            <table id="loginlog_grid"   data-options="
+                fit:true,
+                singleSelect :true,
+                fitColumns : true,
+                striped : true,
+                method : 'post',
+                url : 'loginlog/find',
+                pagination:true,
+                pageSize : 20,
+                queryParams : {},
+                rownumbers : true,
+                pageList:[20,50,100],
+                columns:[[
+                    {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
+                    {field:'name',title:'姓名',width:50,align:'center'},
+                    {field:'username',title:'登录名',width:50,align:'center'},
+                    {field:'role',title:'角色',width:50,align:'center'},
+                    {field:'department',title:'部门',width:50,align:'center'},
+                    {field:'login_time',title:'登陆时间',width:80,align:'center',formatter:dateFormatter.formatDatetime},
+                    {field:'login_ip',title:'登陆IP',width:50,align:'center'},
+                    {field:'user_agent',title:'浏览器信息',width:120,align:'center',formatter: dateFormatter.formatCotent}
+                ]]
+            ">
+            </table>
+        </div>
+    </div>
+</body>
+</html>

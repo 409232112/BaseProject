@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyc.logmgr.dao.LoginLogDao">
+    <insert id="insert"  parameterType="com.wyc.logmgr.entity.LoginLog">
+        insert into sys_login_log
+            (id,user_id,name,username,role,department,login_time,login_ip,user_agent)
+        values
+            (#{id},#{userId},#{name},#{username},#{role},#{department},now(),#{loginIp},#{userAgent})
+    </insert>
+
+
+    <select id="find" resultType="java.util.HashMap">
+        select
+            id,user_id,name,username,role,department,DATE_FORMAT(login_time,'%Y-%c-%d %H:%i:%s')login_time  ,login_ip,user_agent
+        from
+            sys_login_log
+        where 1=1
+            <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
+            <if test="role != null and role !=''" > and role like "%"#{role}"%"</if>
+            <if test="department != null and department !=''" > and department like "%"#{department}"%"</if>
+            <if test="login_time_start != null and login_time_start !=''" > and login_time <![CDATA[ >= ]]> #{login_time_start}</if>
+            <if test="login_time_end != null and login_time_end !=''" > and login_time <![CDATA[ <= ]]> #{login_time_end}</if>
+        order by login_time
+    </select>
+
+
+
+</mapper>
