@@ -14,7 +14,7 @@
 
     <select id="find" resultType="java.util.HashMap">
         select
-            id,user_id,name,username,role,department,DATE_FORMAT(login_time,'%Y-%c-%d %H:%i:%s')login_time  ,login_ip,user_agent
+            id,user_id,name,username,role,department,login_time ,login_ip,user_agent
         from
             sys_login_log
         where 1=1
@@ -23,7 +23,7 @@
             <if test="department != null and department !=''" > and department like "%"#{department}"%"</if>
             <if test="login_time_start != null and login_time_start !=''" > and login_time <![CDATA[ >= ]]> #{login_time_start}</if>
             <if test="login_time_end != null and login_time_end !=''" > and login_time <![CDATA[ <= ]]> #{login_time_end}</if>
-        order by login_time
+        order by login_time desc
     </select>
 
 
