@@ -1,51 +1,67 @@
 ﻿$(function(){
     initChart();
 
+
     //刷新表格
     $("#btn_refresh").click(function(){
         refresh()
     });
+    $("#btn_reset").click(function(){
+        reset()
+    });
+    $("#btn_query").click(function(){
+        query()
+    });
+
+    $('#year').combobox({
+        onChange: function(param){
+            query();
+        }
+    });
 })
 
-
 function initChart(){
-    var chart = Highcharts.chart('container',{
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: '用户登陆统计'
-        },
-        xAxis: {
-            categories: [
-                'admin','二娃','三娃'
-            ],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '登陆次数'
+    var data = {"chartType":"bar"}
+    $.ajax({
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        url: "loginlog/chart",
+        data: JSON.stringify(data),
+        success: function (result) {
+            var result = eval("("+result+")")
+            if(result.code == "0"){
+                var retData = result.data;
+                myChart = chart.getChart("container")
+                option = chart.getBaseBarChartOption(retData.legendData,retData.xAxisData,retData.series)
+                option.yAxis.name = "登陆次数"
+                option.title.text = "用户登陆统计图"
+                myChart.setOption(option, true);
+            }else{
+                result = eval("("+result+")")
+                message.info(result.message);
             }
-        },
-        tooltip: {
-            // head + 每个 point + footer 拼接成完整的 table
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">登陆</td>' +
-            '<td style="padding:0"><b>{point.y}（次）</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                borderWidth: 0
+        }
+    });
+}
+
+function reloadChart(data){
+    $.ajax({
+        type: "POST",
+        contentType: "application/json;charset=UTF-8",
+        url: "loginlog/chart",
+        data: JSON.stringify(data),
+        success: function (result) {
+            var result = eval("("+result+")")
+            if(result.code == "0"){
+                var retData = result.data;
+                option = chart.getBaseBarChartOption(retData.legendData,retData.xAxisData,retData.series)
+                option.title.text = data.year+"用户登陆统计图"
+                myChart.setOption(option, true);
+            }else{
+                result = eval("("+result+")")
+                message.info(result.message);
             }
-        },
-        series: [{
-            name: '姓名',
-            data: [10, 2, 1]
-        }]
+        }
     });
 }
 
@@ -53,4 +69,11 @@ function initChart(){
 function refresh(){
     dialog.refresh()
 }
-
+function reset(){
+    form.resetForm("loginlog_form")
+}
+function query(){
+    var data =  form.getFormValues("loginlog_form");
+    data["chartType"] = "bar"
+    reloadChart(data)
+}

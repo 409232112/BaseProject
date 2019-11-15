@@ -1,4 +1,15 @@
 ﻿$(function(){
+    $.ajaxSetup({
+        complete:function(XMLHttpRequest,textStatus){
+            if(textStatus=="parsererror"){
+                $.messager.alert('提示信息', "登陆超时！请重新登陆！", 'info',function(){
+                    top.location.href='login';
+                });
+            } else if(textStatus=="error"){
+                $.messager.alert('提示信息', "请求超时！请稍后再试！", 'info');
+            }
+        }
+    });
     initLeftMenu();
     tabClose();
     tabCloseEven();
@@ -50,10 +61,11 @@ function initTopButton() {
                     url: "logout",
                     success: function (result) {
                         result = eval("("+result+")")
-                        console.info(result)
-                        alert(result.message);
+
                         if(result.code == "0"){
-                            window.location.href="login";
+                            $.messager.alert('提示信息', result.message, 'info',function(){
+                                window.location.href="login";
+                            });
                         }
                     },
                     error:function (result) {
@@ -259,8 +271,13 @@ function changePwd() {
         contentType: "application/json;charset=UTF-8",
         url: "SystemMgr/user/changePassword",
         data: JSON.stringify(data),
-        success: function (result) {
-            result = eval("("+result+")")
+        success: function (result,status,xhr) {
+            try{
+                result = eval("("+result+")")
+            }catch(e) {
+                message.info("登陆超时！请重新登陆！");
+                window.location.href="login";
+            }
             if(result.code == "0"){
                 message.info(result.message);
             }else{

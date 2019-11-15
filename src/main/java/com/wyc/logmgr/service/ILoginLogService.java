@@ -14,4 +14,8 @@ public interface ILoginLogService{
     void insert(Map<String, Object> param) throws BaseException;
 
     List<Map> find(Map param) throws BaseException;
+
+    Map queryForBarChart(Map param) throws BaseException;
+
+
 }

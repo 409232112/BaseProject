@@ -68,44 +68,53 @@ public class DataConvertUtil {
         }
     }
 
-    public static void main(String args[]){
-        List<Map> datas = new ArrayList<>();
+    /**
+     * 将数据转换成前端柱状图所需要的数据格式必须有(name,x,y）
+     * @param datas
+     */
+    public static Map convertResultToBarChartData(List<Map> datas){
+        Map retMap =  new HashMap();
+        List nameList = new ArrayList<>();
+        List xList = new ArrayList<>();
 
-        Map data = new HashMap();
-        data.put("id","222");
-        data.put("name","222");
-        data.put("level","2");
-        data.put("parent_id","111");
-        datas.add(data);
-
-        data = new HashMap();
-        data.put("id","333");
-        data.put("name","333");
-        data.put("level","3");
-        data.put("parent_id","222");
-        datas.add(data);
-
-        data = new HashMap();
-        data.put("id","111");
-        data.put("name","111");
-        data.put("level","1");
-        data.put("parent_id","0");
-        datas.add(data);
-
-        List<Map> rootNodes = new ArrayList<>();
         for(int i=0;i<datas.size();i++){
-            String parent_id = datas.get(i).get("parent_id").toString();
-            if(parent_id.equals("0")){
-                rootNodes.add(datas.get(i));
+            if(!nameList.contains(datas.get(i).get("name"))){
+                nameList.add(datas.get(i).get("name"));
+            }
+            if(!xList.contains(datas.get(i).get("x"))){
+                xList.add(datas.get(i).get("x"));
             }
         }
 
 
-        for(int i=0;i<rootNodes.size();i++){
-           getChildrenList(datas,rootNodes.get(i));
+        List<Map> series = new ArrayList<>();
+        for(int j=0;j<nameList.size();j++){
+            Map serie = new HashMap();
+            List data = new ArrayList();
+            for (int i = 0;i < xList.size();i++){
+                boolean flag = false;
+                for(int m=0;m<datas.size();m++){
+                    if(datas.get(m).get("name").equals(nameList.get(j)) && datas.get(m).get("x").equals(xList.get(i))){
+                        data.add(datas.get(m).get("y"));
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag){
+                    data.add(0);
+                }
+            }
+            serie.put("name",nameList.get(j));
+            serie.put("type","bar");
+            serie.put("data",data);
+            series.add(serie);
         }
 
-        System.out.println(rootNodes);
+        retMap.put("legendData",nameList);
+        retMap.put("xAxisData",xList);
+        retMap.put("series",series);
+
+        return retMap;
     }
 
 }

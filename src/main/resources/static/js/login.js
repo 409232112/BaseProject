@@ -1,5 +1,4 @@
 $(function(){
-
     clearLocalStorage()
     $("#username").focus(function(){
         $("#username").attr("placeholder","");

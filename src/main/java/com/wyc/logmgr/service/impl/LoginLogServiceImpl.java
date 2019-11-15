@@ -1,6 +1,7 @@
 package com.wyc.logmgr.service.impl;
 
 import com.wyc.base.utils.BeanUtil;
+import com.wyc.base.utils.DataConvertUtil;
 import com.wyc.base.utils.StringUtil;
 import com.wyc.exception.BaseException;
 import com.wyc.logmgr.dao.LoginLogDao;
@@ -32,5 +33,12 @@ public class LoginLogServiceImpl implements ILoginLogService{
         List<Map> datas = loginLogDao.find(param);
         return datas;
     }
+
+    public Map queryForBarChart(Map param) throws BaseException{
+        List<Map> datas = loginLogDao.queryForBarChart(param);
+        Map retMap = DataConvertUtil.convertResultToBarChartData(datas);
+        return retMap;
+    }
+
 
 }

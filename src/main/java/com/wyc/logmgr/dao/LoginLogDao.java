@@ -10,4 +10,7 @@ public interface LoginLogDao {
     void insert(Object o);
 
     List<Map> find(Map params);
+
+    List<Map> queryForBarChart(Map params);
+
 }

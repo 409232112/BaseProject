@@ -1,4 +1,18 @@
-﻿//弹出信息窗口 title:标题 msgString:提示信息 msgType:信息类型 [error,info,question,warning]
+﻿//处理session过期ajax跳转
+$.ajaxSetup({
+    complete:function(XMLHttpRequest,textStatus){
+        if(textStatus=="parsererror"){
+            $.messager.alert('提示信息', "登陆超时！请重新登陆！", 'info',function(){
+                top.location.href='login';
+            });
+        } else if(textStatus=="error"){
+            $.messager.alert('提示信息', "服务器内部错误！", 'info');
+        }
+    }
+});
+
+
+//弹出信息窗口 title:标题 msgString:提示信息 msgType:信息类型 [error,info,question,warning]
 function msgShow(title, msgString, msgType) {
     $.messager.alert(title, msgString, msgType);
 }
@@ -271,8 +285,9 @@ var treeGrid = new TreeGrid();
 var dialog = new Dialog();
 var win = new Win()
 var currentUser = new User();
-
 var dateFormatter = new DateFormatter()
+
+
 
 
 

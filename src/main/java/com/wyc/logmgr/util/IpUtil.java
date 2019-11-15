@@ -1,4 +1,4 @@
-package com.wyc.logmgr;
+package com.wyc.logmgr.util;
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;

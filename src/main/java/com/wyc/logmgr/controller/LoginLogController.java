@@ -38,5 +38,16 @@ public class LoginLogController {
         return result;
     }
 
+    @PostMapping("/chart")
+    public String barChart(@RequestBody Map<String, Object> params) throws BaseException{
+        String chartType = String .valueOf(params.get("chartType"));
+        if(chartType.equals("bar")){
+            Map chartInfo = loginLogService.queryForBarChart(params);
+            return CommonUtility.constructResultJson("0","操作成功！",chartInfo);
+        }else{
+            return null;
+        }
+    }
+
 
 }

@@ -26,6 +26,27 @@
         order by login_time desc
     </select>
 
+    <select id="queryForBarChart" resultType="java.util.HashMap">
+        SELECT
+        name,count(1) y ,login_month x
+        FROM
+        (
+            SELECT
+                name,
+                DATE_FORMAT(login_time, '%Y年%m%月') login_month
+            FROM
+                sys_login_log
+            WHERE 1=1
+                 <if test="year != null and year !=''" >
+                    and login_time BETWEEN CONCAT(#{year},'-01-01 00:00:00')
+                     AND CONCAT(#{year}+1,'-01-01 00:00:00')
+                 </if>
+        ) a
+        group by login_month,name
+        order by login_month,name
+    </select>
+
+
 
 
 </mapper>
