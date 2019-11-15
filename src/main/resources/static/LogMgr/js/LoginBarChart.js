@@ -22,6 +22,7 @@
 
 function initChart(){
     var data = {"chartType":"bar"}
+    myChart = chart.getChart("container")
     $.ajax({
         type: "POST",
         contentType: "application/json;charset=UTF-8",
@@ -31,8 +32,7 @@ function initChart(){
             var result = eval("("+result+")")
             if(result.code == "0"){
                 var retData = result.data;
-                myChart = chart.getChart("container")
-                option = chart.getBaseBarChartOption(retData.legendData,retData.xAxisData,retData.series)
+                var option = chart.getBaseBarChartOption(retData.legendData,retData.xAxisData,retData.series)
                 option.yAxis.name = "登陆次数"
                 option.title.text = "用户登陆统计图"
                 myChart.setOption(option, true);
@@ -54,7 +54,8 @@ function reloadChart(data){
             var result = eval("("+result+")")
             if(result.code == "0"){
                 var retData = result.data;
-                option = chart.getBaseBarChartOption(retData.legendData,retData.xAxisData,retData.series)
+                var option = chart.getBaseBarChartOption(retData.legendData,retData.xAxisData,retData.series)
+                option.yAxis.name = "登陆次数"
                 option.title.text = data.year+"用户登陆统计图"
                 myChart.setOption(option, true);
             }else{

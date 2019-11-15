@@ -36,6 +36,11 @@
             query();
         }
     });
+    $('#login_ip').textbox('textbox').keydown(function (e) {
+        if (e.keyCode == 13) {
+            query();
+        }
+    });
 
     $("#loginlog_grid").datagrid({
         onLoadSuccess:function(data){
