@@ -39,6 +39,12 @@ public class LoginLogServiceImpl implements ILoginLogService{
         Map retMap = DataConvertUtil.convertResultToBarChartData(datas);
         return retMap;
     }
+    public Map queryForPieChart(Map param) throws BaseException{
+        List<Map> datas = loginLogDao.queryForPieChart(param);
+        Map retMap = DataConvertUtil.convertResultToPieChartData(datas);
+        return retMap;
+    }
+
 
 
 }

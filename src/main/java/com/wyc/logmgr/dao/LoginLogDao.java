@@ -13,4 +13,6 @@ public interface LoginLogDao {
 
     List<Map> queryForBarChart(Map params);
 
+    List<Map> queryForPieChart(Map params);
+
 }

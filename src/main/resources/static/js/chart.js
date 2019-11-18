@@ -41,6 +41,32 @@ var baseBarChartOption={
 }
 
 
+var basePieChartOption = {
+    title : {
+        text: '',
+        x:'center',
+        top:"5%"
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: '90%',
+        top: 'bottom',
+        data: []
+    },
+    series : [
+        {
+            name: '',
+            type: 'pie',
+            center: ['50%', '60%'],
+            data:[]
+        }
+    ]
+};
+
 var Chart  = function(){
     this.getChart = function (container) {
         var myChart = echarts.init(document.getElementById("container"));
@@ -54,9 +80,14 @@ var Chart  = function(){
         option.xAxis.data = xAxisData;
         return option;
     }
-    this.loadData = function (url,data){
 
+    this.getBasePieChartOption = function (legendData,seriesData) {
+        var option = JSON.parse(JSON.stringify(basePieChartOption))
+        option.series[0].data = seriesData;
+        option.legend.data = legendData;
+        return option;
     }
+
 }
 
 

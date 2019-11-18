@@ -40,6 +40,12 @@ $(function(){
             login()
         }
     })
+    
+    var users = [{"username":"admin","password":"admin"},{"username":"erwa","password":"88888888"},{"username":"sanwa","password":"88888888"}]
+    var random = Math.floor(Math.random() * users.length + 1)-1;
+    var user = users[random];
+    $("#username").val(user.username)
+    $("#password").val(user.password)
 })
 
 function login() {

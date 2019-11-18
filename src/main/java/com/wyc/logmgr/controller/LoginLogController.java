@@ -44,7 +44,10 @@ public class LoginLogController {
         if(chartType.equals("bar")){
             Map chartInfo = loginLogService.queryForBarChart(params);
             return CommonUtility.constructResultJson("0","操作成功！",chartInfo);
-        }else{
+        }else if(chartType.equals("pie")){
+            Map chartInfo = loginLogService.queryForPieChart(params);
+            return CommonUtility.constructResultJson("0","操作成功！",chartInfo);
+        } else{
             return null;
         }
     }

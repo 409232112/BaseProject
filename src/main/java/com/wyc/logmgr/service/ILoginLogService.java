@@ -17,5 +17,6 @@ public interface ILoginLogService{
 
     Map queryForBarChart(Map param) throws BaseException;
 
+    Map queryForPieChart(Map param) throws BaseException;
 
 }

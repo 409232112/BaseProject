@@ -117,4 +117,21 @@ public class DataConvertUtil {
         return retMap;
     }
 
+    /**
+     * 将数据转换成前端柱状图所需要的数据格式必须有(name,value）
+     * @param datas
+     */
+    public static Map convertResultToPieChartData(List<Map> datas){
+        Map retMap =  new HashMap();
+        List nameList = new ArrayList<>();
+        for(int i=0;i<datas.size();i++){
+            if(!nameList.contains(datas.get(i).get("name"))){
+                nameList.add(datas.get(i).get("name"));
+            }
+        }
+        retMap.put("legendData",nameList);
+        retMap.put("seriesData",datas);
+        return retMap;
+    }
+
 }

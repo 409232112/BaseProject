@@ -47,6 +47,26 @@
         order by login_month,name
     </select>
 
+    <select id="queryForPieChart" resultType="java.util.HashMap">
+        SELECT
+            name,count(1) value
+        FROM
+        (
+        SELECT
+            name
+        FROM
+            sys_login_log
+        WHERE 1=1
+            <if test="year != null and year !=''" >
+                and login_time BETWEEN CONCAT(#{year},'-01-01 00:00:00')
+                AND CONCAT(#{year}+1,'-01-01 00:00:00')
+            </if>
+        ) a
+        group by name
+        order by name
+
+    </select>
+
 
 
 
