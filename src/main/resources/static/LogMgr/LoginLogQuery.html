@@ -40,9 +40,9 @@
                         <td><input id="login_ip" name="login_ip" class="easyui-textbox" style="width:150px;"/></td>
 
                         <td>登陆时间:</td>
-                        <td><input id="login_time_start" name="login_time_start" class="easyui-datetimebox" data-options="formatter:dateFormatter.formatDatetime"  style="width:170px;"/></td>
+                        <td><input id="login_time_start" name="login_time_start" class="easyui-datetimebox" data-options="formatter:formatter.formatDatetime"  style="width:170px;"/></td>
                         <td>至</td>
-                        <td><input id="login_time_end" name="login_time_end" class="easyui-datetimebox" data-options="formatter:dateFormatter.formatDatetime"  style="width:170px;"/></td>
+                        <td><input id="login_time_end" name="login_time_end" class="easyui-datetimebox" data-options="formatter:formatter.formatDatetime"  style="width:170px;"/></td>
 
 
                     </tr>
@@ -70,9 +70,9 @@
                     {field:'username',title:'登录名',width:50,align:'center'},
                     {field:'role',title:'角色',width:50,align:'center'},
                     {field:'department',title:'部门',width:50,align:'center'},
-                    {field:'login_time',title:'登陆时间',width:80,align:'center',formatter:dateFormatter.formatDatetime},
+                    {field:'login_time',title:'登陆时间',width:80,align:'center',formatter:formatter.formatDatetime},
                     {field:'login_ip',title:'登陆IP',width:50,align:'center'},
-                    {field:'user_agent',title:'浏览器信息',width:120,align:'center',formatter: dateFormatter.formatCotent}
+                    {field:'user_agent',title:'浏览器信息',width:120,align:'center',formatter: formatter.formatCotent}
                 ]]
             ">
             </table>
