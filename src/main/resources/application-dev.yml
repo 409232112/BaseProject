@@ -18,3 +18,5 @@ mybatis:
   type-aliases-package: com.wyc.entity
   configuration:
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+operationLog: true

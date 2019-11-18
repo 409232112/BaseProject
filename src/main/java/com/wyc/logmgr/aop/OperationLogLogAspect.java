@@ -12,6 +12,7 @@ import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -29,6 +30,9 @@ public class OperationLogLogAspect {
     @Autowired
     private IOperationLogService operationLogService;
 
+    @Value("${operationLog}")
+    private String operationLogOn;
+
     @Pointcut("@annotation(com.wyc.logmgr.annotation.OperationLogDetail)")
     public void operationLog(){}
 
@@ -42,8 +46,10 @@ public class OperationLogLogAspect {
             return res;
         } finally {
             try {
+                if(Boolean.valueOf(operationLogOn)){
+                    addOperationLog(joinPoint,res,time);
+                }
                 //方法执行完成后增加日志
-                addOperationLog(joinPoint,res,time);
             }catch (Exception e){
                 System.out.println("LogAspect 操作失败：" + e.getMessage());
                 e.printStackTrace();
