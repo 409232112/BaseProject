@@ -4,6 +4,8 @@ import com.github.pagehelper.PageHelper;
 
 import com.wyc.base.entity.Pagination;
 import com.wyc.exception.BaseException;
+import com.wyc.logmgr.annotation.OperationLogDetail;
+import com.wyc.logmgr.enums.OperationType;
 import com.wyc.systemmgr.entity.User;
 import com.wyc.systemmgr.service.IUserService;
 import com.wyc.base.utils.CommonUtility;
@@ -29,6 +31,7 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @OperationLogDetail(operationType = OperationType.SAVE,operationObject="User")
     @PostMapping("/save")
     public String save(@RequestParam Map<String, Object> param) throws BaseException{
         try{
@@ -39,6 +42,7 @@ public class UserController {
         return CommonUtility.constructResultJson("0","操作成功！");
     }
 
+    @OperationLogDetail(operationType = OperationType.DELETE,operationObject="User,Model")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) throws BaseException{
         userService.delete(id);
