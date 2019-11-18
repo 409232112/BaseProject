@@ -10,6 +10,8 @@ spring:
 
   thymeleaf:
     prefix: classpath:/templates/
+  aop:
+    auto: true
 
 mybatis:
   mapper-locations: classpath:mapper/*/*Mapper.xml
