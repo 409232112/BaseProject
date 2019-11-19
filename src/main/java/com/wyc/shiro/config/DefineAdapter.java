@@ -18,6 +18,9 @@ public class DefineAdapter implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(roleInterceptor).addPathPatterns("/**");
+        //注解拦截
+        //registry.addInterceptor(roleInterceptor).addPathPatterns("/**");
+
+        registry.addInterceptor(roleInterceptor).addPathPatterns("/**/*.html").excludePathPatterns("/index.html","main.html");
     }
 }

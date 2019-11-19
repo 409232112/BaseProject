@@ -28,7 +28,7 @@ public class OperationLogController {
     @Autowired
     private IOperationLogService operationLogService;
 
-    @RoleCheck(roles ={"超级管理员","系统管理员"})
+    //@RoleCheck(roles ={"超级管理员","系统管理员"})
     @PostMapping("/find")
     public Pagination find(@RequestParam Map<String, Object> param)throws BaseException{
         int pageNum = Integer.valueOf(param.get("page").toString());

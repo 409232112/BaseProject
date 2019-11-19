@@ -27,7 +27,7 @@ public class LoginLogController {
     @Autowired
     private ILoginLogService loginLogService;
 
-    @RoleCheck(roles ={"超级管理员","系统管理员"})
+    //@RoleCheck(roles ={"超级管理员","系统管理员"})
     @PostMapping("/find")
     public Pagination find(@RequestParam Map<String, Object> param)throws BaseException{
         int pageNum = Integer.valueOf(param.get("page").toString());
@@ -39,7 +39,7 @@ public class LoginLogController {
         return result;
     }
 
-    @RoleCheck(roles ={"超级管理员","系统管理员"})
+    //@RoleCheck(roles ={"超级管理员","系统管理员"})
     @PostMapping("/chart")
     public String barChart(@RequestBody Map<String, Object> params) throws BaseException{
         String chartType = String .valueOf(params.get("chartType"));

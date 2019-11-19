@@ -58,8 +58,6 @@ public class ModelServiceImpl implements IModelService {
     @Override
     public List<Map> findForMenu(){
         List<Map> datas = mdeolDao.findForMenu(CurrentUserHelper.getId());
-        System.out.println(datas);
-        System.out.println(DataConvertUtil.convertResultToTreeData(datas));
         return DataConvertUtil.convertResultToTreeData(datas);
     }
     @Override

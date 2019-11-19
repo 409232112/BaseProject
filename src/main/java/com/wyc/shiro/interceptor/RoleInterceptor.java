@@ -3,7 +3,10 @@ package com.wyc.shiro.interceptor;
 import com.wyc.shiro.CurrentUserHelper;
 import com.wyc.shiro.annotation.RoleCheck;
 
+import com.wyc.systemmgr.dao.ModelDao;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -11,7 +14,13 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wangyc on 2019/11/19.
@@ -19,7 +28,18 @@ import java.lang.reflect.Method;
 
 @Service
 public class RoleInterceptor implements HandlerInterceptor {
+    @Autowired
+    private ModelDao mdeolDao;
 
+    /**
+     * 通过RoleCheck注解控制角色权限
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
+    /**
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
@@ -37,6 +57,32 @@ public class RoleInterceptor implements HandlerInterceptor {
                 throw new UnauthorizedException();
             }
             return true;
+        }
+        return true;
+    }*/
+
+    /**
+     * 通过查询数据库用户权限控制url
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws UnauthorizedException {
+
+        String requestUrl = request.getRequestURI();
+
+        List<Map> datas = mdeolDao.findForMenu(CurrentUserHelper.getId());
+        List<String> urls = new ArrayList<>();
+        for(int i =0 ;i<datas.size();i++){
+            urls.add(String.valueOf("/"+datas.get(i).get("url")));
+        }
+
+        if (!urls.contains(requestUrl)){
+              return false;
+            //throw new UnauthorizedException();
         }
         return true;
     }
