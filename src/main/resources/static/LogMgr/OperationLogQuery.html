@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <link rel="stylesheet" type="text/css" href="../css/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/icon.css" />
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src='../js/core.js'> </script>
+    <script type="text/javascript" src="js/OperationLogQuery.js"></script>
+
+</head>
+<body>
+
+    <div class="easyui-layout" fit="true">
+        <div data-options="region:'north',title:'操作日志查询',split:true" style="height:120px;">
+
+            <div class="panel-header">
+                <div id="toolbar" >
+                    <a id="btn_query" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+                    <a id="btn_reset" class="easyui-linkbutton" iconCls="icon-undo" plain="true">清空表单</a>
+                    <a id="btn_refresh" class="easyui-linkbutton" iconCls="icon-reload" plain="true">刷新</a>
+                </div>
+            </div>
+
+            <form id="operationlog_form">
+                <table style="margin-top: 20px;margin-left: 20px;width: 95%" >
+                    <tr>
+                        <td>操作人:</td>
+                        <td><input id="name" name="name"  class="easyui-textbox" style="width:70px;"/></td>
+
+                        <td>部门:</td>
+                        <td><input id="department" name="department" class="easyui-textbox" style="width:90px;"/></td>
+
+                        <td>操作类型:</td>
+                        <td><input id="operation_type" name="operation_type" class="easyui-combobox"  style="width:70px;" data-options="editable:false,panelHeight:'auto',valueField:'value',textField:'text',data:[{'value':'','text':''},{'value':'insert','text':'新增'},{'value':'update','text':'修改'},{'value':'delete','text':'删除'},{'value':'save','text':'保存'},{'value':'select','text':'查询'}]"/>  </td>
+
+                        <td>操作对象:</td>
+                        <td><input id="operation_object" name="operation_object" class="easyui-textbox" style="width:100px;" /></td>
+
+                        <td>IP地址:</td>
+                        <td><input id="ip" name="ip" class="easyui-textbox" style="width:120px;"/></td>
+
+                        <td>操作时间:</td>
+                        <td><input id="operation_time_start" name="operation_time_start" class="easyui-datetimebox" data-options="formatter:formatter.formatDatetime"  style="width:170px;"/></td>
+                        <td>至</td>
+                        <td><input id="operation_time_end" name="operation_time_end" class="easyui-datetimebox" data-options="formatter:formatter.formatDatetime"  style="width:170px;"/></td>
+
+
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+
+        <div data-options="region:'center',title:'操作日志列表',split:true" style="height:100px;">
+            <table id="operationlog_grid"   data-options="
+                fit:true,
+                singleSelect :true,
+                fitColumns : true,
+                striped : true,
+                method : 'post',
+                url : 'operationlog/find',
+                pagination:true,
+                pageSize : 20,
+                queryParams : {},
+                rownumbers : true,
+                pageList:[20,50,100],
+                columns:[[
+                    {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
+                    {field:'name',title:'操作人',width:30,align:'center'},
+                    {field:'department',title:'部门',width:30,align:'center'},
+                    {field:'url',title:'请求路径',width:100,align:'center',formatter: formatter.formatCotent},
+                    {field:'method_name',title:'请求方法',width:100,align:'center',formatter: formatter.formatCotent},
+                    {field:'run_time',title:'方法执行时间',width:50,align:'center'},
+                    {field:'params',title:'请求参数',width:120,align:'center',formatter: formatter.formatCotent},
+                    {field:'operation_object',title:'操作对象',width:50,align:'center',formatter: formatter.formatCotent},
+                    {field:'operation_type',title:'操作类型',width:50,align:'center'},
+                    {field:'operation_time',title:'操作时间',width:80,align:'center',formatter:formatter.formatDatetime},
+                    {field:'ip',title:'请求IP来源',width:50,align:'center'},
+                ]]
+            ">
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -14,17 +14,24 @@
 
     <select id="find" resultType="java.util.HashMap">
         select
-            id,user_id,name,username,department,url,method_name,params,operation_object,operation_type,operation_time,ip,run_time
+            id,user_id,name,username,department,url,method_name,params,operation_object,operation_time,ip,concat(run_time,"ms") run_time,
+            case operation_type
+                when "insert" then "新增"
+                when "update" then "修改"
+                when "delete" then "删除"
+                when "save" then "保存"
+                when "select" then "查询"
+            end operation_type
         from
             sys_operation_log
         where 1=1
             <if test="name != null and name !=''" > and name like "%"#{name}"%"</if>
             <if test="department != null and department !=''" > and department like "%"#{department}"%"</if>
-            <if test="operation_type != null and operation_type !=''" > and operation_type like "%"#{operation_type}"%"</if>
+            <if test="operation_type != null and operation_type !=''" > and operation_type = #{operation_type}</if>
             <if test="operation_object != null and operation_object !=''" > and operation_object like "%"#{operation_object}"%"</if>
             <if test="operation_time_start != null and operation_time_start !=''" > and operation_time <![CDATA[ >= ]]> #{operation_time_start}</if>
             <if test="operation_time_end != null and operation_time_end !=''" > and operation_time <![CDATA[ <= ]]> #{operation_time_end}</if>
             <if test="ip != null and ip !=''" > and login_ip like "%"#{login_ip}"%"</if>
-        order by login_time desc
+        order by operation_time desc
     </select>
 </mapper>
