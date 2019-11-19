@@ -2,6 +2,7 @@ package com.wyc.shiro.config;
 
 import org.apache.shiro.mgt.SecurityManager;
 
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 
@@ -50,12 +51,17 @@ public class ShiroConfig {
         defaultSecurityManager.setRealm(customRealm());
         return defaultSecurityManager;
     }
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
+        AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(securityManager);
+        return advisor;
+    }
+
 
     @Bean
     public CustomRealm customRealm() {
         CustomRealm customRealm = new CustomRealm();
         return customRealm;
     }
-
-
 }

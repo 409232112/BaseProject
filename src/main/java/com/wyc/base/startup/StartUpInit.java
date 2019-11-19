@@ -15,10 +15,13 @@ import java.util.concurrent.Executors;
 public class StartUpInit {
     @PostConstruct
     public static void start() throws Exception{
+        System.out.println("启动执行！");
+
+        /**
         List<String> classNames = StartUpRegister.getClassList();
         ExecutorService executor = Executors.newFixedThreadPool(classNames.size());
         for(int i=0;i<classNames.size();i++){
             executor.execute(new StartUpThread(classNames.get(i)));
-        }
+        }*/
     }
 }

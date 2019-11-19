@@ -2,12 +2,13 @@ package com.wyc.logmgr.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.wyc.base.entity.Pagination;
-import com.wyc.base.utils.CommonUtility;
 import com.wyc.base.utils.PaginationUtil;
 import com.wyc.exception.BaseException;
-import com.wyc.logmgr.service.ILoginLogService;
+
 import com.wyc.logmgr.service.IOperationLogService;
+import com.wyc.shiro.annotation.RoleCheck;
 import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class OperationLogController {
     @Autowired
     private IOperationLogService operationLogService;
 
+    @RoleCheck(roles ={"超级管理员","系统管理员"})
     @PostMapping("/find")
     public Pagination find(@RequestParam Map<String, Object> param)throws BaseException{
         int pageNum = Integer.valueOf(param.get("page").toString());

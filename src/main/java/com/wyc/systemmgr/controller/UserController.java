@@ -12,6 +12,7 @@ import com.wyc.base.utils.CommonUtility;
 import com.wyc.base.utils.PaginationUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

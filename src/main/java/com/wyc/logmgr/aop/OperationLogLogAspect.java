@@ -109,8 +109,6 @@ public class OperationLogLogAspect {
         param.put("ip", IpUtil.getIpAddr(request));
         param.put("url",  request.getRequestURI());
 
-
-        System.out.println("记录日志");
         try{
             operationLogService.insert(param);
         }catch (Exception e){

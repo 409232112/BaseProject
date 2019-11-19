@@ -1,11 +1,5 @@
 ﻿//处理session过期ajax跳转
 $.ajaxSetup({
-    success: function (result) {
-        alert(111111);
-        if(result.indexOf("登陆超时！请重新登陆！") != -1){
-            top.location.href='login';
-        }
-    },
     complete:function(XMLHttpRequest,textStatus){
 
         if(textStatus=="parsererror"){
@@ -13,7 +7,7 @@ $.ajaxSetup({
                 top.location.href='login';
             });
         } else if(textStatus=="error"){
-            $.messager.alert('提示信息', "服务器内部错误！", 'info');
+            $.messager.alert('提示信息', XMLHttpRequest.responseJSON.message, 'info');
         }
     }
 
