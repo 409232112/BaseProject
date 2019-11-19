@@ -59,6 +59,7 @@ public class UserController {
         return result;
     }
 
+    @OperationLogDetail(operationType = OperationType.UPDATE,operationObject="User")
     @PostMapping("/changePassword")
     public String changePassword(@RequestBody Map data) throws BaseException {
         userService.changePassword(data);

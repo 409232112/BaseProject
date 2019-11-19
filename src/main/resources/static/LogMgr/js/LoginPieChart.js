@@ -52,6 +52,7 @@ function reloadChart(data){
         url: "loginlog/chart",
         data: JSON.stringify(data),
         success: function (result) {
+            loginJudge(result);
             var result = eval("("+result+")")
             if(result.code == "0"){
                 var retData = result.data;

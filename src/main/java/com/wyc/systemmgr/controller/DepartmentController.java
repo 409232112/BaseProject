@@ -2,6 +2,8 @@ package com.wyc.systemmgr.controller;
 
 import com.wyc.base.utils.CommonUtility;
 import com.wyc.exception.BaseException;
+import com.wyc.logmgr.annotation.OperationLogDetail;
+import com.wyc.logmgr.enums.OperationType;
 import com.wyc.systemmgr.service.IDepartmentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +25,14 @@ public class DepartmentController {
     @Autowired
     private IDepartmentService departmentlService;
 
+    @OperationLogDetail(operationType = OperationType.SAVE,operationObject="Department")
     @PostMapping("/save")
     public String save(@RequestParam Map<String, Object> param) throws BaseException {
         departmentlService.save(param);
         return CommonUtility.constructResultJson("0","操作成功！");
     }
 
+    @OperationLogDetail(operationType = OperationType.DELETE,operationObject="Department")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) throws BaseException{
         try{

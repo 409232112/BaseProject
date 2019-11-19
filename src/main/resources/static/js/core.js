@@ -1,6 +1,13 @@
 ﻿//处理session过期ajax跳转
 $.ajaxSetup({
+    success: function (result) {
+        alert(111111);
+        if(result.indexOf("登陆超时！请重新登陆！") != -1){
+            top.location.href='login';
+        }
+    },
     complete:function(XMLHttpRequest,textStatus){
+
         if(textStatus=="parsererror"){
             $.messager.alert('提示信息', "登陆超时！请重新登陆！", 'info',function(){
                 top.location.href='login';
@@ -9,7 +16,19 @@ $.ajaxSetup({
             $.messager.alert('提示信息', "服务器内部错误！", 'info');
         }
     }
+
 });
+
+function loginJudge(result){
+    try{
+        eval("("+result+")")
+    }catch(e) {
+        $.messager.alert('提示信息', "登陆超时！请重新登陆！", 'info',function(){
+            top.location.href='login';
+        });
+
+    }
+}
 
 
 //弹出信息窗口 title:标题 msgString:提示信息 msgType:信息类型 [error,info,question,warning]
@@ -245,6 +264,14 @@ var User = function (){
 }
 
 var Formatter =  function (){
+    this.dateParser=function(s){
+        var t = Date.parse(s);
+        if (!isNaN(t)){
+            return new Date(t);
+        } else {
+            return new Date();
+        }
+    },
     this.formatDatetime = function(value) {
 
         if (value) {
@@ -291,60 +318,7 @@ var formatter = new Formatter()
 
 
 
-function dateFormatter (value) {
-    var date = new Date(value);
-    var year = date.getFullYear().toString();
-    var month = (date.getMonth() + 1);
-    var day = date.getDate().toString();
-    var hour = date.getHours().toString();
-    var minutes = date.getMinutes().toString();
-    var seconds = date.getSeconds().toString();
-    if (month < 10) {
-        month = "0" + month;
-    }
-    if (day < 10) {
-        day = "0" + day;
-    }
-    if (hour < 10) {
-        hour = "0" + hour;
-    }
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-        seconds = "0" + seconds;
-    }
-    return year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
-}
-/**
- * 解析时间
- */
-function dateParser(s){
-    var date = new Date(s);
-    var year = date.getFullYear().toString();
-    var month = (date.getMonth() + 1);
-    var day = date.getDate().toString();
-    var hour = date.getHours().toString();
-    var minutes = date.getMinutes().toString();
-    var seconds = date.getSeconds().toString();
-    if (month < 10) {
-        month = "0" + month;
-    }
-    if (day < 10) {
-        day = "0" + day;
-    }
-    if (hour < 10) {
-        hour = "0" + hour;
-    }
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-    if (seconds < 10) {
-        seconds = "0" + seconds;
-    }
-    var str =  year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + seconds;
-    return str;
-}
+
 
 
 

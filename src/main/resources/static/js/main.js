@@ -272,12 +272,7 @@ function changePwd() {
         url: "SystemMgr/user/changePassword",
         data: JSON.stringify(data),
         success: function (result,status,xhr) {
-            try{
-                result = eval("("+result+")")
-            }catch(e) {
-                message.info("登陆超时！请重新登陆！");
-                window.location.href="login";
-            }
+            loginJudge(result);
             if(result.code == "0"){
                 message.info(result.message);
             }else{

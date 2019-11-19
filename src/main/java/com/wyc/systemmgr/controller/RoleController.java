@@ -5,6 +5,8 @@ import com.wyc.base.entity.Pagination;
 import com.wyc.base.utils.CommonUtility;
 import com.wyc.base.utils.PaginationUtil;
 import com.wyc.exception.BaseException;
+import com.wyc.logmgr.annotation.OperationLogDetail;
+import com.wyc.logmgr.enums.OperationType;
 import com.wyc.systemmgr.service.IRoleService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ public class RoleController {
     @Autowired
     private IRoleService roleService;
 
+    @OperationLogDetail(operationType = OperationType.SAVE,operationObject="Role")
     @PostMapping("/save")
     public String save(@RequestParam Map<String, Object> param) throws BaseException{
         roleService.save(param);
@@ -33,6 +36,7 @@ public class RoleController {
         return CommonUtility.constructResultJson("0","操作成功！");
     }
 
+    @OperationLogDetail(operationType = OperationType.DELETE,operationObject="Role,Model")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) throws BaseException{
         roleService.delete(id);

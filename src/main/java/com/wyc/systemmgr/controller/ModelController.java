@@ -5,6 +5,8 @@ import com.wyc.base.entity.Pagination;
 import com.wyc.base.utils.CommonUtility;
 import com.wyc.base.utils.PaginationUtil;
 import com.wyc.exception.BaseException;
+import com.wyc.logmgr.annotation.OperationLogDetail;
+import com.wyc.logmgr.enums.OperationType;
 import com.wyc.systemmgr.service.IModelService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,14 @@ public class ModelController {
     @Autowired
     private IModelService modelService;
 
+    @OperationLogDetail(operationType = OperationType.SAVE,operationObject="Model")
     @PostMapping("/save")
     public String save(@RequestParam Map<String, Object> param) throws BaseException {
         modelService.save(param);
         return CommonUtility.constructResultJson("0","操作成功！");
     }
 
+    @OperationLogDetail(operationType = OperationType.DELETE,operationObject="Model")
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) throws BaseException{
         try{
@@ -63,6 +67,7 @@ public class ModelController {
         return modelList;
     }
 
+    @OperationLogDetail(operationType = OperationType.SAVE,operationObject="User,Model")
     @PostMapping("/saveUserModel")
     public String saveUserModel(@RequestBody List<Map> datas) throws BaseException {
         if(datas.size()>0){
@@ -77,6 +82,7 @@ public class ModelController {
         return modelList;
     }
 
+    @OperationLogDetail(operationType = OperationType.SAVE,operationObject="Role,Model")
     @PostMapping("/saveRoleModel")
     public String saveRoleModel(@RequestBody List<Map> datas) throws BaseException {
         if(datas.size()>0){
@@ -91,6 +97,7 @@ public class ModelController {
         return modelList;
     }
 
+    @OperationLogDetail(operationType = OperationType.SAVE,operationObject="Department,Model")
     @PostMapping("/saveDepartmentModel")
     public String saveDepartmentModel(@RequestBody List<Map> datas) throws BaseException {
         if(datas.size()>0){
