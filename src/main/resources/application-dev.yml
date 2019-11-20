@@ -22,6 +22,6 @@ mybatis:
 
 operationLog: true
 
-tempDir: d:/BaseProjectTemp/
+tempDir: c:/BaseProjectTemp/
 
 

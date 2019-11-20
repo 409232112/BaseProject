@@ -24,6 +24,14 @@ function loginJudge(result){
     }
 }
 
+function ajaxLoading(){
+    $("<div class=\"datagrid-mask\"></div>").css({display:"block",width:"100%",height:$(window).height()}).appendTo("body");
+    $("<div class=\"datagrid-mask-msg\"></div>").html("正在处理，请稍候。。。").appendTo("body").css({display:"block",left:($(document.body).outerWidth(true) - 190) / 2,top:($(window).height() - 45) / 2,height:"auto"});
+}
+function ajaxLoadEnd(){
+    $(".datagrid-mask").remove();
+    $(".datagrid-mask-msg").remove();
+}
 
 //弹出信息窗口 title:标题 msgString:提示信息 msgType:信息类型 [error,info,question,warning]
 function msgShow(title, msgString, msgType) {
@@ -193,7 +201,6 @@ var Button = function(){
 
 var Grid = function() {
     this.reloadGrid = function (grid_id) {
-        console.info($('#'+grid_id))
         $('#'+grid_id).datagrid('reload');
     }
     this.reloadWithData = function (grid_id,data) {
@@ -240,10 +247,12 @@ var Grid = function() {
             contentType: "application/json;charset=UTF-8",
             url: "/excel/allToExcel",
             data: JSON.stringify(data),
+            beforeSend: ajaxLoading,
             success: function (result) {
+                ajaxLoadEnd();
+                loginJudge(result);
                 var result = eval("("+result+")")
                 if(result.code == "0"){
-                    console.info(result)
                     var curWwwPath = window.document.location.href;
                     var pathName = window.document.location.pathname;
                     var pos = curWwwPath.indexOf(pathName);

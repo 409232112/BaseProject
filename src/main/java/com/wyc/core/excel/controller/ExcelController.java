@@ -34,10 +34,11 @@ public class ExcelController {
 
     @PostMapping("/allToExcel")
     public String allToExcel(@RequestBody Map<String, Object> param,HttpServletRequest request) throws Exception {
-        Map<String,Object> headers = new HashMap();
+        Map<String,String> headers = new HashMap();
         headers.put("Cookie",request.getHeader("Cookie"));
-        String url = "http://127.0.0.1:8888/"+param.get("url");
-        String result = HttpUtil.post(url,(Map)param.get("params"),headers);
+        headers.put("Content-Type","application/x-www-form-urlencoded");
+        String url="http://" + request.getServerName() + ":" + request.getServerPort()+param.get("url");
+        String result = HttpUtil.post(url,headers,(Map)param.get("params"));
         HashMap data = JSON.parseObject(result, HashMap.class);
         String filePath = ExcelUtil.createFile(String.valueOf(param.get("file_name")),(List)param.get("titles"),(List)param.get("columns"), (List)data.get("rows"));
         Map retData = new HashMap();

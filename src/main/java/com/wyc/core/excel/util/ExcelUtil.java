@@ -4,6 +4,8 @@ import com.wyc.core.base.exception.BaseException;
 import com.wyc.core.shiro.CurrentUserHelper;
 import com.wyc.core.utils.FileUtil;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.WorkbookUtil;
@@ -50,37 +52,38 @@ public class ExcelUtil {
             dataList.add(data);
         }
 
-        Workbook wb = new XSSFWorkbook();
+        HSSFWorkbook wb = new HSSFWorkbook();
         CreationHelper createHelper = wb.getCreationHelper();
-        String safeName = WorkbookUtil.createSafeSheetName("sheet1");
+        String safeName = WorkbookUtil.createSafeSheetName("sheet");
         // 创建sheet
-        Sheet sheet1 = wb.createSheet(safeName);
+        Sheet sheet = wb.createSheet(safeName);
 
         // 设置标题单元格样式
-        CellStyle titlestyle = wb.createCellStyle();
-        /**
-        titlestyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
-        titlestyle.setFillForegroundColor(HSSFColor.YELLOW.index);
-        titlestyle.setBorderBottom(CellStyle.BORDER_THIN);
-        titlestyle.setBorderTop(CellStyle.BORDER_THIN);
-        titlestyle.setBorderLeft(CellStyle.BORDER_THIN);
-        titlestyle.setBorderRight(CellStyle.BORDER_THIN);
-        titlestyle.setAlignment(CellStyle.ALIGN_CENTER);*/
+        HSSFCellStyle  titlestyle = wb.createCellStyle();
+
+        titlestyle.setAlignment(HorizontalAlignment.CENTER); // 居中
+        HSSFFont font = wb.createFont();
+        font.setFontName("黑体");
+        font.setBold(true);
+        titlestyle.setFont(font);
+
 
         // 生成行对象
-        Row row = sheet1.createRow((short) 0);
+        Row row = sheet.createRow((short) 0);
         int cellNum = 0;
         for(int i=0;i<titles.size();i++){
             Cell cell = row.createCell(cellNum);
             cell.setCellValue(createHelper.createRichTextString(titles.get(i)));
+            cell.setCellStyle(titlestyle);
             ++cellNum;
         }
 
         int rowNum = 1;
 
         for (int k = 0; k < dataList.size(); k++) {
-            row = sheet1.createRow((short) rowNum);
+            row = sheet.createRow((short) rowNum);
             int cellNo = 0;
+            sheet.autoSizeColumn(rowNum);
             for (int i = 0; i < columns.size(); i++) {
                 Cell cell = row.createCell(cellNo);
                 Object value = dataList.get(k).get(columns.get(i));
@@ -91,11 +94,39 @@ public class ExcelUtil {
             }
             ++rowNum;
         }
+        setSizeColumn(sheet,dataList.size()+1);
         String fileName = dateformate.format(new Date())+"_"+ CurrentUserHelper.getName()+"_"+name+".xls";
         FileOutputStream fileOut = new FileOutputStream(tempDir+fileName);
         wb.write(fileOut);
         fileOut.close();
         return fileName;
     }
+
+    private static void setSizeColumn(Sheet sheet, int size) {
+        for (int columnNum = 0; columnNum < size; columnNum++) {
+            int columnWidth = sheet.getColumnWidth(columnNum) / 256;
+            for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {
+                Row currentRow;
+
+                if (sheet.getRow(rowNum) == null) {
+                    currentRow = sheet.createRow(rowNum);
+                } else {
+                    currentRow = sheet.getRow(rowNum);
+                }
+
+                if (currentRow.getCell(columnNum) != null) {
+                    Cell currentCell = currentRow.getCell(columnNum);
+                    if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
+                        int length = currentCell.getStringCellValue().getBytes().length;
+                        if (columnWidth < length) {
+                            columnWidth = length;
+                        }
+                    }
+                }
+            }
+            sheet.setColumnWidth(columnNum, columnWidth * 256);
+        }
+    }
+
 
 }
