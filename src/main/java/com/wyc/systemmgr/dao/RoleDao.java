@@ -1,7 +1,7 @@
 package com.wyc.systemmgr.dao;
 
 
-import com.wyc.base.dao.BaseDao;
+import com.wyc.core.base.dao.BaseDao;
 
 /**
  * Created by wangyc on 2019/10/31.

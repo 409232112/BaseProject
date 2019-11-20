@@ -13,6 +13,7 @@ spring:
   aop:
     auto: true
 
+
 mybatis:
   mapper-locations: classpath:mapper/*/*Mapper.xml
   type-aliases-package: com.wyc.entity
@@ -20,3 +21,7 @@ mybatis:
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 operationLog: true
+
+tempDir: d:/BaseProjectTemp/
+
+

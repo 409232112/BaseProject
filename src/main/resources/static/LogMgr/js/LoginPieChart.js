@@ -38,7 +38,6 @@ function initChart(){
                 option.title.text = "用户登陆统计图"
                 myChart.setOption(option, true);
             }else{
-                result = eval("("+result+")")
                 message.info(result.message);
             }
         }
@@ -61,7 +60,6 @@ function reloadChart(data){
                 option.title.text = data.year+"用户登陆统计图"
                 myChart.setOption(option, true);
             }else{
-                result = eval("("+result+")")
                 message.info(result.message);
             }
         }

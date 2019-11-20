@@ -42,10 +42,10 @@
                 b.name role,
                 a.department_id,
                 c.`name` department,
-                a.created_time,
+                DATE_FORMAT(a.created_time, '%Y-%m-%d %H:%i:%s') created_time,
                 a.created_user_id,
                 (select name from sys_user where id = a.created_user_id) created_user_name,
-                a.update_time,
+                DATE_FORMAT(a.update_time, '%Y-%m-%d %H:%i:%s') update_time,
                 a.update_user_id,
                 (select name from sys_user where id = a.update_user_id) update_user_name
             from

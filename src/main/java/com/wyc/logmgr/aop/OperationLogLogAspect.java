@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.wyc.logmgr.annotation.OperationLogDetail;
 import com.wyc.logmgr.service.IOperationLogService;
 import com.wyc.logmgr.util.IpUtil;
-import com.wyc.shiro.CurrentUserHelper;
+import com.wyc.core.shiro.CurrentUserHelper;
 import org.apache.commons.collections.map.HashedMap;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;

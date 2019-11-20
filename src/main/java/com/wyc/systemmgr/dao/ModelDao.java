@@ -1,7 +1,7 @@
 package com.wyc.systemmgr.dao;
 
 
-import com.wyc.base.dao.BaseDao;
+import com.wyc.core.base.dao.BaseDao;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

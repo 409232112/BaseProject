@@ -14,6 +14,11 @@
         refresh()
     });
 
+    //导出
+    $("#btn_toExcel").click(function(){
+        exportExcel()
+    });
+
     //下拉框选择自动查询
     $('#sex').combobox({
         onChange: function(param){
@@ -67,4 +72,9 @@ function refresh(){
     dialog.refresh()
 }
 
+function exportExcel(){
+    //grid.toExcel("loginlog_grid","登录日志");
+
+    grid.allToExcel("loginlog_grid","登录日志");
+}
 

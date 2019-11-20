@@ -14,7 +14,9 @@
 
     <select id="find" resultType="java.util.HashMap">
         select
-            id,user_id,name,username,role,department,login_time ,login_ip,user_agent
+            id,user_id,name,username,role,department,
+            DATE_FORMAT(login_time, '%Y-%m-%d %H:%i:%s') login_time,
+            login_ip,user_agent
         from
             sys_login_log
         where 1=1

@@ -205,6 +205,59 @@ var Grid = function() {
     this.unselectAllRow = function (grid_id){
         $('#'+grid_id).treegrid('unselectAll');
     }
+    this.toExcel = function(grid_id,file_name){
+        $('#'+grid_id).datagrid('toExcel',file_name+'.xls');
+    }
+    this.allToExcel  = function(grid_id,file_name){
+        var base_url = window.location.pathname
+        base_url = base_url.substring(0,base_url.lastIndexOf("/")+1);
+        var url = base_url+$("#"+grid_id).datagrid("options").url;
+        var column_fields = $("#"+grid_id).datagrid('getColumnFields');
+        var titles = [];
+        var columns = [];
+        for (var column_field in column_fields) {
+            var col = $("#"+grid_id).datagrid("getColumnOption", column_fields[column_field]);
+            if(col.hasOwnProperty("hidden") && (col.hidden=='true' || col.hidden==true)){
+                continue
+            }else{
+                titles.push(col.title);
+                columns.push(col.field);
+            }
+
+        }
+        var params =  $("#"+grid_id).datagrid("options").queryParams;
+        params['page']=1;
+        params['rows']=99999999
+        var data={}
+        data['file_name'] = file_name;
+        data['url'] = url;
+        data['titles'] = titles;
+        data['columns'] = columns;
+        data['params'] = params;
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            url: "/excel/allToExcel",
+            data: JSON.stringify(data),
+            success: function (result) {
+                var result = eval("("+result+")")
+                if(result.code == "0"){
+                    console.info(result)
+                    var curWwwPath = window.document.location.href;
+                    var pathName = window.document.location.pathname;
+                    var pos = curWwwPath.indexOf(pathName);
+                    var localhostPaht = curWwwPath.substring(0, pos);
+                    var data = result.data;
+                    var url =localhostPaht+"/downloadFile?file="+data.file+"&type="+data.type+"&fileName="+file_name;
+                    window.location.href=url
+                }else{
+                    message.info(result.message);
+                }
+            }
+        });
+
+    }
 }
 
 var Tree = function(){

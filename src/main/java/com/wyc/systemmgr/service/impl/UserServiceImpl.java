@@ -1,13 +1,13 @@
 package com.wyc.systemmgr.service.impl;
 
-import com.wyc.base.utils.StringUtil;
-import com.wyc.shiro.CurrentUserHelper;
+import com.wyc.core.utils.StringUtil;
+import com.wyc.core.shiro.CurrentUserHelper;
 import com.wyc.systemmgr.dao.ModelDao;
 import com.wyc.systemmgr.dao.UserDao;
 import com.wyc.systemmgr.entity.User;
-import com.wyc.exception.BaseException;
+import com.wyc.core.base.exception.BaseException;
 import com.wyc.systemmgr.service.IUserService;
-import com.wyc.base.utils.BeanUtil;
+import com.wyc.core.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;

@@ -1,15 +1,11 @@
 package com.wyc.systemmgr.controller;
 
-import com.wyc.base.utils.CommonUtility;
-import com.wyc.exception.BaseException;
+import com.wyc.core.base.exception.BaseException;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /**
  * Created by wangyc on 2019/10/31.

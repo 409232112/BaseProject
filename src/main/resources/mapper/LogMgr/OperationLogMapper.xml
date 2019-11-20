@@ -14,7 +14,9 @@
 
     <select id="find" resultType="java.util.HashMap">
         select
-            id,user_id,name,username,department,url,method_name,params,operation_object,operation_time,ip,concat(run_time,"ms") run_time,
+            id,user_id,name,username,department,url,method_name,params,operation_object,
+            DATE_FORMAT(operation_time, '%Y-%m-%d %H:%i:%s') operation_time,
+            ip,concat(run_time,"ms") run_time,
             case operation_type
                 when "insert" then "新增"
                 when "update" then "修改"

@@ -1,9 +1,9 @@
 package com.wyc.logmgr.service.impl;
 
-import com.wyc.base.utils.BeanUtil;
-import com.wyc.base.utils.DataConvertUtil;
-import com.wyc.base.utils.StringUtil;
-import com.wyc.exception.BaseException;
+import com.wyc.core.utils.BeanUtil;
+import com.wyc.core.utils.DataConvertUtil;
+import com.wyc.core.utils.StringUtil;
+import com.wyc.core.base.exception.BaseException;
 import com.wyc.logmgr.dao.LoginLogDao;
 import com.wyc.logmgr.entity.LoginLog;
 import com.wyc.logmgr.service.ILoginLogService;

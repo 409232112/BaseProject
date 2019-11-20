@@ -1,7 +1,7 @@
 package com.wyc.systemmgr.service;
 
-import com.wyc.base.service.IBaseService;
-import com.wyc.exception.BaseException;
+import com.wyc.core.base.service.IBaseService;
+import com.wyc.core.base.exception.BaseException;
 
 import java.util.List;
 import java.util.Map;

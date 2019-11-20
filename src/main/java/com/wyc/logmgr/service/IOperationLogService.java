@@ -1,6 +1,6 @@
 package com.wyc.logmgr.service;
 
-import com.wyc.exception.BaseException;
+import com.wyc.core.base.exception.BaseException;
 
 import java.util.List;
 import java.util.Map;

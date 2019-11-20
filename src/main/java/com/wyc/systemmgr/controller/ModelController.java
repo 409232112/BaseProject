@@ -1,10 +1,7 @@
 package com.wyc.systemmgr.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.wyc.base.entity.Pagination;
-import com.wyc.base.utils.CommonUtility;
-import com.wyc.base.utils.PaginationUtil;
-import com.wyc.exception.BaseException;
+import com.wyc.core.utils.CommonUtility;
+import com.wyc.core.base.exception.BaseException;
 import com.wyc.logmgr.annotation.OperationLogDetail;
 import com.wyc.logmgr.enums.OperationType;
 import com.wyc.systemmgr.service.IModelService;
@@ -12,8 +9,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

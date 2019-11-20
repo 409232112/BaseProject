@@ -1,10 +1,10 @@
 package com.wyc.systemmgr.service.impl;
 
-import com.wyc.base.utils.BeanUtil;
-import com.wyc.base.utils.DataConvertUtil;
-import com.wyc.base.utils.StringUtil;
-import com.wyc.exception.BaseException;
-import com.wyc.shiro.CurrentUserHelper;
+import com.wyc.core.utils.BeanUtil;
+import com.wyc.core.utils.DataConvertUtil;
+import com.wyc.core.utils.StringUtil;
+import com.wyc.core.base.exception.BaseException;
+import com.wyc.core.shiro.CurrentUserHelper;
 import com.wyc.systemmgr.dao.DepartmentDao;
 import com.wyc.systemmgr.dao.ModelDao;
 import com.wyc.systemmgr.entity.Department;

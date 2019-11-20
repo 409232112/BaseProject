@@ -1,8 +1,7 @@
 package com.wyc.systemmgr.dao;
 
 
-import com.wyc.base.dao.BaseDao;
-import com.wyc.systemmgr.entity.User;
+import com.wyc.core.base.dao.BaseDao;
 
 import java.util.Map;
 
