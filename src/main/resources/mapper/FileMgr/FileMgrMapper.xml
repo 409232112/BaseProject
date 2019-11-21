@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyc.filemgr.dao.FileDao">
+    <insert id="insert"  parameterType="com.wyc.systemmgr.entity.User">
+        insert into t_file
+        (id,file_name,file_path,file_type_code,file_type,file_size,comments,created_time,created_user_id,department_id)
+        values
+        (#{id},#{file_name},#{file_path},#{file_type_code},#{file_type},#{file_size},#{comments},now(),#{created_user_id},#{department_id})
+    </insert>
+
+    <update id="update" parameterType="com.wyc.systemmgr.entity.User">
+        update t_file
+        <set>
+            <if test="file_name != null">file_name=#{file_name},</if>
+            <if test="file_type_code != null">file_type_code=#{file_type_code},</if>
+            <if test="comments != null">comments=#{comments},</if>
+            update_time = now(),
+            update_user_id = #{update_user_id}
+        </set>
+        where id=#{id}
+    </update>
+
+
+    <delete id="delete">
+        delete from t_file where id=#{id}
+    </delete>
+
+    <select id="find" resultType="java.util.HashMap">
+        select
+          a.id,a.file_name,a.file_path,a.file_type,a.file_size,a.comments,a.department_id,
+          a.file_type_code,
+          b.text file_type_text,
+          DATE_FORMAT(a.created_time, '%Y-%m-%d %H:%i:%s') created_time,
+          DATE_FORMAT(a.update_time, '%Y-%m-%d %H:%i:%s') update_time,
+          a.created_user_id,
+          (select name from sys_user where id = a.created_user_id) created_user_name,
+          a.update_user_id,
+          (select name from sys_user where id = a.update_user_id) update_user_name
+        from
+          t_file a,
+          t_code_file_type b
+        where
+            a.file_type_code = b.code
+            <if test="file_name != null and file_name !=''" > and file_name like "%"#{file_name}"%"</if>
+            <if test="file_type_code != null and file_type_code !=''"> and file_type_code = #{file_type_code}</if>
+            <if test="created_user_id != null and created_user_id !=''"> and created_user_id like = #{created_user_id}</if>
+            <if test="department_id != null and department_id !=''"> and department_id like = #{department_id}</if>
+            <if test="created_time_start != null and created_time_start !=''" > and created_time <![CDATA[ >= ]]> #{created_time_start}</if>
+            <if test="created_time_end != null and created_time_end !=''" > and created_time <![CDATA[ <= ]]> #{created_time_end}</if>
+        order by
+          a.created_time
+    </select>
+
+    <select id="getFileType" resultType="java.util.HashMap">
+        select
+          code,text
+        from
+          t_code_file_type
+    </select>
+
+
+
+
+
+</mapper>
