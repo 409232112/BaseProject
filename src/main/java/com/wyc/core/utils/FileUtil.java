@@ -12,4 +12,18 @@ public class FileUtil {
             file.mkdirs();
         }
     }
+
+    public static String renameFile(String filePath,String newName){
+        String newFilePath = filePath.substring(0, filePath.lastIndexOf("/")) + "/" + newName + filePath.substring(filePath.lastIndexOf("."));
+        File nf = new File(newFilePath);
+        File f = new File(filePath);
+        try {
+            f.renameTo(nf);
+        } catch (Exception err) {
+            err.printStackTrace();
+        }
+        return newFilePath;
+    }
+
+
 }

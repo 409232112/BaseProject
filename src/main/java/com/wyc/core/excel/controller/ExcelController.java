@@ -2,10 +2,12 @@ package com.wyc.core.excel.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.wyc.core.base.exception.BaseException;
+import com.wyc.core.excel.service.ExcelService;
 import com.wyc.core.excel.util.ExcelUtil;
 import com.wyc.core.utils.CommonUtility;
 import com.wyc.core.utils.HttpUtil;
 import org.apache.commons.collections.map.HashedMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +29,9 @@ public class ExcelController {
 
     private static String tempDir;
 
+    @Autowired
+    private ExcelService excelService;
+
     @Value("${tempDir}")
     public void setTempDir(String tempDir) {
         this.tempDir = tempDir;
@@ -34,16 +39,11 @@ public class ExcelController {
 
     @PostMapping("/allToExcel")
     public String allToExcel(@RequestBody Map<String, Object> param,HttpServletRequest request) throws Exception {
-        Map<String,String> headers = new HashMap();
-        headers.put("Cookie",request.getHeader("Cookie"));
-        headers.put("Content-Type","application/x-www-form-urlencoded");
-        String url="http://" + request.getServerName() + ":" + request.getServerPort()+param.get("url");
-        String result = HttpUtil.post(url,headers,(Map)param.get("params"));
-        HashMap data = JSON.parseObject(result, HashMap.class);
-        String filePath = ExcelUtil.createFile(String.valueOf(param.get("file_name")),(List)param.get("titles"),(List)param.get("columns"), (List)data.get("rows"));
+        String filePath = excelService.allToExcel(param,request);
         Map retData = new HashMap();
         retData.put("file",filePath);
         retData.put("type","excel");
         return CommonUtility.constructResultJson("0","操作成功！",retData);
     }
+
 }

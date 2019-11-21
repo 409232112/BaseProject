@@ -6,15 +6,12 @@ import com.wyc.core.utils.FileUtil;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.WorkbookUtil;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.system.ApplicationHome;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
+
 import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,19 +34,42 @@ public class ExcelUtil {
 
     private static DateFormat dateformate = new SimpleDateFormat("yyyyMMddHHmmss");
 
-    public static String createFile(String name,List<String> titles, List<String> columns, List<Map<String,Object>> datas) throws Exception{
-        if(titles.size()!=columns.size()){
-            throw new BaseException("titles 和 columns 长度不配");
-        }
-        List<Map> dataList = new ArrayList();
-        for(int i=0;i<datas.size();i++){
-            Map data = new HashMap();
-            for (Map.Entry<String,Object> entry : datas.get(i).entrySet()) {
-                if(columns.contains(entry.getKey())){
-                    data.put(entry.getKey(),entry.getValue());
+
+    private static void setSizeColumn(Sheet sheet, int size) {
+        for (int columnNum = 0; columnNum < size; columnNum++) {
+            int columnWidth = sheet.getColumnWidth(columnNum) / 256;
+            for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {
+                Row currentRow;
+
+                if (sheet.getRow(rowNum) == null) {
+                    currentRow = sheet.createRow(rowNum);
+                } else {
+                    currentRow = sheet.getRow(rowNum);
+                }
+
+                if (currentRow.getCell(columnNum) != null) {
+                    Cell currentCell = currentRow.getCell(columnNum);
+                    if (currentCell.getCellTypeEnum() == CellType.STRING) {
+                        int length = currentCell.getStringCellValue().getBytes().length;
+                        if (columnWidth < length) {
+                            columnWidth = length;
+                        }
+                    }
                 }
             }
-            dataList.add(data);
+            if (columnWidth > 255) {
+                columnWidth = 254;
+            }
+            sheet.setColumnWidth(columnNum, columnWidth * 256);
+
+        }
+    }
+
+    public static String createFile(List<Map<String,String>> dataList) throws Exception{
+
+        List<String> titles = new ArrayList<>();
+        for (Map.Entry<String, String> entry : dataList.get(0).entrySet()) {
+            titles.add(entry.getKey());
         }
 
         HSSFWorkbook wb = new HSSFWorkbook();
@@ -84,55 +104,24 @@ public class ExcelUtil {
             row = sheet.createRow((short) rowNum);
             int cellNo = 0;
             sheet.autoSizeColumn(rowNum);
-            for (int i = 0; i < columns.size(); i++) {
+
+            for (Map.Entry<String, String> entry : dataList.get(k).entrySet()) {
                 Cell cell = row.createCell(cellNo);
-                Object value = dataList.get(k).get(columns.get(i));
-                String data = String.valueOf(value);
+                String data = String.valueOf(entry.getValue());
                 cell.setCellValue(createHelper.createRichTextString(data));
                 ++cellNo;
-
             }
+
             ++rowNum;
         }
         setSizeColumn(sheet,dataList.size());
 
 
-        String fileName = dateformate.format(new Date())+"_"+ CurrentUserHelper.getName()+"_"+name+".xls";
+        String fileName = dateformate.format(new Date())+".xls";
         FileOutputStream fileOut = new FileOutputStream(tempDir+fileName);
         wb.write(fileOut);
         fileOut.close();
         return fileName;
     }
-
-    private static void setSizeColumn(Sheet sheet, int size) {
-        for (int columnNum = 0; columnNum < size; columnNum++) {
-            int columnWidth = sheet.getColumnWidth(columnNum) / 256;
-            for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {
-                Row currentRow;
-
-                if (sheet.getRow(rowNum) == null) {
-                    currentRow = sheet.createRow(rowNum);
-                } else {
-                    currentRow = sheet.getRow(rowNum);
-                }
-
-                if (currentRow.getCell(columnNum) != null) {
-                    Cell currentCell = currentRow.getCell(columnNum);
-                    if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                        int length = currentCell.getStringCellValue().getBytes().length;
-                        if (columnWidth < length) {
-                            columnWidth = length;
-                        }
-                    }
-                }
-            }
-            if (columnWidth > 255) {
-                columnWidth = 254;
-            }
-            sheet.setColumnWidth(columnNum, columnWidth * 256);
-
-        }
-    }
-
 
 }
