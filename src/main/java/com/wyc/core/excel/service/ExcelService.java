@@ -24,7 +24,7 @@ import java.util.Map;
 public class ExcelService {
     private static String tempDir;
 
-    @Value("${tempDir}")
+    @Value("${filesDir.tempDir}")
     public void setTempDir(String tempDir) {
         this.tempDir = tempDir;
     }
@@ -62,7 +62,7 @@ public class ExcelService {
             dataList.add(map);
         }
 
-        String filePath = ExcelUtil.createFile(dataList);
+        String filePath = ExcelUtil.createFile(dataList,tempDir);
         FileUtil.renameFile(tempDir+filePath, CurrentUserHelper.getName()+"_"+param.get("file_name")+"_"+filePath.replace(".xls",""));
         String fileName = CurrentUserHelper.getName()+"_"+param.get("file_name")+"_"+filePath;
 

@@ -25,47 +25,9 @@ import java.util.*;
 public class ExcelUtil {
 
 
-    private static String tempDir;
-
-    @Value("${tempDir}")
-    public void setTempDir(String tempDir) {
-        this.tempDir = tempDir;
-    }
-
     private static DateFormat dateformate = new SimpleDateFormat("yyyyMMddHHmmss");
 
-
-    private static void setSizeColumn(Sheet sheet, int size) {
-        for (int columnNum = 0; columnNum < size; columnNum++) {
-            int columnWidth = sheet.getColumnWidth(columnNum) / 256;
-            for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {
-                Row currentRow;
-
-                if (sheet.getRow(rowNum) == null) {
-                    currentRow = sheet.createRow(rowNum);
-                } else {
-                    currentRow = sheet.getRow(rowNum);
-                }
-
-                if (currentRow.getCell(columnNum) != null) {
-                    Cell currentCell = currentRow.getCell(columnNum);
-                    if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                        int length = currentCell.getStringCellValue().getBytes().length;
-                        if (columnWidth < length) {
-                            columnWidth = length;
-                        }
-                    }
-                }
-            }
-            if (columnWidth > 255) {
-                columnWidth = 254;
-            }
-            sheet.setColumnWidth(columnNum, columnWidth * 256);
-
-        }
-    }
-
-    public static String createFile(List<Map<String,String>> dataList) throws Exception{
+    public static String createFile(List<Map<String,String>> dataList,String fileDir) throws Exception{
 
         List<String> titles = new ArrayList<>();
         for (Map.Entry<String, String> entry : dataList.get(0).entrySet()) {
@@ -118,10 +80,42 @@ public class ExcelUtil {
 
 
         String fileName = dateformate.format(new Date())+".xls";
-        FileOutputStream fileOut = new FileOutputStream(tempDir+fileName);
+        FileOutputStream fileOut = new FileOutputStream(fileDir+fileName);
         wb.write(fileOut);
         fileOut.close();
         return fileName;
     }
+
+    private static void setSizeColumn(Sheet sheet, int size) {
+        for (int columnNum = 0; columnNum < size; columnNum++) {
+            int columnWidth = sheet.getColumnWidth(columnNum) / 256;
+            for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {
+                Row currentRow;
+
+                if (sheet.getRow(rowNum) == null) {
+                    currentRow = sheet.createRow(rowNum);
+                } else {
+                    currentRow = sheet.getRow(rowNum);
+                }
+
+                if (currentRow.getCell(columnNum) != null) {
+                    Cell currentCell = currentRow.getCell(columnNum);
+                    if (currentCell.getCellTypeEnum() == CellType.STRING) {
+                        int length = currentCell.getStringCellValue().getBytes().length;
+                        if (columnWidth < length) {
+                            columnWidth = length;
+                        }
+                    }
+                }
+            }
+            if (columnWidth > 255) {
+                columnWidth = 254;
+            }
+            sheet.setColumnWidth(columnNum, columnWidth * 256);
+
+        }
+    }
+
+
 
 }

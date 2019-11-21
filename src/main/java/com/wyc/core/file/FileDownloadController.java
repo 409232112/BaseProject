@@ -25,7 +25,7 @@ public class FileDownloadController {
 
     private static String tempDir;
 
-    @Value("${tempDir}")
+    @Value("${filesDir.tempDir}")
     public void setTempDir(String tempDir) {
         this.tempDir = tempDir;
     }
@@ -33,41 +33,43 @@ public class FileDownloadController {
     @GetMapping("/downloadFile")
     public void download(String type, String file, String fileName, HttpServletResponse response) throws Exception {
         String filePath = "";
+        String file_name = "";
         if(type.equals("excel") ){
             filePath = tempDir+file;
+            file_name =URLEncoder.encode(fileName+".xls", "UTF-8");
         }
-        if(filePath != ""){
-            response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName+".xls", "UTF-8"));
-            response.setHeader("Connection", "close");
-            response.setHeader("Content-Type", "application/octet-stream");
 
-            OutputStream ops = null;
-            FileInputStream fis =null;
-            byte[] buffer = new byte[8192];
-            int bytesRead = 0;
+        response.setHeader("Content-Disposition", "attachment;filename="+ file_name);
+        response.setHeader("Connection", "close");
+        response.setHeader("Content-Type", "application/octet-stream");
 
+        OutputStream ops = null;
+        FileInputStream fis =null;
+        byte[] buffer = new byte[8192];
+        int bytesRead = 0;
+
+        try {
+            ops = response.getOutputStream();
+            fis = new FileInputStream(filePath);
+            while((bytesRead = fis.read(buffer, 0, 8192)) != -1){
+                ops.write(buffer, 0, bytesRead);
+            }
+            ops.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
             try {
-                ops = response.getOutputStream();
-                fis = new FileInputStream(filePath);
-                while((bytesRead = fis.read(buffer, 0, 8192)) != -1){
-                    ops.write(buffer, 0, bytesRead);
+                if(fis != null){
+                    fis.close();
                 }
-                ops.flush();
+                if(ops != null){
+                    ops.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    if(fis != null){
-                        fis.close();
-                    }
-                    if(ops != null){
-                        ops.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         }
+
 
     }
 }

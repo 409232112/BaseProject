@@ -27,15 +27,8 @@ import java.util.Map;
 @RequestMapping(value = "/excel")
 public class ExcelController {
 
-    private static String tempDir;
-
     @Autowired
     private ExcelService excelService;
-
-    @Value("${tempDir}")
-    public void setTempDir(String tempDir) {
-        this.tempDir = tempDir;
-    }
 
     @PostMapping("/allToExcel")
     public String allToExcel(@RequestBody Map<String, Object> param,HttpServletRequest request) throws Exception {

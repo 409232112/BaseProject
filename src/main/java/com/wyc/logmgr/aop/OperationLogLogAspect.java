@@ -16,8 +16,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -93,7 +96,19 @@ public class OperationLogLogAspect {
         Map<String, Object> param = new HashedMap();
         param.put("runTime",String.valueOf(time));
         param.put("returnValue",String.valueOf(res));
+
+        for(int i=0;i<joinPoint.getArgs().length;i++){
+            //针对文件类型改造
+            if(joinPoint.getArgs()[i].getClass().getName().contains("MultipartFile")){
+                Map data = new HashMap();
+                data.put("file",((MultipartFile)joinPoint.getArgs()[i]).getOriginalFilename());
+                joinPoint.getArgs()[i] = data;
+
+            }
+
+        }
         param.put("params", JSON.toJSONString(joinPoint.getArgs()));
+
         MethodSignature signature = (MethodSignature)joinPoint.getSignature();
         param.put("methodName",String.valueOf(signature.getDeclaringTypeName() + "." + signature.getName()));
         OperationLogDetail annotation = signature.getMethod().getAnnotation(OperationLogDetail.class);

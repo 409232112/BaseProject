@@ -22,6 +22,8 @@ mybatis:
 
 operationLog: true
 
-tempDir: c:/BaseProjectTemp/
+filesDir:
+  tempDir: c:/BaseProjectTemp/
+  uploadFileDir: c:/files/
 
 

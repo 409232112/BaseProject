@@ -14,9 +14,16 @@ public class StartUpTask {
 
     private static String tempDir;
 
-    @Value("${tempDir}")
+    @Value("${filesDir.tempDir}")
     public void setTempDir(String tempDir) {
         this.tempDir = tempDir;
+    }
+
+    private static String uploadFileDir;
+
+    @Value("${filesDir.uploadFileDir}")
+    public void setUploadFileDir(String uploadFileDir) {
+        this.uploadFileDir = uploadFileDir;
     }
 
     /**
@@ -25,6 +32,7 @@ public class StartUpTask {
     @PostConstruct
     public void makeDir(){
         FileUtil.touchDir(tempDir);
+        FileUtil.touchDir(uploadFileDir);
         System.out.println("启动执行！");
     }
 }
