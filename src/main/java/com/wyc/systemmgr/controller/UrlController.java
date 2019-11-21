@@ -32,4 +32,14 @@ public class UrlController {
     public String main() throws BaseException {
         return "main.html";
     }
+
+    @GetMapping("/403")
+    public String forbidden() throws BaseException {
+        return "403.html";
+    }
+
+    @GetMapping("/404")
+    public String notFound() throws BaseException {
+        return "404.html";
+    }
 }

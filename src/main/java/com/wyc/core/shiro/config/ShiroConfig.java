@@ -28,6 +28,7 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainDefinitionMap.put("/SystemMgr/**", "authc");
+        filterChainDefinitionMap.put("/LogMgr/**", "authc");
 
         // 静态资源可以匿名访问
         filterChainDefinitionMap.put("/images/**","anon");

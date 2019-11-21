@@ -7,7 +7,9 @@ $.ajaxSetup({
                 top.location.href='login';
             });
         } else if(textStatus=="error"){
-            $.messager.alert('提示信息', XMLHttpRequest.responseJSON.message, 'info');
+            var ret = XMLHttpRequest.responseText;
+            ret = eval("("+ret+")")
+            $.messager.alert('提示信息', ret.message, 'info');
         }
     }
 
@@ -263,6 +265,9 @@ var Grid = function() {
                 }else{
                     message.info(result.message);
                 }
+            },
+            error: function (result) {
+                ajaxLoadEnd();
             }
         });
 

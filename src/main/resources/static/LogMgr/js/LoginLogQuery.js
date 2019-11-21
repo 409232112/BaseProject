@@ -73,8 +73,6 @@ function refresh(){
 }
 
 function exportExcel(){
-    //grid.toExcel("loginlog_grid","登录日志");
-
-    grid.allToExcel("loginlog_grid","登录日志");
+    grid.allToExcel("loginlog_grid","登陆日志");
 }
 

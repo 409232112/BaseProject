@@ -14,6 +14,11 @@
         refresh()
     });
 
+    //导出
+    $("#btn_toExcel").click(function(){
+        exportExcel()
+    });
+
     //回车查询
     $('#name').textbox('textbox').keydown(function (e) {
         if (e.keyCode == 13) {
@@ -65,5 +70,10 @@ function reset(){
 function refresh(){
     dialog.refresh()
 }
+
+function exportExcel(){
+    grid.allToExcel("operationlog_grid","操作日志");
+}
+
 
 

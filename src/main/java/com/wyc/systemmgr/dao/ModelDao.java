@@ -34,4 +34,6 @@ public interface ModelDao extends BaseDao {
     void insertDepartmentModel(@Param("datas") List<Map> datas);
 
     List<Map> findForMenu(String userId);
+
+    List<String> findAllUrl();
 }

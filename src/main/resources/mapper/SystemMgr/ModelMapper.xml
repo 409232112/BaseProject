@@ -187,4 +187,14 @@
         ) a
         ORDER BY LEVEL,seq
     </select>
+
+    <select id="findAllUrl" resultType="java.lang.String">
+       SELECT DISTINCT
+            url
+        from
+            sys_model
+        where
+            url is not null
+            and url !=""
+    </select>
 </mapper>

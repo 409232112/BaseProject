@@ -94,7 +94,9 @@ public class ExcelUtil {
             }
             ++rowNum;
         }
-        setSizeColumn(sheet,dataList.size()+1);
+        setSizeColumn(sheet,dataList.size());
+
+
         String fileName = dateformate.format(new Date())+"_"+ CurrentUserHelper.getName()+"_"+name+".xls";
         FileOutputStream fileOut = new FileOutputStream(tempDir+fileName);
         wb.write(fileOut);
@@ -116,7 +118,7 @@ public class ExcelUtil {
 
                 if (currentRow.getCell(columnNum) != null) {
                     Cell currentCell = currentRow.getCell(columnNum);
-                    if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
+                    if (currentCell.getCellTypeEnum() == CellType.STRING) {
                         int length = currentCell.getStringCellValue().getBytes().length;
                         if (columnWidth < length) {
                             columnWidth = length;
@@ -124,7 +126,11 @@ public class ExcelUtil {
                     }
                 }
             }
+            if (columnWidth > 255) {
+                columnWidth = 254;
+            }
             sheet.setColumnWidth(columnNum, columnWidth * 256);
+
         }
     }
 
