@@ -132,24 +132,18 @@
   width: 32px;
 }
 .l-btn {
-  color: #444;
+  color: #404040;
   background: #fafafa;
   background-repeat: repeat-x;
-  border: 1px solid #bbb;
-  background: -webkit-linear-gradient(top,#ffffff 0,#eeeeee 100%);
-  background: -moz-linear-gradient(top,#ffffff 0,#eeeeee 100%);
-  background: -o-linear-gradient(top,#ffffff 0,#eeeeee 100%);
-  background: linear-gradient(to bottom,#ffffff 0,#eeeeee 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#eeeeee,GradientType=0);
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #d9d9d9;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 .l-btn:hover {
-  background: #eaf2ff;
-  color: #000000;
-  border: 1px solid #b7d2ff;
+  background: #eee;
+  color: #404040;
+  border: 1px solid #ccc;
   filter: none;
 }
 .l-btn-plain {
@@ -159,29 +153,23 @@
 }
 .l-btn-outline {
   border-width: 1px;
-  border-color: #b7d2ff;
+  border-color: #ccc;
   padding: 0;
 }
 .l-btn-plain:hover {
-  background: #eaf2ff;
-  color: #000000;
-  border: 1px solid #b7d2ff;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
+  background: #eee;
+  color: #404040;
+  border: 1px solid #ccc;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 .l-btn-disabled,
 .l-btn-disabled:hover {
   opacity: 0.5;
   cursor: default;
   background: #fafafa;
-  color: #444;
-  background: -webkit-linear-gradient(top,#ffffff 0,#eeeeee 100%);
-  background: -moz-linear-gradient(top,#ffffff 0,#eeeeee 100%);
-  background: -o-linear-gradient(top,#ffffff 0,#eeeeee 100%);
-  background: linear-gradient(to bottom,#ffffff 0,#eeeeee 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#eeeeee,GradientType=0);
+  color: #404040;
 }
 .l-btn-disabled .l-btn-text,
 .l-btn-disabled .l-btn-icon {
@@ -194,10 +182,10 @@
 }
 .l-btn-selected,
 .l-btn-selected:hover {
-  background: #ddd;
+  background: #00bbee;
   filter: none;
 }
 .l-btn-plain-selected,
 .l-btn-plain-selected:hover {
-  background: #ddd;
+  background: #00bbee;
 }

@@ -11,25 +11,25 @@
   background: transparent;
 }
 .sidemenu .accordion .accordion-header {
-  color: #0E2D5F;
+  color: #000000;
 }
 .sidemenu .accordion-header .panel-title {
   height: 30px;
   line-height: 30px;
-  color: #0E2D5F;
+  color: #000000;
 }
 .sidemenu .accordion-header:hover {
-  background: #eaf2ff;
-  color: #0E2D5F;
+  background: #eee;
+  color: #000000;
 }
 .sidemenu .tree-node-hover {
-  background: #eaf2ff;
-  color: #0E2D5F;
+  background: #eee;
+  color: #000000;
 }
 .sidemenu .tree-node-selected {
-  border-right: 2px solid #ffab3f;
-  color: #000000;
-  background: #ffe48d;
+  border-right: 2px solid #00bbee;
+  color: #fff;
+  background: #00bbee;
 }
 .sidemenu .tree-node {
   height: 40px;

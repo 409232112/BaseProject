@@ -9,9 +9,9 @@
   border-width: 1px;
   border-style: solid;
   border-radius: 5px;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 .tooltip-content {
   font-size: 14px;
@@ -74,29 +74,29 @@
 }
 .tooltip {
   background-color: #ffffff;
-  border-color: #95B8E7;
-  color: #000000;
+  border-color: #ddd;
+  color: #404040;
 }
 .tooltip-right .tooltip-arrow-outer {
-  border-right-color: #95B8E7;
+  border-right-color: #ddd;
 }
 .tooltip-right .tooltip-arrow {
   border-right-color: #ffffff;
 }
 .tooltip-left .tooltip-arrow-outer {
-  border-left-color: #95B8E7;
+  border-left-color: #ddd;
 }
 .tooltip-left .tooltip-arrow {
   border-left-color: #ffffff;
 }
 .tooltip-top .tooltip-arrow-outer {
-  border-top-color: #95B8E7;
+  border-top-color: #ddd;
 }
 .tooltip-top .tooltip-arrow {
   border-top-color: #ffffff;
 }
 .tooltip-bottom .tooltip-arrow-outer {
-  border-bottom-color: #95B8E7;
+  border-bottom-color: #ddd;
 }
 .tooltip-bottom .tooltip-arrow {
   border-bottom-color: #ffffff;

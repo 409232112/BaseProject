@@ -19,17 +19,19 @@
 
 <!--头部-->
 
-    <div region="north" split="true" border="false" style="overflow: hidden; height: 50px;background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;line-height: 20px;color: #fff;font-weight:bold">
+    <div region="north" split="true" border="false" style="overflow: hidden; height: 50px;background: url(images/head.jpg) #7f99be repeat-x center 50%;line-height: 20px;color: black;font-weight:bold">
 
-         <span style="float:left;padding-left:10px;margin-top: 10px; font-size: 18px; ">
+         <span style="float:left;padding-left:10px;margin-top: 10px; font-size: 20px; ">
             <img src="images/logo.png" width="25" height="25" align="absmiddle" /> &nbsp;&nbsp;后台基础管理平台V1.0
         </span>
-        <span style="float:right; padding-right:20px;padding-top: 15px" class="head">
-              用户：<span style="color:#dc6b00" th:text="${session.user.name}"/>&nbsp;&nbsp;
-              部门：<span style="color:#dc6b00" th:text="${session.user.department}"/>&nbsp;&nbsp;
-              角色：<span style="color:#dc6b00" th:text="${session.user.role}"/>&nbsp;&nbsp;
-            <a href="#" id="changePwd">修改密码</a>
-            <a href="#" id="logout">安全退出</a>
+        <span style="float:right; padding-right:20px;padding-top: 10px;font-size: 14px" class="head">
+
+              用户：<span style="font-size: 14px;color:#dc6b00" th:text="${session.user.name}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              部门：<span style="font-size: 14px;color:#dc6b00" th:text="${session.user.department}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              角色：<span style="font-size: 14px;color:#dc6b00" th:text="${session.user.role}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <a  id="changePwd" class="easyui-linkbutton" data-options="iconCls:'icon-standard-lock-edit',plain:true" style="color: #888">修改密码</a>
+            <a  id="logout" class="easyui-linkbutton" data-options="iconCls:'icon-standard-door-out',plain:true" style="color: #888">退出</a>
         </span>
 
     </div>
@@ -69,7 +71,7 @@
                     </tr>
                 </table>
             </div>
-            <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;">
+            <div region="south" border="false" style="text-align: right; height: 30px; line-height: 30px;overflow-y: hidden;">
                 <a id="btnEp" class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)" >
                     确定</a> <a id="btnCancel" class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">取消</a>
             </div>

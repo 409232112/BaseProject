@@ -1,6 +1,6 @@
 .textbox {
   position: relative;
-  border: 1px solid #95B8E7;
+  border: 1px solid #ddd;
   background-color: #fff;
   vertical-align: middle;
   display: inline-block;
@@ -8,9 +8,9 @@
   white-space: nowrap;
   margin: 0;
   padding: 0;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 .textbox .textbox-text {
   font-size: 14px;
@@ -21,9 +21,9 @@
   vertical-align: top;
   outline-style: none;
   resize: none;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
   height: 28px;
   line-height: 28px;
 }
@@ -133,12 +133,12 @@
   filter: alpha(opacity=60);
 }
 .textbox-focused {
-  border-color: #6b9cde;
-  -moz-box-shadow: 0 0 3px 0 #95B8E7;
-  -webkit-box-shadow: 0 0 3px 0 #95B8E7;
-  box-shadow: 0 0 3px 0 #95B8E7;
+  border-color: #c4c4c4;
+  -moz-box-shadow: 0 0 3px 0 #ddd;
+  -webkit-box-shadow: 0 0 3px 0 #ddd;
+  box-shadow: 0 0 3px 0 #ddd;
 }
 .textbox-invalid {
   border-color: #ffa8a8;
-  background-color: #fff3f3;
+  background-color: #fff;
 }
