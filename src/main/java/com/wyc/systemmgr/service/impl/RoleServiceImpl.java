@@ -1,7 +1,7 @@
 package com.wyc.systemmgr.service.impl;
 
-import com.wyc.core.utils.BeanUtil;
-import com.wyc.core.utils.StringUtil;
+import com.wyc.core.util.BeanUtil;
+import com.wyc.core.util.StringUtil;
 import com.wyc.core.base.exception.BaseException;
 
 import com.wyc.core.shiro.CurrentUserHelper;

@@ -1,7 +1,7 @@
 package com.wyc.core.base.exception;
 
 
-import com.wyc.core.utils.CommonUtility;
+import com.wyc.core.util.CommonUtility;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;

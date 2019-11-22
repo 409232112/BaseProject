@@ -3,10 +3,7 @@
     field.invisible("id")
     field.invisible("mode")
     field.invisible("file_type")
-
-    form.disabledForm("file_form");
-
-
+    field.invisible("file_name")
 
     button.disabledButton("btn_save");
     button.disabledButton("btn_reset");
@@ -59,27 +56,44 @@
 
     //表格行单击事件
     $("#file_grid").datagrid({
+        queryParams: {
+            file_type: getQueryString("type")
+        },
         onClickRow:function(index,data){
             onRowClick(index,data);
         }
     })
 
+    //文件选择变化
+    $("#file").filebox({
+        onChange:function(){
+            var file_name = $(this).filebox('getValue');
+            file_name = file_name.substring(file_name.lastIndexOf("\\")+1);
+            field.setFieldValue("file_name",file_name);
+        }
+    })
 
-
+    form.disabledForm("file_form");
 })
 
 
 
 function insert(){
-    form.resetForm("file_form")
+    reset();
     form.enabledForm("file_form");
     button.onInsertClick();
     field.setFieldValue("file_type",getQueryString("type"))
+    $("#file").filebox({required:true});
 
 }
 function update(){
     var row = grid.getCurrentSelectRowData("file_grid")
     if (row){
+        if(currentUser.getId() != row.created_user_id) {
+            message.warning('只能修改本人上传的文件！')
+            return
+        }
+
         button.onUpdateClick();
         form.enabledForm("file_form");
     }else{
@@ -87,7 +101,7 @@ function update(){
     }
 }
 function save(){
-    $('#file_form').form('submit',{
+  $('#file_form').form('submit',{
         url: 'file/save',
         onSubmit: function(){
             return $(this).form('validate');
@@ -97,7 +111,7 @@ function save(){
             if(result.code=="0"){
                 message.info(result.message)
                 grid.reloadGrid("file_grid")
-                form.resetForm("file_form")
+                reset();
                 form.disabledForm("file_form")
                 button.onSaveClick();
             }else{
@@ -109,6 +123,11 @@ function save(){
 function del(){
     var row = grid.getCurrentSelectRowData("file_grid")
     if (row){
+        if(currentUser.getId() != row.created_user_id) {
+            message.warning('只能删除本人上传的文件！')
+            return
+        }
+
         $.messager.confirm('Confirm','确定删除？',function(r){
             if (r){
                 $.get('file/delete/'+row.id,function(result){
@@ -116,13 +135,15 @@ function del(){
                     if(result.code=="0"){
                         message.info(result.message)
                         grid.reloadGrid("file_grid")
-                        form.resetForm("file_form")
+                        reset();
                     }else{
                         message.error(result.message)
                     }
                 });
             }
         });
+    }else{
+        message.warning('请选择需要删除的文件！');
     }
 }
 
@@ -134,7 +155,8 @@ function cancel(){
 }
 
 function reset(){
-    form.resetForm("file_form")
+    form.resetForm("file_form");
+    $('#file').filebox({prompt:''});
 }
 
 function onRowClick(index,data){

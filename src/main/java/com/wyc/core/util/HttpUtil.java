@@ -1,4 +1,4 @@
-package com.wyc.core.utils;
+package com.wyc.core.util;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpEntity;

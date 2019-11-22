@@ -1,4 +1,4 @@
-package com.wyc.core.utils;
+package com.wyc.core.util;
 
 import com.github.pagehelper.PageInfo;
 import com.wyc.core.base.entity.Pagination;

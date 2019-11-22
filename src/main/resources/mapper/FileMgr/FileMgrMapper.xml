@@ -15,6 +15,8 @@
         update t_file
         <set>
             <if test="file_name != null">file_name=#{file_name},</if>
+            <if test="file_path != null">file_path=#{file_path},</if>
+            <if test="file_size != null">file_size=#{file_size},</if>
             <if test="file_type_code != null">file_type_code=#{file_type_code},</if>
             <if test="comments != null">comments=#{comments},</if>
             update_time = now(),
@@ -29,25 +31,30 @@
     </delete>
 
     <select id="find" resultType="java.util.HashMap">
-        select
-          a.id,a.file_name,a.file_path,a.file_type,a.file_size,a.comments,a.department_id,
-          a.file_type_code,
-          b.text file_type_text,
-          DATE_FORMAT(a.created_time, '%Y-%m-%d %H:%i:%s') created_time,
-          DATE_FORMAT(a.update_time, '%Y-%m-%d %H:%i:%s') update_time,
-          a.created_user_id,
-          (select name from sys_user where id = a.created_user_id) created_user_name,
-          a.update_user_id,
-          (select name from sys_user where id = a.update_user_id) update_user_name
-        from
-          t_file a,
-          t_code_file_type b
-        where
-            a.file_type_code = b.code
+        select * from(
+            select
+              a.id,a.file_name,a.file_name file,a.file_type,a.file_size,a.comments,a.department_id,
+              a.file_type_code,
+              b.text file_type_text,
+              DATE_FORMAT(a.created_time, '%Y-%m-%d %H:%i:%s') created_time,
+              DATE_FORMAT(a.update_time, '%Y-%m-%d %H:%i:%s') update_time,
+              a.created_user_id,
+              (select name from sys_user where id = a.created_user_id) created_user_name,
+              a.update_user_id,
+              (select name from sys_user where id = a.update_user_id) update_user_name
+            from
+              t_file a,
+              t_code_file_type b
+            where
+                a.file_type_code = b.code
+        ) a
+        where 1=1
             <if test="file_name != null and file_name !=''" > and file_name like "%"#{file_name}"%"</if>
+            <if test="file_type != null and file_type !=''"> and file_type = #{file_type}</if>
             <if test="file_type_code != null and file_type_code !=''"> and file_type_code = #{file_type_code}</if>
-            <if test="created_user_id != null and created_user_id !=''"> and created_user_id like = #{created_user_id}</if>
-            <if test="department_id != null and department_id !=''"> and department_id like = #{department_id}</if>
+            <if test="created_user_id != null and created_user_id !=''"> and created_user_id  = #{created_user_id}</if>
+            <if test="created_user_name != null and created_user_name !=''"> and created_user_name like "%"#{created_user_name}"%"</if>
+            <if test="department_id != null and department_id !=''"> and department_id  = #{department_id}</if>
             <if test="created_time_start != null and created_time_start !=''" > and created_time <![CDATA[ >= ]]> #{created_time_start}</if>
             <if test="created_time_end != null and created_time_end !=''" > and created_time <![CDATA[ <= ]]> #{created_time_end}</if>
         order by
@@ -59,6 +66,14 @@
           code,text
         from
           t_code_file_type
+    </select>
+
+    <select id="getFilePath" resultType="java.lang.String">
+        select
+          file_path
+        from
+            t_file
+        where id = #{id}
     </select>
 
 

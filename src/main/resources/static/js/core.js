@@ -145,6 +145,8 @@ var Form =function() {
             if(input.attr("class") != undefined ){
                 if (input.attr("class").indexOf("easyui-combobox")!=-1){
                     input.combobox('setValue',data[key]);
+                }else if(input.attr("class").indexOf("easyui-filebox")!=-1){
+                    input.filebox({prompt:data[key]})
                 }else{
                     input.textbox('setValue',data[key]);
                 }

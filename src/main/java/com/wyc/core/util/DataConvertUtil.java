@@ -1,4 +1,4 @@
-package com.wyc.core.utils;
+package com.wyc.core.util;
 
 import java.util.*;
 

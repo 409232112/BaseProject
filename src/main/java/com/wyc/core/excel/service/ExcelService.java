@@ -4,10 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.wyc.core.base.exception.BaseException;
 import com.wyc.core.excel.util.ExcelUtil;
 import com.wyc.core.shiro.CurrentUserHelper;
-import com.wyc.core.utils.FileUtil;
-import com.wyc.core.utils.HttpUtil;
+import com.wyc.core.util.FileUtil;
+import com.wyc.core.util.HttpUtil;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;

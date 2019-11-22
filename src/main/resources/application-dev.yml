@@ -13,6 +13,11 @@ spring:
   aop:
     auto: true
 
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+
 
 mybatis:
   mapper-locations: classpath:mapper/*/*Mapper.xml

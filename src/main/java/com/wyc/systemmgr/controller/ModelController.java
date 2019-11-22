@@ -1,6 +1,6 @@
 package com.wyc.systemmgr.controller;
 
-import com.wyc.core.utils.CommonUtility;
+import com.wyc.core.util.CommonUtility;
 import com.wyc.core.base.exception.BaseException;
 import com.wyc.logmgr.annotation.OperationLogDetail;
 import com.wyc.logmgr.enums.OperationType;

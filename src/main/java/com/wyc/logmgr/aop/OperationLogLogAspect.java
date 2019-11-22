@@ -62,7 +62,6 @@ public class OperationLogLogAspect {
 
     @Before("operationLog()")
     public void doBeforeAdvice(JoinPoint joinPoint){
-        System.out.println("进入方法前执行.....");
 
     }
 

@@ -1,6 +1,6 @@
 package com.wyc.startup;
 
-import com.wyc.core.utils.FileUtil;
+import com.wyc.core.util.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

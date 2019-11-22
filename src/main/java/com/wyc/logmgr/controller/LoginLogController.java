@@ -2,8 +2,8 @@ package com.wyc.logmgr.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.wyc.core.base.entity.Pagination;
-import com.wyc.core.utils.CommonUtility;
-import com.wyc.core.utils.PaginationUtil;
+import com.wyc.core.util.CommonUtility;
+import com.wyc.core.util.PaginationUtil;
 import com.wyc.core.base.exception.BaseException;
 import com.wyc.logmgr.service.ILoginLogService;
 import org.apache.log4j.Logger;

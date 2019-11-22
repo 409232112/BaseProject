@@ -1,6 +1,6 @@
 package com.wyc.systemmgr.controller;
 
-import com.wyc.core.utils.CommonUtility;
+import com.wyc.core.util.CommonUtility;
 import com.wyc.core.base.exception.BaseException;
 import com.wyc.logmgr.util.IpUtil;
 import com.wyc.logmgr.service.ILoginLogService;

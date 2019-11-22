@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.wyc.core.base.entity.Pagination;
 import com.wyc.core.base.exception.BaseException;
-import com.wyc.core.utils.CommonUtility;
-import com.wyc.core.utils.PaginationUtil;
+import com.wyc.core.util.CommonUtility;
+import com.wyc.core.util.PaginationUtil;
 import com.wyc.filemgr.service.IFileService;
 import com.wyc.logmgr.annotation.OperationLogDetail;
 import com.wyc.logmgr.enums.OperationType;
@@ -33,12 +33,9 @@ public class FileController {
 
     @OperationLogDetail(operationType = OperationType.SAVE,operationObject="File")
     @PostMapping("/save")
-    public String save(@RequestParam Map<String, Object> param,@RequestParam("file_name") MultipartFile file) throws BaseException{
-
+    public String save(@RequestParam Map<String, Object> param,@RequestParam("file") MultipartFile file) throws BaseException{
         try{
-            System.out.println(param);
-            System.out.println(file.getOriginalFilename());
-            //fileService.save(param);
+            fileService.save(param,file);
         }catch (Exception e){
             return CommonUtility.constructResultJson("-1",e.getMessage());
         }
@@ -54,6 +51,8 @@ public class FileController {
 
     @PostMapping("/find")
     public Pagination find(@RequestParam Map<String, Object> param)throws BaseException{
+        System.out.println("===============");
+        System.out.println(param);
         int pageNum = Integer.valueOf(param.get("page").toString());
         int pageSize = Integer.valueOf(param.get("rows").toString());
         PageHelper.startPage(pageNum, pageSize);

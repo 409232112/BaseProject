@@ -1,4 +1,4 @@
-package com.wyc.core.utils;
+package com.wyc.core.util;
 
 import com.wyc.core.base.exception.BaseException;
 import org.codehaus.jackson.map.ObjectMapper;

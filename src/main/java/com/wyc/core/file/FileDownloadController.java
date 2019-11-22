@@ -1,21 +1,13 @@
 package com.wyc.core.file;
 
-import com.alibaba.fastjson.JSON;
-import com.wyc.core.excel.util.ExcelUtil;
-import com.wyc.core.utils.CommonUtility;
-import com.wyc.core.utils.HttpUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wangyc on 2019/11/20.

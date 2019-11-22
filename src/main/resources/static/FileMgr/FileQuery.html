@@ -9,41 +9,38 @@
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src='../js/core.js'> </script>
-    <script type="text/javascript" src="js/FileUpload.js"></script>
+    <script type="text/javascript" src="js/FileQuery.js"></script>
+
 </head>
 <body>
 
     <div class="easyui-layout" fit="true">
-        <div data-options="region:'north',title:'文件信息表单',split:true" style="height:170px;">
+        <div data-options="region:'north',title:'文件信息查询',split:true" style="height:120px;">
 
             <div class="panel-header">
                 <div id="toolbar" >
-                    <a id="btn_insert" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
-                    <a id="btn_update" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
-                    <a id="btn_save" class="easyui-linkbutton" iconCls="icon-save" plain="true">保存</a>
-                    <a id="btn_del" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+                    <a id="btn_query" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
                     <a id="btn_reset" class="easyui-linkbutton" iconCls="icon-undo" plain="true">清空表单</a>
-                    <a id="btn_cancel" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">取消</a>
                     <a id="btn_refresh" class="easyui-linkbutton" iconCls="icon-reload" plain="true">刷新</a>
                 </div>
             </div>
 
-            <form id="file_form" method="post" enctype="multipart/form-data">
-                <table style="margin-top: 20px;margin-left: 20px;width: 80%;" >
+            <form id="file_form">
+                <table style="margin-top: 20px;margin-left: 20px;width: 80%" >
                     <tr>
-                        <td>文件:</td>
-                        <td><input id="file" name="file" class="easyui-filebox" style="width:200px;" data-options="buttonIcon:'icon-search',buttonAlign:'right',buttonText:''" /></td>
+                        <td>文件名:</td>
+                        <td><input id="file_name" name="file_name"  class="easyui-textbox" style="width:160px;"/></td>
 
                         <td>文件类型:</td>
-                        <td><input id="file_type_code" name="file_type_code" class="easyui-combobox" required="true" style="width:100px;" data-options="editable:false,panelHeight:'auto',valueField:'value',textField:'text'"/>  </td>
+                        <td><input id="file_type_code" name="file_type_code" class="easyui-combobox"  style="width:100px;" data-options="editable:false,panelHeight:'auto',valueField:'value',textField:'text'"/>  </td>
 
-                        <td>备注:</td>
-                        <td><input id="comments" name="comments" class="easyui-textbox"  data-options="multiline:true" style="width:300px;height:80px;"/></td>
+                        <td>上传人:</td>
+                        <td><input id="created_user_name" name="created_user_name" class="easyui-textbox"  style="width:120px;"/>  </td>
 
-                        <td><input id="file_name" name="file_name" class="easyui-textbox"/></td>
-                        <td><input id="id" name="id" class="easyui-textbox"></td>
-                        <td><input id="mode"  name="mode" class="easyui-textbox"></td>
-                        <td><input id="file_type" name="file_type" class="easyui-textbox"></td>
+                        <td>上传时间:</td>
+                        <td><input id="created_time_start" name="created_time_start" class="easyui-datetimebox" data-options="formatter:formatter.formatDatetime,parser:formatter.dateParser"  style="width:170px;"/></td>
+                        <td>至</td>
+                        <td><input id="created_time_end" name="created_time_end" class="easyui-datetimebox" data-options="formatter:formatter.formatDatetime,parser:formatter.dateParser"  style="width:170px;"/></td>
 
                     </tr>
                 </table>
@@ -72,6 +69,8 @@
                     {field:'file_size',title:'文件大小',width:40,align:'center'},
                     {field:'created_user_name',title:'上传人',width:40,align:'center'},
                     {field:'created_time',title:'上传时间',width:60,align:'center'},
+                    {field:'update_user_name',title:'更新人',width:40,align:'center'},
+                    {field:'update_time',title:'更新时间',width:60,align:'center'},
                     {field:'comments',title:'备注',width:200,align:'center'}
 
                 ]]
@@ -79,19 +78,6 @@
             </table>
 
         </div>
-
     </div>
-
-
-    <div id="window" class="easyui-window"  style="width:300px;height:600px;"  data-options="
-        modal:true,
-        collapsible:false,
-        minimizable:false,
-        closed:true
-        ">
-
-
-    </div>
-
 </body>
 </html>

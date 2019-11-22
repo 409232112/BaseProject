@@ -7,4 +7,6 @@ import java.util.Map;
 
 public interface FileDao extends BaseDao {
     List<Map> getFileType();
+
+    String getFilePath(String id);
 }
