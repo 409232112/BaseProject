@@ -49,6 +49,10 @@
     $("#file_grid").datagrid({
         queryParams: {
             file_type: getQueryString("type")
+        },
+        onLoadSuccess:function(data){
+            $('.download').linkbutton({plain:true,iconCls:"icon-save"});
+            $('.show').linkbutton({plain:true,iconCls:"icon-standard-eye"});
         }
     })
 
@@ -68,4 +72,16 @@ function reset(){
 function refresh(){
     dialog.refresh()
 }
+
+
+
+function handle(val,row,index){
+    var btn = '<a class="download" onclick="downloadFile(\''+row.id+'\')"  href="javascript:void(0)">下载</a><a class="show" href="javascript:void(0)">查看</a>'
+    return btn;
+}
+
+function downloadFile(file_id){
+    window.location.href="file/downloadFile/"+file_id;
+}
+
 

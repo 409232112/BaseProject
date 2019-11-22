@@ -9,4 +9,6 @@ public interface FileDao extends BaseDao {
     List<Map> getFileType();
 
     String getFilePath(String id);
+
+    Map getFilePathAndName(String id);
 }

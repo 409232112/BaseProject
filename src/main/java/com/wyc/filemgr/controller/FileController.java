@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.wyc.core.base.entity.Pagination;
 import com.wyc.core.base.exception.BaseException;
 import com.wyc.core.util.CommonUtility;
+import com.wyc.core.util.FileUtil;
 import com.wyc.core.util.PaginationUtil;
 import com.wyc.filemgr.service.IFileService;
 import com.wyc.logmgr.annotation.OperationLogDetail;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -66,4 +68,13 @@ public class FileController {
         List<Map> datas = fileService.getFileType();
         return JSON.toJSONString(datas);
     }
+
+    @GetMapping("/downloadFile/{id}")
+    public void downloadFile(@PathVariable("id") String id,HttpServletResponse response) throws Exception{
+        Map<String,String> filePathAndName = fileService.getFilePathAndName(id);
+        String filePath = filePathAndName.get("file_path");
+        String fileName = filePathAndName.get("file_name");
+        FileUtil.downloadFile(fileName,filePath,response);
+    }
+
 }

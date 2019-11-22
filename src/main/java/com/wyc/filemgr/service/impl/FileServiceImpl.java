@@ -106,4 +106,9 @@ public class FileServiceImpl implements IFileService {
     public List<Map> getFileType(){
         return fileDao.getFileType();
     }
+
+    @Override
+    public Map getFilePathAndName(String id){
+        return  fileDao.getFilePathAndName(id);
+    }
 }

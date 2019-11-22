@@ -76,6 +76,14 @@
         where id = #{id}
     </select>
 
+    <select id="getFilePathAndName" resultType="java.util.HashMap">
+        select
+          file_path,file_name
+        from
+          t_file
+        where id = #{id}
+    </select>
+
 
 
 

@@ -16,4 +16,6 @@ public interface IFileService {
     List<Map> find(Map param) throws BaseException;
 
     List<Map> getFileType();
+
+    Map getFilePathAndName(String id);
 }

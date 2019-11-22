@@ -2,7 +2,12 @@ package com.wyc.core.util;
 
 import com.wyc.core.base.exception.BaseException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 
 /**
@@ -58,6 +63,39 @@ public class FileUtil {
         }
         if (file.exists()) {
             file.delete();
+        }
+    }
+
+    public static void downloadFile(String fileName,String filePath,HttpServletResponse response) throws Exception{
+        response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8"));
+        response.setHeader("Connection", "close");
+        response.setHeader("Content-Type", "application/octet-stream");
+
+        OutputStream ops = null;
+        FileInputStream fis =null;
+        byte[] buffer = new byte[8192];
+        int bytesRead = 0;
+
+        try {
+            ops = response.getOutputStream();
+            fis = new FileInputStream(filePath);
+            while((bytesRead = fis.read(buffer, 0, 8192)) != -1){
+                ops.write(buffer, 0, bytesRead);
+            }
+            ops.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(fis != null){
+                    fis.close();
+                }
+                if(ops != null){
+                    ops.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

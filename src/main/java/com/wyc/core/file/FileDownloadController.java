@@ -1,5 +1,6 @@
 package com.wyc.core.file;
 
+import com.wyc.core.util.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,40 +29,9 @@ public class FileDownloadController {
         String file_name = "";
         if(type.equals("excel") ){
             filePath = tempDir+file;
-            file_name =URLEncoder.encode(fileName+".xls", "UTF-8");
+            file_name =fileName+".xls";
         }
-
-        response.setHeader("Content-Disposition", "attachment;filename="+ file_name);
-        response.setHeader("Connection", "close");
-        response.setHeader("Content-Type", "application/octet-stream");
-
-        OutputStream ops = null;
-        FileInputStream fis =null;
-        byte[] buffer = new byte[8192];
-        int bytesRead = 0;
-
-        try {
-            ops = response.getOutputStream();
-            fis = new FileInputStream(filePath);
-            while((bytesRead = fis.read(buffer, 0, 8192)) != -1){
-                ops.write(buffer, 0, bytesRead);
-            }
-            ops.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if(fis != null){
-                    fis.close();
-                }
-                if(ops != null){
-                    ops.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        FileUtil.downloadFile(file_name,filePath,response);
 
     }
 }
