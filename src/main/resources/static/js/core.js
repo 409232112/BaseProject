@@ -362,7 +362,6 @@ var Formatter =  function (){
     }
     this.formatCotent = function(value, row, index){
         if(value){
-            console.info(value);
             return "<div title='"+value+"' class='textEllipsis'>"+value+"</div>";
 
         }else{
