@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>form</title>
     <link rel="stylesheet" type="text/css" href="../css/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/core.css" />
     <link rel="stylesheet" type="text/css" href="../css/icon.css" />
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
@@ -58,7 +59,6 @@
             <table id="loginlog_grid"   data-options="
                 fit:true,
                 singleSelect :true,
-                fitColumns : true,
                 striped : true,
                 method : 'post',
                 url : 'loginlog/find',
@@ -69,13 +69,13 @@
                 pageList:[20,50,100,1000],
                 columns:[[
                     {field:'id',title:'ID',width:80,align:'center',hidden:'true'},
-                    {field:'name',title:'姓名',width:50,align:'center'},
-                    {field:'username',title:'登录名',width:50,align:'center'},
-                    {field:'role',title:'角色',width:50,align:'center'},
-                    {field:'department',title:'部门',width:50,align:'center'},
-                    {field:'login_time',title:'登陆时间',width:80,align:'center',formatter:formatter.formatDatetime},
-                    {field:'login_ip',title:'登陆IP',width:50,align:'center'},
-                    {field:'user_agent',title:'浏览器信息',width:120,align:'center',formatter: formatter.formatCotent}
+                    {field:'name',title:'姓名',width:120,align:'center'},
+                    {field:'username',title:'登录名',width:120,align:'center'},
+                    {field:'role',title:'角色',width:120,align:'center'},
+                    {field:'department',title:'部门',width:120,align:'center'},
+                    {field:'login_time',title:'登陆时间',width:180,align:'center',formatter:formatter.formatDatetime},
+                    {field:'login_ip',title:'登陆IP',width:150,align:'center'},
+                    {field:'user_agent',title:'浏览器信息',width:600,align:'center',formatter: formatter.formatCotent}
                 ]]
             ">
             </table>

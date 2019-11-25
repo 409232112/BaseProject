@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>form</title>
     <link rel="stylesheet" type="text/css" href="../css/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/core.css" />
     <link rel="stylesheet" type="text/css" href="../css/icon.css" />
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
@@ -47,21 +48,20 @@
                 treeField:'name',
                 fit:true,
                 animate:true,
-                fitColumns : true,
                 columns:[[
                     {title:'ID',field:'id',width:80,align:'center',hidden:'true'},
                     {title:'部门名称',field:'name'},
                     {title:'部门编码',field:'code',width:100,align:'center'},
-                    {title:'部门联系人',field:'link_user_name',width:80,align:'center'},
-                    {title:'联系电话',field:'link_phone',width:80,align:'center'},
-                    {title:'级别',field:'level',width:80,align:'center',hidden:'true'},
+                    {title:'部门联系人',field:'link_user_name',width:100,align:'center'},
+                    {title:'联系电话',field:'link_phone',width:250,align:'center'},
+                    {title:'级别',field:'level',width:40,align:'center',hidden:'true'},
                     {title:'父级ID',field:'parent_id',width:80,align:'center',hidden:'true'},
-                    {title:'序号',field:'seq',width:20,align:'center'},
-                    {title:'备注',field:'comments',width:100,align:'center'},
-                    {field:'created_user_name',title:'创建人',width:60,align:'center'},
-                    {field:'created_time',title:'创建时间',width:100,align:'center',formatter:formatter.formatDatetime},
-                    {field:'update_user_name',title:'更新人',width:60,align:'center'},
-                    {field:'update_time',title:'更新时间',width:100,align:'center',formatter:formatter.formatDatetime}
+                    {title:'序号',field:'seq',width:40,align:'center'},
+                    {title:'备注',field:'comments',width:250,align:'center'},
+                    {field:'created_user_name',title:'创建人',width:100,align:'center'},
+                    {field:'created_time',title:'创建时间',width:180,align:'center',formatter:formatter.formatDatetime},
+                    {field:'update_user_name',title:'更新人',width:100,align:'center'},
+                    {field:'update_time',title:'更新时间',width:180,align:'center',formatter:formatter.formatDatetime}
                 ]]
             ">
         </table>
