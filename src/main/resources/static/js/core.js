@@ -269,7 +269,7 @@ var Grid = function() {
                     var pos = curWwwPath.indexOf(pathName);
                     var localhostPaht = curWwwPath.substring(0, pos);
                     var data = result.data;
-                    var url =localhostPaht+"/downloadFile?file="+data.file+"&type="+data.type+"&fileName="+file_name;
+                    var url =encodeURI(localhostPaht+"/downloadFile?file="+data.file+"&type="+data.type+"&fileName="+file_name);
                     window.location.href=url
                 }else{
                     message.info(result.message);

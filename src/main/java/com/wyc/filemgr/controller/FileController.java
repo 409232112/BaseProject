@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 
@@ -70,11 +71,16 @@ public class FileController {
     }
 
     @GetMapping("/downloadFile/{id}")
-    public void downloadFile(@PathVariable("id") String id,HttpServletResponse response) throws Exception{
+    public String downloadFile(@PathVariable("id") String id,HttpServletResponse response) throws Exception{
         Map<String,String> filePathAndName = fileService.getFilePathAndName(id);
         String filePath = filePathAndName.get("file_path");
         String fileName = filePathAndName.get("file_name");
-        FileUtil.downloadFile(fileName,filePath,response);
+        try{
+            FileUtil.downloadFile(fileName,filePath,response);
+        }catch (FileNotFoundException e){
+            return CommonUtility.constructResultJson("-1",e.getMessage());
+        }
+        return null;
     }
 
 }

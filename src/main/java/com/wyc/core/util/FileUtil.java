@@ -3,10 +3,7 @@ package com.wyc.core.util;
 import com.wyc.core.base.exception.BaseException;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 
@@ -67,6 +64,13 @@ public class FileUtil {
     }
 
     public static void downloadFile(String fileName,String filePath,HttpServletResponse response) throws Exception{
+
+        File file = new File(filePath);
+        if(!file.exists()){
+            throw new FileNotFoundException("文件不存在！");
+        }
+
+
         response.setHeader("Content-Disposition", "attachment;filename="+ URLEncoder.encode(fileName, "UTF-8"));
         response.setHeader("Connection", "close");
         response.setHeader("Content-Type", "application/octet-stream");
