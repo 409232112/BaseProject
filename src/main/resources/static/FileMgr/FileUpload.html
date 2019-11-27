@@ -15,7 +15,7 @@
 <body>
 
     <div class="easyui-layout" fit="true">
-        <div data-options="region:'north',title:'文件信息表单',split:true" style="height:170px;">
+        <div data-options="region:'north',title:'文件信息表单'" style="height:170px;">
 
             <div class="panel-header">
                 <div id="toolbar" >
@@ -30,7 +30,7 @@
             </div>
 
             <form id="file_form" method="post" enctype="multipart/form-data">
-                <table style="margin-top: 20px;margin-left: 20px;width: 80%;" >
+                <table class="form-table" >
                     <tr>
                         <td>文件:</td>
                         <td><input id="file" name="file" class="easyui-filebox" style="width:200px;" required="true" data-options="buttonIcon:'icon-search',buttonAlign:'right',buttonText:''" /></td>

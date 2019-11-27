@@ -208,12 +208,13 @@ function tabCloseEven()
             //msgShow('系统提示','后边没有啦~~','error');
             return false;
         }
+        console.info(nextall)
         nextall.each(function(i,n){
             var t=$('a:eq(0) span',$(n)).text();
             if(t!="首页"){
                 $('#tabs').tabs('close',t);
             }
-            $('#tabsMenu').menu('close')
+            $('#tabsMenu').menu('hide')
         });
         return false;
     });
@@ -228,7 +229,7 @@ function tabCloseEven()
             if(t!="首页"){
                 $('#tabs').tabs('close',t);
             }
-            $('#tabsMenu').menu('close')
+            $('#tabsMenu').menu('hide')
         });
         return false;
     });

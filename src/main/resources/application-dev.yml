@@ -5,7 +5,7 @@ spring:
   datasource:
     username: root
     password: Root123@
-    url: jdbc:mysql://rm-j6cl00n78p9vxywz7vo.mysql.rds.aliyuncs.com:3306/base_project?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://www.yuanyuanlian.cn:3306/base_project?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   thymeleaf:

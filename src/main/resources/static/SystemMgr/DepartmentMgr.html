@@ -15,7 +15,7 @@
 <body>
 
 <div class="easyui-layout" fit="true">
-    <div data-options="region:'north',title:'部门信息表单',split:true" style="height:220px;">
+    <div data-options="region:'north',title:'部门信息表单',split:true" style="height:240px;">
 
         <div class="panel-header">
             <div id="toolbar" >
@@ -30,7 +30,7 @@
         </div>
 
         <form id="department_form" method="post">
-            <table style="margin-top: 20px;margin-left: 20px;width: 90%" >
+            <table class="form-table" >
                 <tr>
                     <td>部门名称:</td>
                     <td><input id="name" name="name"  class="easyui-textbox"  required="true"/></td>
@@ -44,10 +44,12 @@
                     <td>联系电话:</td>
                     <td><input id="link_phone" name="link_phone" class="easyui-numberbox"/></td>
 
-                    <td>序号:</td>
-                    <td><input id="seq" name="seq" class="easyui-numberbox" style="width:60px;"/></td>
+
                 </tr>
                 <tr>
+                    <td>序号:</td>
+                    <td><input id="seq" name="seq" class="easyui-numberbox" style="width:60px;"/></td>
+
                     <td>备注:</td>
                     <td><input id="comments" name="comments" class="easyui-textbox"  data-options="multiline:true" style="width:300px;height:100px;"/></td>
 

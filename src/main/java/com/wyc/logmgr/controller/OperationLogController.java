@@ -35,7 +35,6 @@ public class OperationLogController {
         PageHelper.startPage(pageNum, pageSize);
         List<Map> userList = operationLogService.find(param);
         Pagination result = PaginationUtil.getPageList(userList);
-        System.out.println(result);
         return result;
     }
 

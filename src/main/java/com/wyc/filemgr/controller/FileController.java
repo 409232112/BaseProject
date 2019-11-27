@@ -54,8 +54,6 @@ public class FileController {
 
     @PostMapping("/find")
     public Pagination find(@RequestParam Map<String, Object> param)throws BaseException{
-        System.out.println("===============");
-        System.out.println(param);
         int pageNum = Integer.valueOf(param.get("page").toString());
         int pageSize = Integer.valueOf(param.get("rows").toString());
         PageHelper.startPage(pageNum, pageSize);

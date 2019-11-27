@@ -11,3 +11,23 @@
     white-space: pre-wrap;
     text-decoration: none;
 }
+
+
+.form-table{
+    padding-top: 15px;
+    padding-left: 30px;
+    border-spacing:10px;
+}
+.form-table  td{
+    white-space: nowrap;
+
+}
+.form-table  td:nth-child(odd){
+    text-align:right;
+}
+
+.form-table  td:nth-child(even){
+    padding-right: 40px;
+}
+
+
