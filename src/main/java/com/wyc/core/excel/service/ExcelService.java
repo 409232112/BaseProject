@@ -28,11 +28,18 @@ public class ExcelService {
         this.tempDir = tempDir;
     }
 
+    private static String port;
+
+    @Value("${server.port}")
+    public void setPort(String port) {
+        this.port = port;
+    }
+
     public String allToExcel(Map<String, Object> param,HttpServletRequest request) throws Exception{
         Map<String,String> headers = new HashMap();
         headers.put("Cookie",request.getHeader("Cookie"));
         headers.put("Content-Type","application/x-www-form-urlencoded");
-        String url="http://" + request.getServerName() + ":" + request.getServerPort()+param.get("url");
+        String url="http://127.0.0.1:" + port +param.get("url");
         String result = HttpUtil.post(url,headers,(Map)param.get("params"));
         HashMap data = JSON.parseObject(result, HashMap.class);
 
