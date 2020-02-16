@@ -94,16 +94,10 @@ function update(){
     }
 }
 function save(){
-    if(field.getFieldValue("mode")=="update"){
-        $("#file").filebox({required:false});
-    }else{
-        $("#file").filebox({required:true});
-    }
-
-  $('#file_form').form('submit',{
+    $('#file_form').form('submit',{
         url: 'file/save',
         onSubmit: function(){
-            return $(this).form('validate');
+            //return $(this).form('validate');
         },
         success: function(result){
             result = eval('('+result+')');
